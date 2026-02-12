@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://baxle41yq3sb8"]
+
+[node name="Main" type="Node"]
+
+[node name="OceanBackground" type="TextureRect" parent="."]
+offset_right = 100000.0
+offset_bottom = 1000.0
