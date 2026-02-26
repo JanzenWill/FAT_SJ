@@ -1,7 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c05ks5nacpsgb"]
+[gd_scene load_steps=3 format=3 uid="uid://c05ks5nacpsgb"]
 
 [ext_resource type="PackedScene" uid="uid://b255wis0rlaak" path="res://ocean_background.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://5wlysp8vgie4" path="res://player.tscn" id="2_0xm2m"]
 
 [node name="Main" type="Node"]
 
 [node name="OceanBackground" parent="." instance=ExtResource("1_ig7tw")]
+
+[node name="Player" parent="." instance=ExtResource("2_0xm2m")]
