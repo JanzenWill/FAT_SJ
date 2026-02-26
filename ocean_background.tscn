@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://b255wis0rlaak"]
+
+[ext_resource type="Texture2D" uid="uid://qion53d81gc6" path="res://assets/kelp.jpg" id="1_rakyq"]
+
+[sub_resource type="Gradient" id="Gradient_7dm0k"]
+offsets = PackedFloat32Array(0, 0.87333333)
+colors = PackedColorArray(0, 0, 0, 1, 0.5176471, 0.7921569, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ig7tw"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pra63"]
+noise = SubResource("FastNoiseLite_ig7tw")
+color_ramp = SubResource("Gradient_7dm0k")
+
+[node name="OceanBackground" type="Node2D"]
+
+[node name="Water" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.5, 0.5)
+
+[node name="OceanBackground" type="TextureRect" parent="Water"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 801.0
+offset_bottom = 674.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_pra63")
+
+[node name="Kelp" type="Parallax2D" parent="."]
+scroll_scale = Vector2(1.2, 1.2)
+
+[node name="KelpSprite" type="Sprite2D" parent="Kelp"]
+position = Vector2(161, 560)
+scale = Vector2(0.24050634, 0.36708862)
+texture = ExtResource("1_rakyq")
