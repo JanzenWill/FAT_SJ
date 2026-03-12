@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://btow3sia2cyqi"]
+
+[ext_resource type="Texture2D" uid="uid://dqfpp8fwhfics" path="res://assets/red_fish.png" id="1_dy6sc"]
+[ext_resource type="Script" uid="uid://brtyn8yhvdt6x" path="res://mob.gd" id="1_ubaqv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jfba5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_dy6sc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dy6sc"]
+
+[node name="PassiveMob" type="RigidBody2D"]
+script = ExtResource("1_ubaqv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(95, 40)
+scale = Vector2(0.08, 0.08)
+sprite_frames = SubResource("SpriteFrames_jfba5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dy6sc")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

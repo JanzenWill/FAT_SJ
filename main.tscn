@@ -1,10 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://cj1kvmf3f7ifh"]
+[gd_scene load_steps=6 format=3 uid="uid://cj1kvmf3f7ifh"]
 
+[ext_resource type="Script" uid="uid://dotiusqgf1tyv" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dosbk2phb48p8" path="res://ocean_background.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://btv6brr4iv3pv" path="res://player.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dbycsi8ruqq4m" path="res://passive_mob.tscn" id="2_1bvp3"]
+
+[sub_resource type="Curve2D" id="Curve2D_h2yge"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1296, 8, 0, 0, 0, 0, 1288, 720, 0, 0, 0, 0, 0, 0)
+}
+point_count = 4
 
 [node name="Main" type="Node"]
+script = ExtResource("1_1bvp3")
+passive_mob_scene = ExtResource("2_1bvp3")
 
 [node name="OceanBackground" parent="." instance=ExtResource("1_ig7tw")]
 
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="PassiveMobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_h2yge")
+
+[node name="PassiveMobSpawnSpot" type="PathFollow2D" parent="PassiveMobPath"]
+rotation = 0.0061727613
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
