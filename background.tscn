@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dosbk2phb48p8"]
+[gd_scene load_steps=5 format=3 uid="uid://caiu3os34cuh"]
 
-[ext_resource type="Texture2D" uid="uid://qion53d81gc6" path="res://assets/kelp.jpg" id="1_rakyq"]
+[ext_resource type="Texture2D" uid="uid://qion53d81gc6" path="res://assets/kelp.jpg" id="1_oabld"]
 
 [sub_resource type="Gradient" id="Gradient_7dm0k"]
 offsets = PackedFloat32Array(0, 0.87333333)
@@ -33,4 +33,4 @@ scroll_scale = Vector2(1.2, 1.2)
 [node name="KelpSprite" type="Sprite2D" parent="Kelp"]
 position = Vector2(249, 395.00006)
 scale = Vector2(0.24050634, 0.36708862)
-texture = ExtResource("1_rakyq")
+texture = ExtResource("1_oabld")
