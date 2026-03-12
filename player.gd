@@ -7,9 +7,6 @@ var screen_size # Size of the game window.
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	print("player script started")
-	#print("player loaded")
-	#hide()
 
 func _start():
 	position = Vector2(50, 50)
@@ -23,7 +20,6 @@ func _process(delta: float) -> void:
 	#print(Input.is_anything_pressed())
 	
 	if Input.is_action_pressed("move_right"):
-		print("right pressed")
 		velocity.x += 1
 	if Input.is_action_pressed("move_left"):
 		velocity.x -= 1
