@@ -1,6 +1,6 @@
 Fish are Temporary
 
-A Game by S\&J Studios. 
+A Game by S\&J Studios.
 
 
 
@@ -34,7 +34,7 @@ Branches:
 
 Ideation:
 
-&#x09;An open-world 2d fishing game, in which the player spearfishes for malicious fish, while avoiding harm to endangered/passive fish. (Implement several different fishes with different spawn and movement patterns). The goal is to get a high score by hunting the malicious fish (implement kill detection and score update). 
+&#x09;An open-world 2d fishing game, in which the player spearfishes for malicious fish, while avoiding harm to endangered/passive fish. (Implement several different fishes with different spawn and movement patterns). The goal is to get a high score by hunting the malicious fish (implement kill detection and score update).
 
 
 
@@ -59,6 +59,20 @@ Todo:
 &#x09;-implement parallax and looping background
 
 &#x09;-implement HUD to allow replays
+
+
+
+Questions:
+
+&#x09;-why does main scene need to be picked again every time the branch is switched?
+
+
+
+Resources:
+
+&#x09;-https://docs.godotengine.org/en/stable/classes/class\_parallax2d.html#class-parallax2d
+
+
 
 
 
