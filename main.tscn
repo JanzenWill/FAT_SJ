@@ -1,10 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://c05ks5nacpsgb"]
+[gd_scene load_steps=5 format=3 uid="uid://c05ks5nacpsgb"]
 
-[ext_resource type="PackedScene" uid="uid://b255wis0rlaak" path="res://ocean_background.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://5wlysp8vgie4" path="res://player.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://dcii7icau8pvo" path="res://player.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://crtffcfndtopt" path="res://assets/diver.png" id="2_h2yge"]
 
-[node name="Main" type="Node"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_onrkg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_h2yge")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
-[node name="OceanBackground" parent="." instance=ExtResource("1_ig7tw")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_4flbx"]
 
-[node name="Player" parent="." instance=ExtResource("2_0xm2m")]
+[node name="Player" type="Area2D"]
+script = ExtResource("1_0xm2m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(50, 50)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_onrkg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4flbx")
