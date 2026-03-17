@@ -1,26 +1,14 @@
 extends Node
-@export var passive_mob_scene: PackedScene
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
+@export var mob_scene: PackedScene
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-@warning_ignore("unused_parameter")
-func _process(delta: float) -> void:
-	pass
-
-
-
-#Need to call $Mobtimer.start()
-
-func _on_mob_timer_timeout() -> void:
-	# Create a new instance of the passive Mob scene.
-	var mob = passive_mob_scene.instantiate()
+func _on_mob_timer_timeout():
+	# Create a new instance of the Mob scene.
+	var mob = mob_scene.instantiate()
 
 	# Choose a random location on Path2D.
-	var mob_spawn_location = $PassiveMobPath/PassiveMobSpawnSpot
+	var mob_spawn_location = $MobPath/MobSpawnLocation
 	mob_spawn_location.progress_ratio = randf()
 
 	# Set the mob's position to the random location.
