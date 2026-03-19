@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj0wa5nem8qsl"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_37p78"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_37p78")
+
+[node name="Message" type="Label" parent="."]
+offset_left = 260.0
+offset_right = 1032.0
+offset_bottom = 75.0
+text = "Avenge your Father!
+
+Vanquish the malicious fish, while taking care not to harm the endangered fish. "
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.8
+autostart = true
+
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
