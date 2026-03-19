@@ -13,7 +13,7 @@ extends Area2D
 @export var attack_angle = 0.8
 
 # How far the spear moves forward during the attack
-@export var attack_thrust_distance = 20
+@export var attack_thrust_distance = 15
 
 # Size of the game window
 var screen_size
