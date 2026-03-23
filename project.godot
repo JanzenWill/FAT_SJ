@@ -51,5 +51,5 @@ move_down={
 
 3d_physics/layer_1="player"
 3d_physics/layer_2="passive_mobs"
-3d_physics/layer_3="aggresive_mobs"
+3d_physics/layer_3="aggressive_mobs"
 3d_physics/layer_4="world"

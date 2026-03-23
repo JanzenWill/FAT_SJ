@@ -2,6 +2,7 @@ extends Area2D
 
 @export var speed = 400
 @export var sink_speed = 40   # how fast the diver sinks by default
+signal hit
 
 var screen_size
 
@@ -53,3 +54,10 @@ func _on_body_entered(body: Node2D) -> void:
 	# Must be deferred as we can't change physics properties on a physics callback.
 	$CollisionShape2D.set_deferred("disabled", true)
 '''	
+
+
+func _on_body_entered(body: Node2D) -> void:
+	hide()
+	hit.emit()
+	# Must be deferred as we can't change physics properties on a physics callback.
+	$CollisionShape2D.set_deferred("disabled", true)
