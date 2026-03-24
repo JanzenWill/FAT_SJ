@@ -1,129 +1,90 @@
 extends Area2D
 
-# Movement speed of the diver
-@export var speed = 400
 
-# How fast the diver sinks by default
-@export var sink_speed = 40
-
-# How long the attack lasts
+@export var speed = 400 #speed diver
+@export var sink_speed = 40 # how fast the diver sinks by default
 @export var attack_duration = 0.2
+@export var attack_angle = 0.8 #arm rotation
+@export var attack_thrust_distance = 15 #how far spear moves
+signal hit
 
-# How much the arm rotates during the attack
-@export var attack_angle = 0.8
 
-# How far the spear moves forward during the attack
-@export var attack_thrust_distance = 15
-
-# Size of the game window
 var screen_size
-
-# Tracks whether the diver is currently attacking
 var is_attacking = false
-
-# Counts down the remaining attack time
-var attack_timer = 0.0
-
-# Stores the arm's normal rotation so it can return after attacking
-var arm_rest_rotation = 0.0
-
-# Stores the spear's normal position so it can return after attacking
+var attack_timer = 0.0 #counts down attack time
+var arm_rest_rotation = 0.0 #helps restore arm postition after attack
 var spear_rest_position = Vector2.ZERO
 
 
 func _ready() -> void:
-	# Get the size of the game window
-	screen_size = get_viewport_rect().size
-	
-	# Save the arm's starting rotation
-	arm_rest_rotation = $ArmPivot.rotation
-	
-	# Save the spear's starting position
+	screen_size = get_viewport_rect().size # Get the size of the game window
+	arm_rest_rotation = $ArmPivot.rotation #saves arm starting pos
 	spear_rest_position = $ArmPivot/Spear.position
 	
-	print("player script started")
+	#this is so the spear hitbox does not work unless you are attacking
+	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = true
+	
 
 func _start():
-	# Reset player position at the start
-	position = Vector2(50, 50)
-	
-	# Make sure the player is visible
-	show()
-	
-	# Turn collision back on
-	$CollisionShape2D.disabled = false
+	position = Vector2(50, 50) #start position character
+	show() #show character
+	$CollisionShape2D.disabled = false# Turn collision back on
 
 
 func _process(delta: float) -> void:
-	# The diver's movement direction for this frame
-	var velocity = Vector2.ZERO
+	var velocity = Vector2.ZERO #resets for input on mpvement
 
-	# Horizontal movement
-	if Input.is_action_pressed("move_right"):
+	if Input.is_action_pressed("move_right"): 	# Horizontal movement
 		velocity.x += 1
 	if Input.is_action_pressed("move_left"):
 		velocity.x -= 1
 
-	# Vertical movement
-	if Input.is_action_pressed("move_down"):
+	if Input.is_action_pressed("move_down"): 	# Vertical movement
 		velocity.y += 1
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= 1
 
-	# Normalize movement so diagonal movement is not faster
+	#makes it so that diagonal movement is not faster
 	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
-
-	# Add sinking every frame
-	velocity.y += sink_speed
-
-	# Move the diver
-	position += velocity * delta
-
-	# Keep the diver on screen
+		velocity = velocity.normalized() * speed 
+		
+	velocity.y += sink_speed #add sink/gravity
+	position += velocity * delta	# Move the diver
+	#keeps the diver on screen
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
 
-	# Tilt the diver left or right based on horizontal movement
-	var target_rotation = clamp(velocity.x * 0.020, -0.7, 0.7)
-	rotation = lerp(rotation, target_rotation, 0.1)
-
-	# Start an attack when the attack button is pressed
-	if Input.is_action_just_pressed("attack") and not is_attacking:
+	#make the diver tilt proboplby gonna have to change with new sprites
+	var target_rotation = clamp(velocity.x * 0.020, -0.7, 0.7) #0.02 to make velocoty small enough for rotation
+	rotation = lerp(rotation, target_rotation, 0.1) #move rotation 0.1 each frame
+	#makes things smoove
+	
+	if Input.is_action_just_pressed("attack") and not is_attacking: #start attack with left click
 		start_attack()
 
-	# Count down the attack timer while attacking
+	#attack cool down
 	if is_attacking:
-		attack_timer -= delta
+		attack_timer -= delta #minus frams from value
 		if attack_timer <= 0:
 			end_attack()
 
 
 func start_attack() -> void:
-	# Mark the player as attacking
 	is_attacking = true
-	
-	# Set the attack timer
 	attack_timer = attack_duration
+	$ArmPivot.rotation = arm_rest_rotation - attack_angle #rotate arm when attack
 	
-	# Rotate the arm forward during the attack
-	$ArmPivot.rotation = arm_rest_rotation - attack_angle
+	$ArmPivot/Spear.position = spear_rest_position + Vector2(attack_thrust_distance, 0) #thrust spear forward
 	
-	# Push the spear forward during the attack
-	$ArmPivot/Spear.position = spear_rest_position + Vector2(
-		attack_thrust_distance, 0
-	)
-
+	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = false #turnrson again spear hitbox
+	
 
 func end_attack() -> void:
-	# Mark the attack as finished
 	is_attacking = false
+	$ArmPivot.rotation = arm_rest_rotation #return arm to position
+	$ArmPivot/Spear.position = spear_rest_position #return spear to position
 	
-	# Return the arm to its normal position
-	$ArmPivot.rotation = arm_rest_rotation
-	
-	# Return the spear to its normal position
-	$ArmPivot/Spear.position = spear_rest_position
+	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = true #turn of hitbox again
 
 
 '''
@@ -133,4 +94,11 @@ func _on_body_entered(body: Node2D) -> void:
 	# Must be deferred as we can't change physics properties
 	# on a physics callback.
 	$CollisionShape2D.set_deferred("disabled", true)
-'''
+'''	
+
+
+func _on_body_entered(body: Node2D) -> void:
+	hide()
+	hit.emit()
+	# Must be deferred as we can't change physics properties on a physics callback.
+	$CollisionShape2D.set_deferred("disabled", true)

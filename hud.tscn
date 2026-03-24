@@ -22,4 +22,5 @@ offset_bottom = 8.0
 wait_time = 2.8
 autostart = true
 
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
