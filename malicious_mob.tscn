@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://brts4hkkonm8i"]
+
+[ext_resource type="Texture2D" uid="uid://dnab06hy44xu" path="res://assets/bluefish.png" id="1_1b3kk"]
+[ext_resource type="Script" uid="uid://bhv5ej77pjups" path="res://malicious_mob.gd" id="1_087k7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_087k7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1b3kk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wcj2c"]
+
+[node name="MaliciousMob" type="RigidBody2D" groups=["MaliciousMob"]]
+collision_layer = 3
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_087k7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["MaliciousMob"]]
+sprite_frames = SubResource("SpriteFrames_087k7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["MaliciousMob"]]
+shape = SubResource("CircleShape2D_wcj2c")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["MaliciousMob"]]
