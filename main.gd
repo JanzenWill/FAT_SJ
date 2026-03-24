@@ -49,7 +49,7 @@ func _on_malicious_mob_timer_timeout() -> void:
 
 
 func _on_player_hit() -> void:
-	print("player hit by malicious mob")
+	print("Player hit by malicious mob")
 	#$ScoreTimer.stop()
 	$PassiveMobTimer.stop()
 	$MaliciousMobTimer.stop()
