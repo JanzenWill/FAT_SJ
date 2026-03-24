@@ -28,7 +28,7 @@ Branches:
 
 &#x09;	sprite-motion: Skjeldestad
 
-&#x09;	(TODO) add-music: Jonathan (implement music/sound effects)
+&#x09;	add-music: Jonathan (implement music/sound effects)
 
 
 
@@ -44,17 +44,13 @@ Ideation:
 
 Todo:
 
-&#x09;-get Jonathan on project
-
-&#x09;-fix mob spawning (Will)
-
 &#x09;-create character pixel art
 
 &#x09;-create character animation frames
 
-&#x09;-create mob pixel art
+&#x09;-create mob pixel art and animation frames
 
-&#x09;-add mob movement animation frames
+&#x09;-add more mobs
 
 &#x09;-implement parallax and looping background
 
@@ -80,7 +76,7 @@ Resources:
 
 Contributions/Tasks completed:
 
-&#x09;-Create background (Will)
+&#x09;-Create background, passive mob spawning \& physics
 
 &#x09;-implement player and player movement (Will)
 

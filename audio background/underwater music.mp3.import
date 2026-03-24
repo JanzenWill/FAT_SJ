@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bihe3ck5ajgx4"
+path="res://.godot/imported/underwater music.mp3-5ed9b6515fd8047fc7e95092e854bcc8.mp3str"
+
+[deps]
+
+source_file="res://audio background/underwater music.mp3"
+dest_files=["res://.godot/imported/underwater music.mp3-5ed9b6515fd8047fc7e95092e854bcc8.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
