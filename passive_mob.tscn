@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://btow3sia2cyqi"]
+[gd_scene load_steps=6 format=3 uid="uid://btow3sia2cyqi"]
 
 [ext_resource type="Texture2D" uid="uid://dqfpp8fwhfics" path="res://assets/red_fish.png" id="1_dy6sc"]
 [ext_resource type="Script" uid="uid://brtyn8yhvdt6x" path="res://passive_mob.gd" id="1_ubaqv"]
@@ -15,6 +15,9 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dy6sc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b3nj"]
+size = Vector2(158, 118)
 
 [node name="PassiveMob" type="RigidBody2D"]
 collision_layer = 3
@@ -36,3 +39,12 @@ metadata/_edit_group_ = true
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(97, 40)
+shape = SubResource("RectangleShape2D_0b3nj")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
