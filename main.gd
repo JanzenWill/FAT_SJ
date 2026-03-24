@@ -46,3 +46,13 @@ func _on_malicious_mob_timer_timeout() -> void:
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(malicious_mob)
+
+
+func _on_player_hit() -> void:
+	print("Player hit by malicious mob")
+	#$ScoreTimer.stop()
+	$PassiveMobTimer.stop()
+	$MaliciousMobTimer.stop()
+	$HUD.show_game_over()
+	#$Music.stop()
+	#$DeathSound.play()

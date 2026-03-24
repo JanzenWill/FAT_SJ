@@ -39,6 +39,7 @@ rotation = 0.0061727613
 
 [node name="HUD" parent="." instance=ExtResource("5_lquwl")]
 
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_272bh")
 autoplay = true
