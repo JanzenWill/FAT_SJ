@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cl0nw5sxsy8lo"]
+[gd_scene load_steps=3 format=3 uid="uid://cl0nw5sxsy8lo"]
 
 [ext_resource type="Script" uid="uid://cifydn1ehelov" path="res://hud.gd" id="1_37p78"]
+[ext_resource type="Texture2D" uid="uid://dh8gh251kutle" path="res://assets/play-button.svg" id="2_64ctp"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_37p78")
@@ -17,6 +18,8 @@ horizontal_alignment = 1
 [node name="StartButton" type="Button" parent="."]
 offset_right = 8.0
 offset_bottom = 8.0
+text = "Restart Game"
+icon = ExtResource("2_64ctp")
 
 [node name="MessageTimer" type="Timer" parent="."]
 wait_time = 2.8

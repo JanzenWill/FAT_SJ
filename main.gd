@@ -3,6 +3,10 @@ extends Node
 @export var passive_mob_scene: PackedScene
 @export var malicious_mob_scene: PackedScene
 
+func _ready():
+	$HUD/StartButton.hide()
+	$HUD.restart_game.connect(_on_restart_game)
+
 
 func _on_passive_mob_timer_timeout():
 	# Create a new instance of the Mob scene.
@@ -51,9 +55,17 @@ func _on_malicious_mob_timer_timeout() -> void:
 
 func _on_player_hit() -> void:
 	#print("Player hit by malicious mob")
-	#$ScoreTimer.stop()
 	$PassiveMobTimer.stop()
 	$MaliciousMobTimer.stop()
 	$HUD.show_game_over()
 	#$Music.stop()
 	#$DeathSound.play()
+	
+func _on_restart_game():
+	$PassiveMobTimer.start()
+	$MaliciousMobTimer.start()
+	$Player.show()
+	$Player/CollisionShape2D.set("disabled", false)
+	$Player.alive = true
+	
+	
