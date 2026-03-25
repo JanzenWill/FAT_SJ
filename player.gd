@@ -51,8 +51,8 @@ func _process(delta: float) -> void:
 	velocity.y += sink_speed #add sink/gravity
 	position += velocity * delta	# Move the diver
 	#keeps the diver on screen
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	#position.x = clamp(position.x, 0, screen_size.x)
+	position.y = clamp(position.y, 0, screen_size.y*2)
 
 	#make the diver tilt proboplby gonna have to change with new sprites
 	var target_rotation = clamp(velocity.x * 0.020, -0.7, 0.7) #0.02 to make velocoty small enough for rotation
@@ -87,18 +87,9 @@ func end_attack() -> void:
 	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = true #turn of hitbox again
 
 
-'''
+
 func _on_body_entered(body: Node2D) -> void:
 	hide() # Player disappears after being hit.
-	hit.emit()
-	# Must be deferred as we can't change physics properties
-	# on a physics callback.
-	$CollisionShape2D.set_deferred("disabled", true)
-'''	
-
-
-func _on_body_entered(body: Node2D) -> void:
-	hide()
 	hit.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
 	$CollisionShape2D.set_deferred("disabled", true)

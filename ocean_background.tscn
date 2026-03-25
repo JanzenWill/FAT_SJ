@@ -15,7 +15,9 @@ color_ramp = SubResource("Gradient_7dm0k")
 [node name="Background" type="Node2D"]
 
 [node name="Water" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0.5, 0.5)
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(900, 600)
+repeat_times = 200
 
 [node name="OceanBackground" type="TextureRect" parent="Water"]
 anchors_preset = 15
@@ -28,7 +30,8 @@ grow_vertical = 2
 texture = SubResource("NoiseTexture2D_pra63")
 
 [node name="Kelp" type="Parallax2D" parent="."]
-scroll_scale = Vector2(1.2, 1.2)
+scroll_scale = Vector2(0.8, 0.8)
+repeat_size = Vector2(250, 0)
 
 [node name="KelpSprite" type="Sprite2D" parent="Kelp"]
 position = Vector2(249, 395.00006)
