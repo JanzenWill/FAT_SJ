@@ -34,11 +34,10 @@ sprite_frames = SubResource("SpriteFrames_jfba5")
 shape = SubResource("CircleShape2D_dy6sc")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["PassiveMob"]]
-metadata/_edit_group_ = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["PassiveMob"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["PassiveMob"]]
 position = Vector2(97, 40)
 shape = SubResource("RectangleShape2D_0b3nj")
 

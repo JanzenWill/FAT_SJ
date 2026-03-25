@@ -14,6 +14,7 @@ var is_attacking = false
 var attack_timer = 0.0 #counts down attack time
 var arm_rest_rotation = 0.0 #helps restore arm postition after attack
 var spear_rest_position = Vector2.ZERO
+var alive = true
 
 
 func _ready() -> void:
@@ -32,51 +33,54 @@ func _start():
 
 
 func _process(delta: float) -> void:
-	var velocity = Vector2.ZERO #resets for input on mpvement
+	if not alive:
+		return
+	else:
+		var velocity = Vector2.ZERO #resets for input on mpvement
 
-	if Input.is_action_pressed("move_right"): 	# Horizontal movement
-		velocity.x += 1
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= 1
+		if Input.is_action_pressed("move_right"): 	# Horizontal movement
+			velocity.x += 1
+		if Input.is_action_pressed("move_left"):
+			velocity.x -= 1
 
-	if Input.is_action_pressed("move_down"): 	# Vertical movement
-		velocity.y += 1
-	if Input.is_action_pressed("move_up"):
-		velocity.y -= 1
+		if Input.is_action_pressed("move_down"): 	# Vertical movement
+			velocity.y += 1
+		if Input.is_action_pressed("move_up"):
+			velocity.y -= 1
 
-	#makes it so that diagonal movement is not faster
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed 
+		#makes it so that diagonal movement is not faster
+		if velocity.length() > 0:
+			velocity = velocity.normalized() * speed 
+			
+		velocity.y += sink_speed #add sink/gravity
+		position += velocity * delta	# Move the diver
+		#keeps the diver on screen
+		#position.x = clamp(position.x, 0, screen_size.x)
+		position.y = clamp(position.y, 0, screen_size.y*2)
+
+		#make the diver tilt proboplby gonna have to change with new sprites
+		var target_rotation = clamp(velocity.x * 0.020, -0.7, 0.7) #0.02 to make velocoty small enough for rotation
+		rotation = lerp(rotation, target_rotation, 0.1) #move rotation 0.1 each frame
+		#makes things smoove
 		
-	velocity.y += sink_speed #add sink/gravity
-	position += velocity * delta	# Move the diver
-	#keeps the diver on screen
-	#position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y*2)
+		if Input.is_action_just_pressed("attack") and not is_attacking: #start attack with left click
+			start_attack()
 
-	#make the diver tilt proboplby gonna have to change with new sprites
-	var target_rotation = clamp(velocity.x * 0.020, -0.7, 0.7) #0.02 to make velocoty small enough for rotation
-	rotation = lerp(rotation, target_rotation, 0.1) #move rotation 0.1 each frame
-	#makes things smoove
-	
-	if Input.is_action_just_pressed("attack") and not is_attacking: #start attack with left click
-		start_attack()
-
-	#attack cool down
-	if is_attacking:
-		attack_timer -= delta #minus frams from value
-		if attack_timer <= 0:
-			end_attack()
+		#attack cool down
+		if is_attacking:
+			attack_timer -= delta #minus frams from value
+			if attack_timer <= 0:
+				end_attack()
 
 
 func start_attack() -> void:
-	is_attacking = true
-	attack_timer = attack_duration
-	$ArmPivot.rotation = arm_rest_rotation - attack_angle #rotate arm when attack
-	
-	$ArmPivot/Spear.position = spear_rest_position + Vector2(attack_thrust_distance, 0) #thrust spear forward
-	
-	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = false #turnrson again spear hitbox
+		is_attacking = true
+		attack_timer = attack_duration
+		$ArmPivot.rotation = arm_rest_rotation - attack_angle #rotate arm when attack
+		
+		$ArmPivot/Spear.position = spear_rest_position + Vector2(attack_thrust_distance, 0) #thrust spear forward
+		
+		$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = false #turnrson again spear hitbox
 	
 
 func end_attack() -> void:
@@ -90,6 +94,7 @@ func end_attack() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	hide() # Player disappears after being hit.
-	hit.emit()
-	# Must be deferred as we can't change physics properties on a physics callback.
 	$CollisionShape2D.set_deferred("disabled", true)
+#	$Player.position_ #not sure what this was for?
+	alive = false
+	hit.emit()
