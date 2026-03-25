@@ -28,7 +28,7 @@ wait_time = 0.8
 autostart = true
 
 [node name="MaliciousMobTimer" type="Timer" parent="."]
-wait_time = 1.6
+wait_time = 2.1999999999999997
 autostart = true
 
 [node name="MobPath" type="Path2D" parent="."]
@@ -39,11 +39,11 @@ rotation = 0.0061727613
 
 [node name="HUD" parent="." instance=ExtResource("5_lquwl")]
 
-[connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_272bh")
 autoplay = true
 bus = &"Underwater"
 
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="PassiveMobTimer" to="." method="_on_passive_mob_timer_timeout"]
 [connection signal="timeout" from="MaliciousMobTimer" to="." method="_on_malicious_mob_timer_timeout"]

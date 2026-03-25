@@ -8,48 +8,49 @@ func _on_passive_mob_timer_timeout():
 	# Create a new instance of the Mob scene.
 	var passive_mob = passive_mob_scene.instantiate()
 
-	# Choose a random location on Path2D.
-	var mob_spawn_location = $MobPath/MobSpawnLocation
-	mob_spawn_location.progress_ratio = randf()
+	var camera = $Player/Camera2D
+	var viewport_size = get_viewport().size
+	
+	var spawn_x = camera.global_position.x + (viewport_size.x + 100)*[-1, 1].pick_random()
+	var spawn_y = randf_range(50, viewport_size.y - 50)
+	
 
 	# Set the mob's position to the random location.
-	passive_mob.position = mob_spawn_location.position
+	passive_mob.position = Vector2(spawn_x, spawn_y)
+	passive_mob.linear_velocity = Vector2(180 * [-1, 1].pick_random(), 0.0)
 
+	# Spawn the mob by adding it to the Main scene.
+	add_child(passive_mob)
+	"""
 #hopefully sets the mob direction either right or left	
 	var direction = [0, PI][randi() % 2]
 
 	# Choose the velocity for the mob.
-	var velocity = Vector2(160, 0.0)
 	passive_mob.linear_velocity = velocity.rotated(direction)
-
-	# Spawn the mob by adding it to the Main scene.
-	add_child(passive_mob)
+"""
 
 
 func _on_malicious_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
 	var malicious_mob = malicious_mob_scene.instantiate()
 
-	# Choose a random location on Path2D.
-	var mob_spawn_location = $MobPath/MobSpawnLocation
-	mob_spawn_location.progress_ratio = randf()
+	var camera = $Player/Camera2D
+	var viewport_size = get_viewport().size
+	
+	var spawn_x = camera.global_position.x + (viewport_size.x + 100)*[-1, 1].pick_random()
+	var spawn_y = randf_range(50, viewport_size.y - 50)
+	
 
 	# Set the mob's position to the random location.
-	malicious_mob.position = mob_spawn_location.position
-
-#hopefully sets the mob direction either right or left	
-	var direction = [0, PI][randi() % 2]
-
-	# Choose the velocity for the mob.
-	var velocity = Vector2(160, 0.0)
-	malicious_mob.linear_velocity = velocity.rotated(direction)
+	malicious_mob.position = Vector2(spawn_x, spawn_y)
+	malicious_mob.linear_velocity = Vector2(180 * [-1, 1].pick_random(), 0.0)
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(malicious_mob)
 
 
 func _on_player_hit() -> void:
-	print("Player hit by malicious mob")
+	#print("Player hit by malicious mob")
 	#$ScoreTimer.stop()
 	$PassiveMobTimer.stop()
 	$MaliciousMobTimer.stop()
