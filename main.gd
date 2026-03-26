@@ -9,12 +9,14 @@ func _ready():
 	$HUD/StartButton.hide()
 	$HUD.restart_game.connect(_on_restart_game)
 	$HUD/ScoreLabel.show()
+	
 
 
 func _on_passive_mob_timer_timeout():
 	# Create a new instance of the Mob scene.
 	var passive_mob = passive_mob_scene.instantiate()
 	passive_mob.killed.connect(_on_killed_passive_mob)
+	passive_mob.add_to_group("fish") #added to group of fish that are removed with restart
 
 	var camera = $Player/Camera2D
 	var viewport_size = get_viewport().size
@@ -41,6 +43,7 @@ func _on_passive_mob_timer_timeout():
 func _on_malicious_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
 	var malicious_mob = malicious_mob_scene.instantiate()
+	malicious_mob.add_to_group("fish") #added to group of fish that are removed with restart
 
 	var camera = $Player/Camera2D
 	var viewport_size = get_viewport().size
@@ -73,9 +76,13 @@ func _on_restart_game():
 	$Player.show()
 	$Player/CollisionShape2D.set("disabled", false)
 	$Player.alive = true
+	clear_all_fish()
 	
 func _on_killed_passive_mob():
 	score += 1
 	$HUD.update_score(score)
+	
+func clear_all_fish() -> void: #clears all fish
+	get_tree().call_group("fish", "queue_free")
 	
 	
