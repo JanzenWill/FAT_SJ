@@ -3,14 +3,18 @@ extends Node
 @export var passive_mob_scene: PackedScene
 @export var malicious_mob_scene: PackedScene
 
+var score = 0
+
 func _ready():
 	$HUD/StartButton.hide()
 	$HUD.restart_game.connect(_on_restart_game)
+	$HUD/ScoreLabel.show()
 
 
 func _on_passive_mob_timer_timeout():
 	# Create a new instance of the Mob scene.
 	var passive_mob = passive_mob_scene.instantiate()
+	passive_mob.killed.connect(_on_killed_passive_mob)
 
 	var camera = $Player/Camera2D
 	var viewport_size = get_viewport().size
@@ -62,10 +66,16 @@ func _on_player_hit() -> void:
 	#$DeathSound.play()
 	
 func _on_restart_game():
+	score = 0
+	$HUD.update_score(score)
 	$PassiveMobTimer.start()
 	$MaliciousMobTimer.start()
 	$Player.show()
 	$Player/CollisionShape2D.set("disabled", false)
 	$Player.alive = true
+	
+func _on_killed_passive_mob():
+	score += 1
+	$HUD.update_score(score)
 	
 	
