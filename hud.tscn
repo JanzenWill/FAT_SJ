@@ -27,9 +27,11 @@ autostart = true
 
 [node name="ScoreLabel" type="Label" parent="."]
 custom_minimum_size = Vector2(500, 80)
-offset_right = 40.0
-offset_bottom = 23.0
-text = "test"
+offset_left = 457.0
+offset_top = 818.0
+offset_right = 957.0
+offset_bottom = 910.0
+text = "Score: 0"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
