@@ -11,7 +11,7 @@ func _on_message_timer_timeout() -> void:
 	$Message.hide()
 
 func _ready() -> void:
-	pass
+	$ScoreLabel.show()
 '''
 func _process(delta: float) -> void:
 	pass
@@ -35,3 +35,6 @@ func show_game_over():
 func _on_start_button_pressed() -> void:
 	$StartButton.hide()
 	restart_game.emit()
+	
+func update_score(score):
+	$ScoreLabel.text = "Score: " + str(score)
