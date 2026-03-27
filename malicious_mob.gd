@@ -1,6 +1,10 @@
 extends RigidBody2D
 
 @export var gravity = 0
+@export var max_health = 2
+@export var damage = 1
+
+var health = max_health
 var velocity = Vector2.ZERO
 
 signal killed
@@ -29,5 +33,20 @@ func _physics_process(delta):
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("spear"):
-		killed.emit()
-		queue_free()
+		if area.has_method("get_damage"):
+			take_damage(area.get_damage())
+		else:
+			take_damage(1)
+		
+func take_damage(amount: int) -> void:
+	health -= amount
+	
+	if health <= 0:
+		die()
+
+func die() -> void:
+	killed.emit()
+	queue_free()
+
+func get_damage() -> int:
+	return damage

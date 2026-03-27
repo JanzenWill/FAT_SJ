@@ -8,8 +8,11 @@ var score = 0
 func _ready():
 	$HUD/StartButton.hide()
 	$HUD.restart_game.connect(_on_restart_game)
+	$Player.health_changed.connect($HUD.update_health)
 	$HUD/ScoreLabel.show()
 	$HUD.update_score(score)
+	$HUD.update_health($Player.health)
+	
 	
 
 
@@ -75,7 +78,9 @@ func _on_restart_game():
 	score = 0
 	$HUD.update_score(score)
 	$PassiveMobTimer.start()
+	$HUD.update_health($Player.health)
 	$MaliciousMobTimer.start()
+	$Player._start()
 	$Player.show()
 	$Player/CollisionShape2D.set("disabled", false)
 	$Player.alive = true
