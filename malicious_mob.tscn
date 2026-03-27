@@ -1,7 +1,33 @@
 [gd_scene load_steps=5 format=3 uid="uid://brts4hkkonm8i"]
 
 [ext_resource type="Texture2D" uid="uid://dnab06hy44xu" path="res://assets/bluefish.png" id="1_1b3kk"]
-[ext_resource type="Script" uid="uid://bhv5ej77pjups" path="res://malicious_mob.gd" id="1_087k7"]
+
+[sub_resource type="GDScript" id="GDScript_1b3kk"]
+script/source = "extends CharacterBody2D
+
+@export var gravity = 0
+var speed = 180
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+\"\"\"
+func _process(delta: float) -> void:
+	velocity.y += gravity * delta
+	position += velocity * delta
+\"\"\"
+
+func _on_mob_timer_timeout() -> void:
+	pass # Replace with function body.
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	queue_free()
+"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_087k7"]
 animations = [{
@@ -14,15 +40,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_087k7"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wcj2c"]
 radius = 64.0
 height = 304.0
 
-[node name="MaliciousMob" type="RigidBody2D" groups=["MaliciousMob"]]
-collision_layer = 5
-collision_mask = 0
-gravity_scale = 0.0
-script = ExtResource("1_087k7")
+[node name="MaliciousMob" type="CharacterBody2D"]
+script = SubResource("GDScript_1b3kk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["MaliciousMob"]]
 sprite_frames = SubResource("SpriteFrames_087k7")
@@ -30,9 +53,7 @@ sprite_frames = SubResource("SpriteFrames_087k7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["MaliciousMob"]]
 position = Vector2(2, 3)
 rotation = -1.5707964
-shape = SubResource("CapsuleShape2D_087k7")
+shape = SubResource("CapsuleShape2D_wcj2c")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["MaliciousMob"]]
 position = Vector2(1, -1)
-
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
