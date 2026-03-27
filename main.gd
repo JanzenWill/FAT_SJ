@@ -85,12 +85,12 @@ func _on_killed_passive_mob():
 	if score > 0:
 		score -= 1
 	$HUD.update_score(score)
-	print(score)
+	
 
 func _on_killed_malicious_mob():
 	score += 1
 	$HUD.update_score(score)
-	print(score)
+	
 	
 func clear_all_fish() -> void: #clears all fish
 	get_tree().call_group("fish", "queue_free")
