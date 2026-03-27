@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://brts4hkkonm8i"]
 
-[ext_resource type="Texture2D" uid="uid://dnab06hy44xu" path="res://assets/bluefish.png" id="1_1b3kk"]
 [ext_resource type="Script" uid="uid://bhv5ej77pjups" path="res://malicious_mob.gd" id="1_087k7"]
+[ext_resource type="Texture2D" uid="uid://cvrukt38qjqf" path="res://assets/bluefish-removebg-preview.png" id="2_087k7"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_087k7"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_wcj2c"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_1b3kk")
+"texture": ExtResource("2_087k7")
 }],
 "loop": true,
 "name": &"default",
@@ -28,7 +28,7 @@ gravity_scale = 0.0
 script = ExtResource("1_087k7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["MaliciousMob"]]
-sprite_frames = SubResource("SpriteFrames_087k7")
+sprite_frames = SubResource("SpriteFrames_wcj2c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["MaliciousMob"]]
 position = Vector2(2, 3)
