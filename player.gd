@@ -6,9 +6,14 @@ extends Area2D
 @export var attack_duration = 0.2
 @export var attack_angle = 0.8 #arm rotation
 @export var attack_thrust_distance = 15 #how far spear moves
+@export var max_health = 3
+@export var contact_damage = 1
+
+
 signal hit
+signal health_changed
 
-
+var health = max_health
 var screen_size
 var is_attacking = false
 var attack_timer = 0.0 #counts down attack time
@@ -25,11 +30,15 @@ func _ready() -> void:
 	#this is so the spear hitbox does not work unless you are attacking
 	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = true
 	
+	health = max_health #set health
+	
 
 func _start():
 	position = Vector2(50, 50) #start position character
 	show() #show character
 	$CollisionShape2D.disabled = false# Turn collision back on
+	health = max_health
+	health_changed.emit(health)
 
 
 func _process(delta: float) -> void:
@@ -47,6 +56,11 @@ func _process(delta: float) -> void:
 			velocity.y += 1
 		if Input.is_action_pressed("move_up"):
 			velocity.y -= 1
+			
+		if velocity.x > 0:
+			$AnimatedSprite2D.flip_h = true #flips sprite
+		elif velocity.x < 0:
+			$AnimatedSprite2D.flip_h = false
 
 		#makes it so that diagonal movement is not faster
 		if velocity.length() > 0:
@@ -93,8 +107,23 @@ func end_attack() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	hide() # Player disappears after being hit.
+	if body.has_method("get_damage"):
+		take_damage(body.get_damage())
+	else:
+		take_damage(1)
+	
+func take_damage(amount: int) -> void:
+	if not alive:
+		return
+
+	health -= amount
+	health_changed.emit(health)
+
+	if health <= 0:
+		die()
+
+func die() -> void:
+	hide()
 	$CollisionShape2D.set_deferred("disabled", true)
-#	$Player.position_ #not sure what this was for?
 	alive = false
 	hit.emit()

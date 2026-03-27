@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://btv6brr4iv3pv"]
+[gd_scene load_steps=9 format=3 uid="uid://btv6brr4iv3pv"]
 
 [ext_resource type="Texture2D" uid="uid://crtffcfndtopt" path="res://assets/diver.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://dcii7icau8pvo" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://c15u0nhnhn386" path="res://assets/craiyon_143146_image.png" id="3_hqtel"]
 [ext_resource type="Texture2D" uid="uid://ccvq37osvxfti" path="res://assets/Spear_64x64.png" id="4_sweqy"]
+[ext_resource type="Script" uid="uid://dd5a4osyfutci" path="res://spear_hitbox.gd" id="5_sweqy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_onrkg"]
 animations = [{
@@ -48,6 +49,7 @@ scale = Vector2(1.8073204, 1.806929)
 texture = ExtResource("4_sweqy")
 
 [node name="SpearHitbox" type="Area2D" parent="ArmPivot/Spear" groups=["spear"]]
+script = ExtResource("5_sweqy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArmPivot/Spear/SpearHitbox"]
 position = Vector2(-21.28558, -18.674059)

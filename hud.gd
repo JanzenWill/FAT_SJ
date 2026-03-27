@@ -38,3 +38,6 @@ func _on_start_button_pressed() -> void:
 	
 func update_score(score):
 	$ScoreLabel.text = "Score: " + str(score)
+
+func update_health(health):
+	$HealthLabel.text = "Health: " + str(health)
