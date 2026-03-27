@@ -9,6 +9,7 @@ func _ready():
 	$HUD/StartButton.hide()
 	$HUD.restart_game.connect(_on_restart_game)
 	$HUD/ScoreLabel.show()
+	$HUD.update_score(score)
 	
 
 
