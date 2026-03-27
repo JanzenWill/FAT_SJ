@@ -1,13 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://brts4hkkonm8i"]
+[gd_scene load_steps=6 format=3 uid="uid://brts4hkkonm8i"]
 
-[ext_resource type="Texture2D" uid="uid://dnab06hy44xu" path="res://assets/bluefish.png" id="1_1b3kk"]
 [ext_resource type="Script" uid="uid://bhv5ej77pjups" path="res://malicious_mob.gd" id="1_087k7"]
+[ext_resource type="Texture2D" uid="uid://cvrukt38qjqf" path="res://assets/bluefish-removebg-preview.png" id="2_087k7"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_087k7"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_wcj2c"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_1b3kk")
+"texture": ExtResource("2_087k7")
 }],
 "loop": true,
 "name": &"default",
@@ -18,6 +18,9 @@ animations = [{
 radius = 64.0
 height = 304.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_087k7"]
+size = Vector2(268, 105)
+
 [node name="MaliciousMob" type="RigidBody2D" groups=["Fish", "MaliciousMob"]]
 collision_layer = 5
 collision_mask = 0
@@ -25,7 +28,7 @@ gravity_scale = 0.0
 script = ExtResource("1_087k7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["MaliciousMob"]]
-sprite_frames = SubResource("SpriteFrames_087k7")
+sprite_frames = SubResource("SpriteFrames_wcj2c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["MaliciousMob"]]
 position = Vector2(2, 3)
@@ -35,4 +38,11 @@ shape = SubResource("CapsuleShape2D_087k7")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["MaliciousMob"]]
 position = Vector2(1, -1)
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["MaliciousMob"]]
+position = Vector2(2, -3.5)
+shape = SubResource("RectangleShape2D_087k7")
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
