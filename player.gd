@@ -58,7 +58,7 @@ func _process(delta: float) -> void:
 			velocity.y -= 1
 			
 		if velocity.x > 0:
-			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D.flip_h = true #flips sprite
 		elif velocity.x < 0:
 			$AnimatedSprite2D.flip_h = false
 
@@ -118,7 +118,6 @@ func take_damage(amount: int) -> void:
 
 	health -= amount
 	health_changed.emit(health)
-	print("Player health:", health)
 
 	if health <= 0:
 		die()

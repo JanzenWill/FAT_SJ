@@ -1,8 +1,8 @@
 extends RigidBody2D
 
 @export var gravity = 0
-@export var max_health = 2
-@export var damage = 1
+@export var max_health = 2 #health
+@export var damage = 1 #damage it takes
 
 var health = max_health
 var velocity = Vector2.ZERO
@@ -29,7 +29,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 
 func _physics_process(delta):
-	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
+	$AnimatedSprite2D.flip_h = linear_velocity.x < 0 #flips sprite
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("spear"):
@@ -40,7 +40,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		
 func take_damage(amount: int) -> void:
 	health -= amount
-	
 	if health <= 0:
 		die()
 

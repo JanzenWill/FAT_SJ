@@ -2,8 +2,8 @@ extends RigidBody2D
 
 @export var gravity = 0
 
-@export var max_health = 1
-@export var damage = 0
+@export var max_health = 1 #health
+@export var damage = 0 #damage it takes
 
 var health = max_health
 
@@ -43,7 +43,6 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void: #makes them disa
 	
 func take_damage(amount: int) -> void:
 	health -= amount
-	
 	if health <= 0:
 		die()
 
