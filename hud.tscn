@@ -34,5 +34,12 @@ offset_bottom = 297.0
 text = "Score: 0"
 horizontal_alignment = 1
 
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = 790.0
+offset_top = 165.0
+offset_right = 904.0
+offset_bottom = 259.0
+text = "Health: 3"
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
