@@ -16,10 +16,10 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_087k7"]
 radius = 64.0
-height = 304.0
+height = 266.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_087k7"]
-size = Vector2(268, 105)
+size = Vector2(259, 105)
 
 [node name="MaliciousMob" type="RigidBody2D" groups=["Fish", "MaliciousMob"]]
 collision_layer = 5
@@ -41,7 +41,7 @@ position = Vector2(1, -1)
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["MaliciousMob"]]
-position = Vector2(2, -3.5)
+position = Vector2(6.5, -3.5)
 shape = SubResource("RectangleShape2D_087k7")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

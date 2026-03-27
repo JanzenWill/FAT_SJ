@@ -47,6 +47,11 @@ func _process(delta: float) -> void:
 			velocity.y += 1
 		if Input.is_action_pressed("move_up"):
 			velocity.y -= 1
+			
+		if velocity.x > 0:
+			$AnimatedSprite2D.flip_h = true
+		elif velocity.x < 0:
+			$AnimatedSprite2D.flip_h = false
 
 		#makes it so that diagonal movement is not faster
 		if velocity.length() > 0:
