@@ -70,7 +70,7 @@ func _process(delta: float) -> void:
 		position += velocity * delta	# Move the diver
 		#keeps the diver on screen
 		#position.x = clamp(position.x, 0, screen_size.x)
-		position.y = clamp(position.y, 0, screen_size.y*2)
+		position.y = clamp(position.y, 0, screen_size.y*20)
 
 		#make the diver tilt proboplby gonna have to change with new sprites
 		var target_rotation = clamp(velocity.x * 0.020, -0.7, 0.7) #0.02 to make velocoty small enough for rotation
