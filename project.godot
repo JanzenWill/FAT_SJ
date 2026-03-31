@@ -59,3 +59,8 @@ attack={
 3d_physics/layer_2="passive_mobs"
 3d_physics/layer_3="aggressive_mobs"
 3d_physics/layer_4="world"
+
+[physics]
+
+2d/default_linear_damp=0.0
+2d/default_angular_damp=0.0

@@ -2,8 +2,10 @@ extends RigidBody2D
 
 @export var gravity = 0
 @export var max_health = 2 #health
-@export var damage = 1 #damage it takes
+@export var damage = 1 #damage it gives
 
+var speed = 200
+var direction = 1
 var health = max_health
 var velocity = Vector2.ZERO
 
@@ -11,15 +13,18 @@ signal killed
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	linear_velocity = Vector2(speed * direction, 0)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 """
 func _process(delta: float) -> void:
 	velocity.y += gravity * delta
 	position += velocity * delta
 """
+
+func integrate_forces(state):
+	var vel  = state.linear_velocity
+	vel.x = speed * direction
+	state.linear_velocity = vel
 
 func _on_mob_timer_timeout() -> void:
 	pass # Replace with function body.
@@ -29,6 +34,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 
 func _physics_process(delta):
+	linear_velocity
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0 #flips sprite
 
 func _on_area_2d_area_entered(area: Area2D) -> void:

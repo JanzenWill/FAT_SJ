@@ -4,6 +4,8 @@ extends Node
 @export var malicious_mob_scene: PackedScene
 
 var score = 0
+var depth_level = 0
+var depth_thresholds = [1750] #expand later
 
 func _ready():
 	$HUD/StartButton.hide()
@@ -14,7 +16,8 @@ func _ready():
 	$HUD.update_health($Player.health)
 	
 	
-
+func _process(delta: float) -> void:
+	check_depth()
 
 func _on_passive_mob_timer_timeout():
 	# Create a new instance of the Mob scene.
@@ -26,12 +29,11 @@ func _on_passive_mob_timer_timeout():
 	var viewport_size = get_viewport().size
 	
 	var spawn_x = camera.global_position.x + (viewport_size.x + 100)*[-1, 1].pick_random()
-	var spawn_y = randf_range(50, viewport_size.y - 50)
-	
+	var spawn_y = camera.global_position.y + (100 * [-1, 1].pick_random())
 
 	# Set the mob's position to the random location.
 	passive_mob.position = Vector2(spawn_x, spawn_y)
-	passive_mob.linear_velocity = Vector2(180 * [-1, 1].pick_random(), 0.0)
+	passive_mob.direction = [-1, 1].pick_random()
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(passive_mob)
@@ -42,7 +44,15 @@ func _on_passive_mob_timer_timeout():
 	# Choose the velocity for the mob.
 	passive_mob.linear_velocity = velocity.rotated(direction)
 """
-
+func check_depth() -> void:
+	var player_y = $Player.global_position.x
+	if depth_level < depth_thresholds.size() and player_y > depth_thresholds[depth_level]:
+		depth_level += 1
+		increase_difficulty()
+		
+func increase_difficulty() -> void:
+	$MaliciousMobTimer.wait_time *= 0.6
+	$PassiveMobTimer.wait_time *= 1.2
 
 func _on_malicious_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
@@ -55,12 +65,12 @@ func _on_malicious_mob_timer_timeout() -> void:
 	var viewport_size = get_viewport().size
 	
 	var spawn_x = camera.global_position.x + (viewport_size.x + 100)*[-1, 1].pick_random()
-	var spawn_y = randf_range(50, viewport_size.y - 50)
+	var spawn_y = camera.global_position.y + (100 * [-1, 1].pick_random())
 	
 
 	# Set the mob's position to the random location.
 	malicious_mob.position = Vector2(spawn_x, spawn_y)
-	malicious_mob.linear_velocity = Vector2(180 * [-1, 1].pick_random(), 0.0)
+	malicious_mob.direction = [-1, 1].pick_random()
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(malicious_mob)
