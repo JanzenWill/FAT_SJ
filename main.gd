@@ -31,7 +31,7 @@ func _on_passive_mob_timer_timeout():
 
 	# Set the mob's position to the random location.
 	passive_mob.position = Vector2(spawn_x, spawn_y)
-	passive_mob.linear_velocity = Vector2(180 * [-1, 1].pick_random(), 0.0)
+	passive_mob.direction = [-1, 1].pick_random()
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(passive_mob)
@@ -60,7 +60,7 @@ func _on_malicious_mob_timer_timeout() -> void:
 
 	# Set the mob's position to the random location.
 	malicious_mob.position = Vector2(spawn_x, spawn_y)
-	malicious_mob.linear_velocity = Vector2(180 * [-1, 1].pick_random(), 0.0)
+	malicious_mob.direction = [-1, 1].pick_random()
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(malicious_mob)
