@@ -5,7 +5,7 @@ extends Node
 
 var score = 0
 var depth_level = 0
-var depth_thresholds = [1750] #expand later
+var depth_thresholds = [1750*(1/0.2), 3000*(1/0.2)] #real thresholds tims inverse scroll rate #expand later
 
 func _ready():
 	$HUD/StartButton.hide()
@@ -45,14 +45,26 @@ func _on_passive_mob_timer_timeout():
 	passive_mob.linear_velocity = velocity.rotated(direction)
 """
 func check_depth() -> void:
-	var player_y = $Player.global_position.x
-	if depth_level < depth_thresholds.size() and player_y > depth_thresholds[depth_level]:
+	var player_y = $Player.global_position.y
+	if player_y > depth_thresholds[depth_level] and depth_level < (depth_thresholds.size()-1):
+		print(player_y, "difficulty increase")
 		depth_level += 1
 		increase_difficulty()
+	elif player_y < depth_thresholds[depth_level - 1] and depth_level > 0:
+		print(player_y, "difficulty_decrease")
+		depth_level -= 1
+		decrease_difficulty()
 		
 func increase_difficulty() -> void:
 	$MaliciousMobTimer.wait_time *= 0.6
 	$PassiveMobTimer.wait_time *= 1.2
+	$Player.speed *= 0.8
+	
+func decrease_difficulty() -> void:
+	$MaliciousMobTimer.wait_time  *= 1.667
+	$PassiveMobTimer.wait_time *= 0.8334
+	$Player.speed *= 1.25
+	
 
 func _on_malicious_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
