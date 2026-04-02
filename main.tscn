@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cj1kvmf3f7ifh"]
+[gd_scene load_steps=8 format=3 uid="uid://cj1kvmf3f7ifh"]
 
 [ext_resource type="Script" uid="uid://dotiusqgf1tyv" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dosbk2phb48p8" path="res://ocean_background.tscn" id="1_ig7tw"]
@@ -8,12 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://cl0nw5sxsy8lo" path="res://hud.tscn" id="5_lquwl"]
 [ext_resource type="AudioStream" uid="uid://bihe3ck5ajgx4" path="res://audio background/underwater music.mp3" id="7_272bh"]
 
-[sub_resource type="Curve2D" id="Curve2D_lquwl"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1296, 8, 0, 0, 0, 0, 1296, 728, 0, 0, 0, 0, 8, 728, 0, 0, 0, 0, 0, 0)
-}
-point_count = 5
-
 [node name="Main" type="Node"]
 script = ExtResource("1_1bvp3")
 passive_mob_scene = ExtResource("2_1bvp3")
@@ -22,6 +16,7 @@ malicious_mob_scene = ExtResource("3_7mycd")
 [node name="OceanBackground" parent="." instance=ExtResource("1_ig7tw")]
 
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(500, 100)
 
 [node name="PassiveMobTimer" type="Timer" parent="."]
 wait_time = 0.8
@@ -31,11 +26,8 @@ autostart = true
 wait_time = 2.1999999999999997
 autostart = true
 
-[node name="MobPath" type="Path2D" parent="."]
-curve = SubResource("Curve2D_lquwl")
-
-[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
-rotation = 0.0061727613
+[node name="EvilMobTimer" type="Timer" parent="."]
+wait_time = 6.0
 
 [node name="HUD" parent="." instance=ExtResource("5_lquwl")]
 
@@ -47,3 +39,4 @@ bus = &"Underwater"
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="PassiveMobTimer" to="." method="_on_passive_mob_timer_timeout"]
 [connection signal="timeout" from="MaliciousMobTimer" to="." method="_on_malicious_mob_timer_timeout"]
+[connection signal="timeout" from="EvilMobTimer" to="." method="_on_evil_mob_timer_timeout"]
