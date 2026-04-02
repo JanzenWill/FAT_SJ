@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://vqinx2qv2acm"]
+
+[ext_resource type="Texture2D" uid="uid://5m1s12ikdjut" path="res://assets/art/Mobs/sawfish sprite.png" id="1_f8sp8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bs6tt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f8sp8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cplja"]
+radius = 57.0
+height = 710.0
+
+[node name="RigidBody2D" type="RigidBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bs6tt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_cplja")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

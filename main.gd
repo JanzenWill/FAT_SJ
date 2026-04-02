@@ -123,3 +123,7 @@ func clear_all_fish() -> void: #clears all fish
 	get_tree().call_group("fish", "queue_free")
 	
 	
+
+
+func _on_evil_mob_timer_timeout() -> void:
+	pass # Replace with function body.

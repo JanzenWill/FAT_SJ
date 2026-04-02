@@ -70,7 +70,7 @@ func _process(delta: float) -> void:
 		position += velocity * delta	# Move the diver
 		#keeps the diver on screen
 		#position.x = clamp(position.x, 0, screen_size.x)
-		position.y = clamp(position.y, 0, 3000*(1/0.2)) #size of background time inverse scroll scale
+		position.y = clamp(position.y, 0, (3100*(1/0.2))-300) #size of background time inverse scroll scale - why is the offset wrong? (you can go too deep)
 
 		#make the diver tilt proboplby gonna have to change with new sprites
 		var target_rotation = clamp(velocity.x * 0.020, -0.7, 0.7) #0.02 to make velocoty small enough for rotation
