@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dosbk2phb48p8"]
+[gd_scene load_steps=9 format=3 uid="uid://dosbk2phb48p8"]
 
-[ext_resource type="Texture2D" uid="uid://qion53d81gc6" path="res://assets/kelp.jpg" id="1_rakyq"]
+[ext_resource type="Texture2D" uid="uid://c26wkce7jngbf" path="res://assets/kelp-removebg.png" id="1_rakyq"]
+[ext_resource type="Texture2D" uid="uid://ddcjsph83opdd" path="res://assets/seafloor_draft.png" id="1_y21nt"]
 
 [sub_resource type="Gradient" id="Gradient_7dm0k"]
 offsets = PackedFloat32Array(0, 0.87333333)
@@ -12,28 +13,70 @@ colors = PackedColorArray(0, 0, 0, 1, 0.5176471, 0.7921569, 1, 1)
 noise = SubResource("FastNoiseLite_ig7tw")
 color_ramp = SubResource("Gradient_7dm0k")
 
+[sub_resource type="Gradient" id="Gradient_rakyq"]
+offsets = PackedFloat32Array(0, 0.56666666, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.2, 0.16078432, 0.7294118, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y21nt"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vygh6"]
+noise = SubResource("FastNoiseLite_y21nt")
+color_ramp = SubResource("Gradient_rakyq")
+
 [node name="Background" type="Node2D"]
 
 [node name="Water" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.2, 0.2)
-repeat_size = Vector2(900, 600)
+repeat_size = Vector2(1000, 0)
 repeat_times = 200
 
-[node name="OceanBackground" type="TextureRect" parent="Water"]
+[node name="OceanLevelOne" type="TextureRect" parent="Water"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1303.0
-offset_bottom = 742.0
+offset_right = 1200.0
+offset_bottom = 1750.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("NoiseTexture2D_pra63")
 
-[node name="Kelp" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0.8, 0.8)
-repeat_size = Vector2(250, 0)
+[node name="OceanLevelTwo" type="TextureRect" parent="Water"]
+offset_top = 1750.0
+offset_right = 1200.0
+offset_bottom = 3500.0
+texture = SubResource("NoiseTexture2D_vygh6")
 
-[node name="KelpSprite" type="Sprite2D" parent="Kelp"]
-position = Vector2(249, 395.00006)
+[node name="OceanFloor" type="TextureRect" parent="Water"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3100.0
+offset_right = 1280.0
+offset_bottom = 3800.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_y21nt")
+
+[node name="ColorRect" type="ColorRect" parent="Water"]
+offset_top = 3550.0
+offset_right = 1000.0
+offset_bottom = 4250.0
+color = Color(0.5002911, 0.61174446, 0.7500223, 1)
+
+[node name="Kelp1" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.8, 0.8)
+repeat_size = Vector2(1000, 700)
+
+[node name="KelpSprite" type="Sprite2D" parent="Kelp1"]
+position = Vector2(140.00002, 535)
 scale = Vector2(0.24050634, 0.36708862)
+texture = ExtResource("1_rakyq")
+
+[node name="Kelp2" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.4, 0.4)
+repeat_size = Vector2(1000, 700)
+
+[node name="KelpSprite2" type="Sprite2D" parent="Kelp2"]
+position = Vector2(656, 232.00009)
+scale = Vector2(0.15, 0.228)
 texture = ExtResource("1_rakyq")

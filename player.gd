@@ -36,9 +36,12 @@ func _start() -> void:
 	position = Vector2(50, 50)
 	show()
 	$CollisionShape2D.disabled = false
+	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = true
 	health = max_health
 	alive = true
 	can_take_damage = true
+	is_attacking = false
+	is_hit = false
 	health_changed.emit(health)
 
 func _process(delta: float) -> void:
@@ -67,7 +70,7 @@ func _process(delta: float) -> void:
 	velocity.y += sink_speed
 	position += velocity * delta
 
-	position.y = clamp(position.y, 0, screen_size.y * 2)
+	position.y = clamp(position.y, 0, (3100 * (1 / 0.2)) - 300)
 
 	var target_rotation = clamp(velocity.x * 0.020, -0.7, 0.7)
 	rotation = lerp(rotation, target_rotation, 0.1)
@@ -94,8 +97,10 @@ func end_attack() -> void:
 	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = true
 
 func take_damage(amount: int, hit_from_x: float) -> void:
-	if not alive:
+	if not alive or not can_take_damage:
 		return
+
+	can_take_damage = false
 
 	health -= amount
 	health_changed.emit(health)
@@ -109,7 +114,8 @@ func take_damage(amount: int, hit_from_x: float) -> void:
 
 	if health <= 0:
 		die()
-		
+		return
+
 	await get_tree().create_timer(hurt_cooldown).timeout
 	can_take_damage = true
 
@@ -133,11 +139,9 @@ func _on_area_entered(area: Area2D) -> void:
 	if not alive:
 		return
 
-	# ignore your own spear hitbox
 	if area == $ArmPivot/Spear/SpearHitbox:
 		return
 
-	# only enemy damage areas should hurt player
 	if not area.is_in_group("enemy_hitbox"):
 		return
 
@@ -148,7 +152,7 @@ func _on_area_entered(area: Area2D) -> void:
 		damage = area.get_damage()
 
 	take_damage(damage, area.global_position.x)
-	
+
 func _on_body_entered(body: Node2D) -> void:
 	if not body.is_in_group("MaliciousMob"):
 		return
