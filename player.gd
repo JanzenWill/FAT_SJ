@@ -6,8 +6,8 @@ extends Area2D
 @export var attack_angle = 0.8
 @export var attack_thrust_distance = 15
 @export var max_health = 3
-@export var knockback_strength = 40
-@export var hurt_cooldown = 0.7
+@export var knockback_strength = 70
+@export var hurt_cooldown = 1.5
 
 signal hit
 signal health_changed
@@ -130,7 +130,6 @@ func show_hit_flash() -> void:
 	is_hit = false
 
 func _on_area_entered(area: Area2D) -> void:
-	print("AREA ENTERED:", area.name)
 	if not alive:
 		return
 
@@ -151,8 +150,6 @@ func _on_area_entered(area: Area2D) -> void:
 	take_damage(damage, area.global_position.x)
 	
 func _on_body_entered(body: Node2D) -> void:
-	print("BODY ENTERED:", body.name)
-
 	if not body.is_in_group("MaliciousMob"):
 		return
 
