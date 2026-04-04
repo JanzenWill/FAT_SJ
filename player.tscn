@@ -17,7 +17,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4flbx"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqy"]
+size = Vector2(71, 148)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
 size = Vector2(16.347631, 16.270782)
@@ -31,7 +32,8 @@ scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_onrkg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_4flbx")
+position = Vector2(66.5, 64)
+shape = SubResource("RectangleShape2D_sweqy")
 
 [node name="ArmPivot" type="Node2D" parent="."]
 position = Vector2(93, 70)
@@ -56,5 +58,7 @@ position = Vector2(-21.28558, -18.674059)
 shape = SubResource("RectangleShape2D_hqtel")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 13)
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

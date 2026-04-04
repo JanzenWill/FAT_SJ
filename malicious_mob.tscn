@@ -15,8 +15,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_087k7"]
-radius = 28.0
-height = 64.0
+radius = 36.0
+height = 72.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_087k7"]
 size = Vector2(271, 117)
@@ -30,7 +30,7 @@ script = ExtResource("1_087k7")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["MaliciousMob"]]
 sprite_frames = SubResource("SpriteFrames_wcj2c")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["MaliciousMob"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["MaliciousMob", "enemy_hitbox"]]
 position = Vector2(98, 9)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_087k7")
