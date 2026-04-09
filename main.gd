@@ -100,6 +100,7 @@ func _on_restart_game():
 	score = 0
 	$HUD.update_score(score)
 	$PassiveMobTimer.start()
+	$Player.health = 3
 	$HUD.update_health($Player.health)
 	$MaliciousMobTimer.start()
 	$Player._start()

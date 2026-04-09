@@ -115,10 +115,9 @@ func _on_body_entered(body: Node2D) -> void:
 func take_damage(amount: int) -> void:
 	if not alive:
 		return
-
 	health -= amount
 	health_changed.emit(health)
-
+	
 	if health <= 0:
 		die()
 
