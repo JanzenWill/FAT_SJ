@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cj1kvmf3f7ifh"]
+[gd_scene load_steps=9 format=3 uid="uid://cj1kvmf3f7ifh"]
 
 [ext_resource type="Script" uid="uid://dotiusqgf1tyv" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dosbk2phb48p8" path="res://ocean_background.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://btv6brr4iv3pv" path="res://player.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://btow3sia2cyqi" path="res://passive_mob.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://brts4hkkonm8i" path="res://malicious_mob.tscn" id="3_7mycd"]
+[ext_resource type="PackedScene" uid="uid://vqinx2qv2acm" path="res://evil_mob.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cl0nw5sxsy8lo" path="res://hud.tscn" id="5_lquwl"]
 [ext_resource type="AudioStream" uid="uid://bihe3ck5ajgx4" path="res://audio background/underwater music.mp3" id="7_272bh"]
 
@@ -12,6 +13,7 @@
 script = ExtResource("1_1bvp3")
 passive_mob_scene = ExtResource("2_1bvp3")
 malicious_mob_scene = ExtResource("3_7mycd")
+evil_mob_scene = ExtResource("4_5vw27")
 
 [node name="OceanBackground" parent="." instance=ExtResource("1_ig7tw")]
 
@@ -27,7 +29,7 @@ wait_time = 2.1999999999999997
 autostart = true
 
 [node name="EvilMobTimer" type="Timer" parent="."]
-wait_time = 6.0
+wait_time = 3.5
 
 [node name="HUD" parent="." instance=ExtResource("5_lquwl")]
 

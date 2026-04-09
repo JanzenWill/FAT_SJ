@@ -40,4 +40,13 @@ func update_score(score):
 	$ScoreLabel.text = "Score: " + str(score)
 
 func update_health(health):
-	$HealthLabel.text = "Health: " + str(health)
+	if health == 3:
+		$BlueHeartPixelArt1.show()
+		$BlueHeartPixelArt2.show()
+		$BlueHeartPixelArt3.show()
+	if health == 2:
+		$BlueHeartPixelArt3.hide()
+	if health == 1:
+		$BlueHeartPixelArt2.hide()
+	if health == 0:
+		$BlueHeartPixelArt1.hide()

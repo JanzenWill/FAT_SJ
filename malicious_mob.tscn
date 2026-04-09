@@ -15,8 +15,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_087k7"]
-radius = 36.0
-height = 72.0
+radius = 44.0
+height = 174.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_087k7"]
 size = Vector2(271, 117)
@@ -41,6 +41,7 @@ position = Vector2(1, -1)
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["MaliciousMob"]]
+position = Vector2(2, -4)
 shape = SubResource("RectangleShape2D_087k7")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
