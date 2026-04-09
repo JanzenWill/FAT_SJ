@@ -27,14 +27,12 @@ func integrate_forces(state) -> void:
 	vel.x = speed * direction
 	state.linear_velocity = vel
 
-func _on_mob_timer_timeout() -> void:
-	pass
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 
-func _physics_process(_delta: float) -> void:
-	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
+func _physics_process(delta):
+	$AnimatedSprite2D.flip_h = linear_velocity.x < 0 #flips sprite
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("spear"):
