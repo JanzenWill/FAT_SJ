@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://brts4hkkonm8i"]
+[gd_scene load_steps=7 format=3 uid="uid://brts4hkkonm8i"]
 
 [ext_resource type="Script" uid="uid://bhv5ej77pjups" path="res://malicious_mob.gd" id="1_087k7"]
 [ext_resource type="Texture2D" uid="uid://cvrukt38qjqf" path="res://assets/bluefish-removebg-preview.png" id="2_087k7"]
@@ -20,6 +20,9 @@ height = 72.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_087k7"]
 size = Vector2(271, 117)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_087k7"]
+radius = 407.06265
 
 [node name="MaliciousMob" type="RigidBody2D" groups=["Fish", "MaliciousMob"]]
 collision_layer = 5
@@ -43,5 +46,12 @@ position = Vector2(1, -1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["MaliciousMob"]]
 shape = SubResource("RectangleShape2D_087k7")
 
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_087k7")
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]
