@@ -6,7 +6,7 @@ extends Node
 
 var score = 0
 var depth_level = 0
-var depth_thresholds = [1750*(1/0.2), 3000*(1/0.2)] #real thresholds tims inverse scroll rate #expand later
+var depth_thresholds = [4000, 9000] #real thresholds tims inverse scroll rate #expand later
 
 func _ready():
 	$HUD/VBoxContainer/StartButton.hide()
