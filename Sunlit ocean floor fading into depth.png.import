@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpeicvqmbqpst"
-path="res://.godot/imported/diver frame 3.png-63943fdd6183fae2f5bb5357c46a73da.ctex"
+uid="uid://d1w3dpdm0h14s"
+path="res://.godot/imported/Sunlit ocean floor fading into depth.png-1e94fb90fbba37a742054efb9a7a6843.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/Diver Animation/diver frame 3.png"
-dest_files=["res://.godot/imported/diver frame 3.png-63943fdd6183fae2f5bb5357c46a73da.ctex"]
+source_file="res://Sunlit ocean floor fading into depth.png"
+dest_files=["res://.godot/imported/Sunlit ocean floor fading into depth.png-1e94fb90fbba37a742054efb9a7a6843.ctex"]
 
 [params]
 

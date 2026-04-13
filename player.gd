@@ -1,10 +1,8 @@
 extends Area2D
 
-@export var speed = 400
-@export var sink_speed = 40
+@export var speed = 200
+@export var sink_speed = 50
 @export var attack_duration = 0.2
-@export var attack_angle = 0.8
-@export var attack_thrust_distance = 15
 @export var max_health = 3
 @export var knockback_strength = 70
 @export var hurt_cooldown = 1.5
@@ -17,17 +15,21 @@ var health = max_health
 var screen_size
 var is_attacking = false
 var attack_timer = 0.0
-var arm_rest_rotation = 0.0
-var spear_rest_position = Vector2.ZERO
 var alive = true
 var is_hit = false
+var facing_right = true
+
+@onready var sprite = $AnimatedSprite2D
+@onready var trident = $Trident
+@onready var trident_hitbox = $Trident/TridentHitBox
+@onready var trident_start_pos = trident.position
+
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	arm_rest_rotation = $ArmPivot.rotation
-	spear_rest_position = $ArmPivot/Spear.position
 
-	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = true
+
+	$Trident/TridentHitBox.disabled = true
 
 	health = max_health
 	health_changed.emit(health)
@@ -36,7 +38,7 @@ func _start() -> void:
 	position = Vector2(50, 50)
 	show()
 	$CollisionShape2D.disabled = false
-	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = true
+	$Trident/TridentHitBox.disabled = true
 	health = max_health
 	alive = true
 	can_take_damage = true
@@ -60,13 +62,20 @@ func _process(delta: float) -> void:
 		velocity.y -= 1
 
 	if velocity.x > 0:
-		$AnimatedSprite2D.flip_h = true
+		facing_right = true
+		sprite.flip_h = true
 	elif velocity.x < 0:
-		$AnimatedSprite2D.flip_h = false
+		facing_right = false
+		sprite.flip_h = false
 
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
-
+		if not is_attacking:
+			sprite.play("default")
+		else:
+			if not is_attacking:
+				sprite.play("default")	
+			
 	velocity.y += sink_speed
 	position += velocity * delta
 
@@ -83,18 +92,23 @@ func _process(delta: float) -> void:
 		if attack_timer <= 0:
 			end_attack()
 
+func update_attack_hitbox_position() -> void:
+	if facing_right:
+		trident.position = Vector2(abs(trident_start_pos.x), trident_start_pos.y)
+	else:
+		trident.position = Vector2(-abs(trident_start_pos.x), trident_start_pos.y)
+
 func start_attack() -> void:
 	is_attacking = true
 	attack_timer = attack_duration
-	$ArmPivot.rotation = arm_rest_rotation - attack_angle
-	$ArmPivot/Spear.position = spear_rest_position + Vector2(attack_thrust_distance, 0)
-	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = false
+	sprite.play("attack")
+	update_attack_hitbox_position()
+	trident_hitbox.disabled = false
 
 func end_attack() -> void:
 	is_attacking = false
-	$ArmPivot.rotation = arm_rest_rotation
-	$ArmPivot/Spear.position = spear_rest_position
-	$ArmPivot/Spear/SpearHitbox/CollisionShape2D.disabled = true
+	sprite.play("default")
+	trident_hitbox.disabled = true
 
 func take_damage(amount: int, hit_from_x: float) -> void:
 	if not alive or not can_take_damage:
@@ -139,25 +153,21 @@ func _on_area_entered(area: Area2D) -> void:
 	if not alive:
 		return
 
-	if area == $ArmPivot/Spear/SpearHitbox:
+	if area == trident:
 		return
 
 	if not area.is_in_group("enemy_hitbox"):
 		return
 
-	print("Player touched enemy area:", area.name)
-
-	var damage = 1
+	var damage := 1
 	if area.has_method("get_damage"):
 		damage = area.get_damage()
 
 	take_damage(damage, area.global_position.x)
 
 func _on_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("MaliciousMob"):
+	if body.is_in_group("PassiveMob"):
 		return
 
-	if body.has_method("get_damage"):
-		take_damage(body.get_damage(), body.global_position.x)
-	else:
-		take_damage(1, body.global_position.x)
+	if not body.is_in_group("MaliciousMob"):
+		return

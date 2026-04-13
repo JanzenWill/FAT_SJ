@@ -1,58 +1,79 @@
 [gd_scene load_steps=4 format=3 uid="uid://cl0nw5sxsy8lo"]
 
 [ext_resource type="Script" uid="uid://cifydn1ehelov" path="res://hud.gd" id="1_37p78"]
-[ext_resource type="Texture2D" uid="uid://dh8gh251kutle" path="res://assets/play-button.svg" id="2_64ctp"]
+[ext_resource type="FontFile" uid="uid://ck2pbxl8n118" path="res://assets/ARCADECLASSIC.TTF" id="2_8sq4i"]
 [ext_resource type="Texture2D" uid="uid://dc61ndih7sa05" path="res://assets/blue_heart_pixel_art.png" id="3_8sq4i"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_37p78")
 
-[node name="Message" type="Label" parent="."]
-offset_left = 260.0
-offset_right = 1032.0
-offset_bottom = 75.0
-text = "Avenge your Father!
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -57.0
+offset_right = 57.0
+offset_bottom = 40.0
+grow_horizontal = 2
 
-Vanquish the malicious fish, while taking care not to harm the endangered fish. "
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.23921569, 1)
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 28
+text = "Restart Game"
+icon_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(500, 80)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.05490196, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 50
+text = "Score: 0"
 horizontal_alignment = 1
 
-[node name="StartButton" type="Button" parent="."]
-offset_left = 400.0
-offset_top = 200.0
-offset_right = 1318.0
-offset_bottom = 1008.0
-scale = Vector2(0.7, 0.7)
-text = "Restart Game"
-icon = ExtResource("2_64ctp")
-icon_alignment = 1
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="BlueHeartPixelArt1" type="Sprite2D" parent="VBoxContainer/HBoxContainer"]
+position = Vector2(149, 13)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("3_8sq4i")
+
+[node name="BlueHeartPixelArt2" type="Sprite2D" parent="VBoxContainer/HBoxContainer"]
+position = Vector2(252, 13)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("3_8sq4i")
+
+[node name="BlueHeartPixelArt3" type="Sprite2D" parent="VBoxContainer/HBoxContainer"]
+position = Vector2(357, 13)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("3_8sq4i")
 
 [node name="MessageTimer" type="Timer" parent="."]
 wait_time = 2.8
 autostart = true
 
-[node name="ScoreLabel" type="Label" parent="."]
-custom_minimum_size = Vector2(500, 80)
-offset_left = 631.0
-offset_top = 160.0
-offset_right = 1131.0
-offset_bottom = 240.0
-text = "Score: 0"
+[node name="Message" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -362.0
+offset_top = 194.0
+offset_right = 363.0
+offset_bottom = 319.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 0.043137256, 1)
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 24
+text = "Avenge your Father !
+
+Vanquish   the   malicious   fish,   while   taking
+ care   not   to   harm   the   endangered   fish. "
 horizontal_alignment = 1
 
-[node name="BlueHeartPixelArt1" type="Sprite2D" parent="."]
-position = Vector2(810, 110)
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("3_8sq4i")
-
-[node name="BlueHeartPixelArt2" type="Sprite2D" parent="."]
-position = Vector2(888, 110)
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("3_8sq4i")
-
-[node name="BlueHeartPixelArt3" type="Sprite2D" parent="."]
-position = Vector2(966, 110)
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("3_8sq4i")
-
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]

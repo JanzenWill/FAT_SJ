@@ -16,6 +16,7 @@ signal killed
 func _ready() -> void:
 	health = max_health
 	linear_velocity = Vector2(speed * direction, 0)
+	lock_rotation = true
 
 #func _process(delta: float) -> void:
 #	velocity.y += gravity * delta
@@ -25,7 +26,7 @@ func _on_mob_timer_timeout() -> void:
 	pass
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.is_in_group("spear"):
+	if area.is_in_group("Trident"):
 		if area.has_method("get_damage"):
 			take_damage(area.get_damage(), area.global_position.x)
 		else:

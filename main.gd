@@ -9,10 +9,10 @@ var depth_level = 0
 var depth_thresholds = [1750*(1/0.2), 3000*(1/0.2)] #real thresholds tims inverse scroll rate #expand later
 
 func _ready():
-	$HUD/StartButton.hide()
+	$HUD/VBoxContainer/StartButton.hide()
 	$HUD.restart_game.connect(_on_restart_game)
 	$Player.health_changed.connect($HUD.update_health)
-	$HUD/ScoreLabel.show()
+	$HUD/VBoxContainer/ScoreLabel.show()
 	$HUD.update_score(score)
 	$HUD.update_health($Player.health)
 	
@@ -146,7 +146,7 @@ func _on_evil_mob_timer_timeout() -> void:
 		#var viewport_size = get_viewport().size
 		
 		var spawn_x = camera.global_position.x + (700*[-1, 1].pick_random())
-		var spawn_y = camera.global_position.y + (100 * [-1, 1].pick_random())
+		var spawn_y = camera.global_position.y + (400 * [-1, 1].pick_random())
 		
 
 		# Set the mob's position to the random location.

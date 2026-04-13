@@ -55,8 +55,11 @@ attack={
 
 [layer_names]
 
+2d_physics/layer_1="Player"
 3d_physics/layer_1="player"
+2d_physics/layer_2="Mob"
 3d_physics/layer_2="passive_mobs"
+2d_physics/layer_3="Attack"
 3d_physics/layer_3="aggressive_mobs"
 3d_physics/layer_4="world"
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cj1kvmf3f7ifh"]
+[gd_scene load_steps=10 format=3 uid="uid://cj1kvmf3f7ifh"]
 
 [ext_resource type="Script" uid="uid://dotiusqgf1tyv" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dosbk2phb48p8" path="res://ocean_background.tscn" id="1_ig7tw"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://brts4hkkonm8i" path="res://malicious_mob.tscn" id="3_7mycd"]
 [ext_resource type="PackedScene" uid="uid://vqinx2qv2acm" path="res://evil_mob.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cl0nw5sxsy8lo" path="res://hud.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://bssrpdxmwaetq" path="res://new_background.tscn" id="6_kek77"]
 [ext_resource type="AudioStream" uid="uid://bihe3ck5ajgx4" path="res://audio background/underwater music.mp3" id="7_272bh"]
 
 [node name="Main" type="Node"]
@@ -16,6 +17,9 @@ malicious_mob_scene = ExtResource("3_7mycd")
 evil_mob_scene = ExtResource("4_5vw27")
 
 [node name="OceanBackground" parent="." instance=ExtResource("1_ig7tw")]
+visible = false
+
+[node name="NewBackground" parent="." instance=ExtResource("6_kek77")]
 
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(500, 100)

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bssrpdxmwaetq"]
+
+[ext_resource type="Texture2D" uid="uid://dsqewd38p7iar" path="res://Final Background.png" id="1_rhfa1"]
+
+[node name="NewBackground" type="Node2D"]
+metadata/_edit_vertical_guides_ = [2041.0, 2048.0]
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(2048, 0)
+repeat_times = 50
+
+[node name="TextureRect" type="TextureRect" parent="Parallax2D"]
+offset_top = 5.0
+offset_right = 2048.0
+offset_bottom = 2496.0
+texture = ExtResource("1_rhfa1")

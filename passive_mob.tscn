@@ -1,11 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://btow3sia2cyqi"]
+[gd_scene load_steps=7 format=3 uid="uid://btow3sia2cyqi"]
 
 [ext_resource type="Texture2D" uid="uid://dqfpp8fwhfics" path="res://assets/red_fish.png" id="1_dy6sc"]
 [ext_resource type="Script" uid="uid://brtyn8yhvdt6x" path="res://passive_mob.gd" id="1_ubaqv"]
+[ext_resource type="Texture2D" uid="uid://bwjfbhm8dmf8t" path="res://assets/art/Mobs/ClownFish2.png" id="2_h3ve4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jfba5"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_h3ve4")
+}, {
 "duration": 1.0,
 "texture": ExtResource("1_dy6sc")
 }],
@@ -15,11 +19,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0b3nj"]
-radius = 44.999996
-height = 146.0
+radius = 20.0
+height = 76.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0b3nj"]
-size = Vector2(158, 118)
+size = Vector2(62, 41)
 
 [node name="PassiveMob" type="RigidBody2D" groups=["Fish", "PassiveMob"]]
 collision_layer = 2
@@ -28,23 +32,24 @@ gravity_scale = 0.0
 script = ExtResource("1_ubaqv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["PassiveMob"]]
-position = Vector2(95, 40)
-scale = Vector2(0.08, 0.08)
+position = Vector2(98.5, 43.5)
+rotation = 0.424115
+scale = Vector2(0.090054736, 0.08699844)
 sprite_frames = SubResource("SpriteFrames_jfba5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["PassiveMob"]]
-position = Vector2(98, 36)
+position = Vector2(100, 43)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_0b3nj")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["PassiveMob"]]
-position = Vector2(28, -9)
-rect = Rect2(-10, -10, 157, 118)
+position = Vector2(73, 32)
+rect = Rect2(-10, -10, 68, 41)
 
 [node name="Area2D" type="Area2D" parent="." groups=["PassiveMob"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["PassiveMob"]]
-position = Vector2(97, 39)
+position = Vector2(95, 41.5)
 shape = SubResource("RectangleShape2D_0b3nj")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

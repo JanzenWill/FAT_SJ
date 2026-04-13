@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4g6age1t6m2"
-path="res://.godot/imported/Diver frame 1.png-a1d959fb4921afc87e52894071b59c9a.ctex"
+uid="uid://dnexoauvbcdy0"
+path="res://.godot/imported/diver frame 4.png-bcff236a3157b79910f0339d2a7feb6b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/Diver Animation/Diver frame 1.png"
-dest_files=["res://.godot/imported/Diver frame 1.png-a1d959fb4921afc87e52894071b59c9a.ctex"]
+source_file="res://assets/art/Diver/Diver Animation/diver frame 4.png"
+dest_files=["res://.godot/imported/diver frame 4.png-bcff236a3157b79910f0339d2a7feb6b.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://brts4hkkonm8i"]
 
 [ext_resource type="Script" uid="uid://bhv5ej77pjups" path="res://malicious_mob.gd" id="1_087k7"]
-[ext_resource type="Texture2D" uid="uid://cvrukt38qjqf" path="res://assets/bluefish-removebg-preview.png" id="2_087k7"]
+[ext_resource type="Texture2D" uid="uid://dcsqrmi0gkvoj" path="res://assets/art/Mobs/FinalBarracuda.png" id="2_087k7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wcj2c"]
 animations = [{
@@ -15,26 +15,30 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_087k7"]
-radius = 44.0
-height = 174.0
+radius = 24.0
+height = 176.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_087k7"]
-size = Vector2(271, 117)
+size = Vector2(190.25, 50.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_087k7"]
-radius = 407.06265
+radius = 376.29907
 
-[node name="MaliciousMob" type="RigidBody2D" groups=["Fish", "MaliciousMob"]]
+[node name="MaliciousMob" type="RigidBody2D" groups=["Fish", "MaliciousMob", "enemy_hitbox"]]
 collision_layer = 5
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_087k7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["MaliciousMob"]]
+texture_filter = 1
+position = Vector2(83.46155, 30.205103)
+rotation = 0.49392816
+scale = Vector2(0.2408982, 0.27685165)
 sprite_frames = SubResource("SpriteFrames_wcj2c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["MaliciousMob", "enemy_hitbox"]]
-position = Vector2(98, 9)
+position = Vector2(94, 36)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_087k7")
 
@@ -42,14 +46,16 @@ shape = SubResource("CapsuleShape2D_087k7")
 position = Vector2(1, -1)
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["MaliciousMob"]]
-position = Vector2(2, -4)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["MaliciousMob", "enemy_hitbox"]]
+position = Vector2(88.875, 32.75)
 shape = SubResource("RectangleShape2D_087k7")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(97, 37)
 shape = SubResource("CircleShape2D_087k7")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -8,7 +8,7 @@ extends RigidBody2D
 @export var patrol_speed = 200.0 # normal left/right swim speed
 @export var chase_speed = 200.0 # faster speed while chasing player
 @export var leash_time = 1.5 # how long it keeps chasing after player leaves range
-@export var tilt_strength = 0.0035 # how much fish rotates based on movement
+@export var tilt_strength = 0.0018 # how much fish rotates based on movement
 @export var tilt_lerp_speed = 0.18 # how quickly rotation catches up
 
 var direction = 1 # patrol direction: 1 = right, -1 = left
@@ -26,6 +26,7 @@ signal killed
 func _ready() -> void:
 	health = max_health
 	linear_velocity = Vector2(patrol_speed * direction, 0)
+	lock_rotation = true
 
 """
 func _process(delta: float) -> void:
@@ -83,7 +84,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 # Small hit area for spear only.
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.is_in_group("spear"):
+	if area.is_in_group("Trident"):
 		if area.has_method("get_damage"):
 			take_damage(area.get_damage(), area.global_position.x)
 		else:

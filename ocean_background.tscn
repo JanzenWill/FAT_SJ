@@ -45,6 +45,7 @@ offset_top = 1750.0
 offset_right = 1200.0
 offset_bottom = 3500.0
 texture = SubResource("NoiseTexture2D_vygh6")
+stretch_mode = 1
 
 [node name="OceanFloor" type="TextureRect" parent="Water"]
 anchors_preset = 15
