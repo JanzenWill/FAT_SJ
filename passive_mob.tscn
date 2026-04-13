@@ -19,7 +19,7 @@ radius = 20.0
 height = 96.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0b3nj"]
-size = Vector2(62, 41)
+size = Vector2(92, 41)
 
 [node name="PassiveMob" type="RigidBody2D" groups=["Fish", "PassiveMob"]]
 collision_layer = 2
@@ -47,7 +47,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["PassiveMob"]]
-position = Vector2(95, 41.5)
+position = Vector2(97, 41.5)
 shape = SubResource("RectangleShape2D_0b3nj")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

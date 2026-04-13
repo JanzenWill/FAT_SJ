@@ -4,6 +4,7 @@
 
 [node name="NewBackground" type="Node2D"]
 metadata/_edit_vertical_guides_ = [2041.0, 2048.0]
+metadata/_edit_horizontal_guides_ = [2496.0]
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.2, 0.2)

@@ -63,11 +63,15 @@ func _physics_process(delta: float) -> void:
 
 	if is_chasing:
 		if linear_velocity.y < 0:
-			target_rotation = -0.3   # tilt upward
+			target_rotation = -0.3
 		elif linear_velocity.y > 0:
-			target_rotation = 0.3    # tilt downward
+			target_rotation = 0.3
 		else:
-			target_rotation = 0.0    # stay flat if moving straight sideways
+			target_rotation = 0.0
+
+		# Reverse tilt when facing left
+		if linear_velocity.x < 0:
+			target_rotation *= -1
 
 	rotation = lerp(rotation, target_rotation, tilt_lerp_speed)
 

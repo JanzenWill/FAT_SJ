@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1w3dpdm0h14s"
-path="res://.godot/imported/Sunlit ocean floor fading into depth.png-1e94fb90fbba37a742054efb9a7a6843.ctex"
+uid="uid://beylqf5otl1p3"
+path="res://.godot/imported/StartButton2.png-0572ee3e6d57028d58e0eb32f62c30b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sunlit ocean floor fading into depth.png"
-dest_files=["res://.godot/imported/Sunlit ocean floor fading into depth.png-1e94fb90fbba37a742054efb9a7a6843.ctex"]
+source_file="res://assets/art/StartButton2.png"
+dest_files=["res://.godot/imported/StartButton2.png-0572ee3e6d57028d58e0eb32f62c30b5.ctex"]
 
 [params]
 

@@ -1,11 +1,11 @@
 extends Area2D
 
-@export var speed = 250
-@export var sink_speed = 90
-@export var attack_duration = 0.2
-@export var max_health = 3
-@export var knockback_strength = 70
-@export var hurt_cooldown = 1.5
+@export var speed: float = 250.0
+@export var sink_speed: float = 90.0
+@export var attack_duration: float = 0.2
+@export var max_health: int = 3
+@export var knockback_strength: float = 70.0
+@export var hurt_cooldown: float = 1.5
 
 signal hit
 signal health_changed
@@ -21,7 +21,8 @@ var facing_right = true
 
 @onready var sprite = $AnimatedSprite2D
 @onready var trident = $Trident
-@onready var trident_hitbox = $Trident/TridentHitBox
+@onready var left_hitbox = $Trident/LeftHitBox
+@onready var right_hitbox = $Trident/RightHitBox
 @onready var trident_start_pos = trident.position
 
 
@@ -29,8 +30,8 @@ func _ready() -> void:
 	screen_size = get_viewport_rect().size
 
 
-	$Trident/TridentHitBox.disabled = true
-
+	left_hitbox.disabled = true
+	right_hitbox.disabled = true
 	health = max_health
 	health_changed.emit(health)
 
@@ -38,7 +39,8 @@ func _start() -> void:
 	position = Vector2(50, 50)
 	show()
 	$CollisionShape2D.disabled = false
-	$Trident/TridentHitBox.disabled = true
+	left_hitbox.disabled = true
+	right_hitbox.disabled = true
 	health = max_health
 	alive = true
 	can_take_damage = true
@@ -79,7 +81,7 @@ func _process(delta: float) -> void:
 	velocity.y += sink_speed
 	position += velocity * delta
 
-	position.y = clamp(position.y, 0, (3100 * (1 / 0.2)) - 300)
+	position.y = clamp(position.y, 0, 8000)
 
 	var target_rotation = 0.0
 
@@ -106,24 +108,27 @@ func _process(delta: float) -> void:
 		if attack_timer <= 0:
 			end_attack()
 
-func update_attack_hitbox_position() -> void:
+func update_attack_hitbox_direction() -> void:
 	if facing_right:
 		trident.position = Vector2(abs(trident_start_pos.x), trident_start_pos.y)
+		right_hitbox.disabled = not is_attacking
+		left_hitbox.disabled = true
 	else:
 		trident.position = Vector2(-abs(trident_start_pos.x), trident_start_pos.y)
+		right_hitbox.disabled = true
+		left_hitbox.disabled = not is_attacking
 
 func start_attack() -> void:
 	is_attacking = true
 	attack_timer = attack_duration
 	sprite.play("attack")
-	update_attack_hitbox_position()
-	trident_hitbox.disabled = false
-	print("ATTACK STARTED, trident disabled =", trident_hitbox.disabled)
+	update_attack_hitbox_direction()
 
 func end_attack() -> void:
 	is_attacking = false
 	sprite.play("default")
-	trident_hitbox.disabled = true
+	left_hitbox.disabled = true
+	right_hitbox.disabled = true
 
 func take_damage(amount: int, hit_from_x: float) -> void:
 	if not alive or not can_take_damage:

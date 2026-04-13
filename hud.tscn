@@ -11,10 +11,11 @@ script = ExtResource("1_37p78")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -57.0
-offset_right = 57.0
-offset_bottom = 40.0
+offset_left = -250.0
+offset_right = 250.0
+offset_bottom = 228.0
 grow_horizontal = 2
+alignment = 1
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -23,7 +24,6 @@ theme_override_fonts/font = ExtResource("2_8sq4i")
 theme_override_font_sizes/font_size = 45
 text = "Restart Game"
 icon_alignment = 1
-vertical_icon_alignment = 2
 
 [node name="ScoreLabel" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(500, 80)
