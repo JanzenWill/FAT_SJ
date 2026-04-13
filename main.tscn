@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cj1kvmf3f7ifh"]
+[gd_scene load_steps=9 format=3 uid="uid://cj1kvmf3f7ifh"]
 
 [ext_resource type="Script" uid="uid://dotiusqgf1tyv" path="res://main.gd" id="1_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://dosbk2phb48p8" path="res://ocean_background.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://btv6brr4iv3pv" path="res://player.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://btow3sia2cyqi" path="res://passive_mob.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://brts4hkkonm8i" path="res://malicious_mob.tscn" id="3_7mycd"]
@@ -15,9 +14,6 @@ script = ExtResource("1_1bvp3")
 passive_mob_scene = ExtResource("2_1bvp3")
 malicious_mob_scene = ExtResource("3_7mycd")
 evil_mob_scene = ExtResource("4_5vw27")
-
-[node name="OceanBackground" parent="." instance=ExtResource("1_ig7tw")]
-visible = false
 
 [node name="NewBackground" parent="." instance=ExtResource("6_kek77")]
 

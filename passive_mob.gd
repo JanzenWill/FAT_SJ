@@ -15,8 +15,10 @@ signal killed
 
 func _ready() -> void:
 	health = max_health
+	rotation = 0.0
 	linear_velocity = Vector2(speed * direction, 0)
 	lock_rotation = true
+
 
 #func _process(delta: float) -> void:
 #	velocity.y += gravity * delta
@@ -26,11 +28,13 @@ func _on_mob_timer_timeout() -> void:
 	pass
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	print("Fish touched by: ", area.name, " Trident=", area.is_in_group("Trident"))
 	if area.is_in_group("Trident"):
 		if area.has_method("get_damage"):
 			take_damage(area.get_damage(), area.global_position.x)
 		else:
 			take_damage(1, area.global_position.x)
+	
 
 func _physics_process(_delta: float) -> void:
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
@@ -39,7 +43,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var vel = state.linear_velocity
 	vel.x = speed * direction
 	state.linear_velocity = vel
-
+	state.transform = Transform2D(0.0, state.transform.origin)
+	
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 

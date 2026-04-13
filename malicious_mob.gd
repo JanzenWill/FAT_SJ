@@ -58,15 +58,16 @@ func _physics_process(delta: float) -> void:
 	# flips sprite
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
 
-	# Only tilt while chasing so normal patrol stays flat.
+	# tilt upwards when chasing up, tilt downwards wen chasig down
 	var target_rotation = 0.0
 
 	if is_chasing:
-		target_rotation = clamp(
-			(linear_velocity.x * tilt_strength) + (linear_velocity.y * tilt_strength * 0.5),
-			-0.9,
-			0.9
-		)
+		if linear_velocity.y < 0:
+			target_rotation = -0.3   # tilt upward
+		elif linear_velocity.y > 0:
+			target_rotation = 0.3    # tilt downward
+		else:
+			target_rotation = 0.0    # stay flat if moving straight sideways
 
 	rotation = lerp(rotation, target_rotation, tilt_lerp_speed)
 
@@ -89,6 +90,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 			take_damage(area.get_damage(), area.global_position.x)
 		else:
 			take_damage(1, area.global_position.x)
+		print("Malicious Mob touched by: ", area.name, " Trident=", area.is_in_group("Trident"))
 
 # Big detection area for player aggro/chasing.
 func _on_detection_area_area_entered(area: Area2D) -> void:

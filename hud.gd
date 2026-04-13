@@ -19,6 +19,7 @@ func _new_game():
 	
 
 func show_game_over():
+	$Message.add_theme_font_size_override("font_size", 80)
 	show_message("Game Over")
 	await $MessageTimer.timeout
 	await get_tree().create_timer(1.0).timeout

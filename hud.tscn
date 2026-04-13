@@ -20,9 +20,10 @@ grow_horizontal = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.23921569, 1)
 theme_override_fonts/font = ExtResource("2_8sq4i")
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 45
 text = "Restart Game"
 icon_alignment = 1
+vertical_icon_alignment = 2
 
 [node name="ScoreLabel" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(500, 80)
@@ -30,7 +31,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.05490196, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_8sq4i")
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 80
 text = "Score: 0"
 horizontal_alignment = 1
 
@@ -39,17 +40,17 @@ layout_mode = 2
 alignment = 1
 
 [node name="BlueHeartPixelArt1" type="Sprite2D" parent="VBoxContainer/HBoxContainer"]
-position = Vector2(149, 13)
+position = Vector2(149, 45)
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("3_8sq4i")
 
 [node name="BlueHeartPixelArt2" type="Sprite2D" parent="VBoxContainer/HBoxContainer"]
-position = Vector2(252, 13)
+position = Vector2(252, 45)
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("3_8sq4i")
 
 [node name="BlueHeartPixelArt3" type="Sprite2D" parent="VBoxContainer/HBoxContainer"]
-position = Vector2(357, 13)
+position = Vector2(357, 45)
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("3_8sq4i")
 
@@ -61,14 +62,14 @@ autostart = true
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -362.0
-offset_top = 194.0
-offset_right = 363.0
-offset_bottom = 319.0
+offset_left = -361.0
+offset_top = 315.0
+offset_right = 364.0
+offset_bottom = 440.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 0.043137256, 1)
 theme_override_fonts/font = ExtResource("2_8sq4i")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 40
 text = "Avenge your Father !
 
 Vanquish   the   malicious   fish,   while   taking

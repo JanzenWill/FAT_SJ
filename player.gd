@@ -1,7 +1,7 @@
 extends Area2D
 
-@export var speed = 200
-@export var sink_speed = 50
+@export var speed = 250
+@export var sink_speed = 90
 @export var attack_duration = 0.2
 @export var max_health = 3
 @export var knockback_strength = 70
@@ -81,8 +81,22 @@ func _process(delta: float) -> void:
 
 	position.y = clamp(position.y, 0, (3100 * (1 / 0.2)) - 300)
 
-	var target_rotation = clamp(velocity.x * 0.020, -0.7, 0.7)
+	var target_rotation = 0.0
+
+	if velocity.y < -5:
+		target_rotation = -0.25   # swimming up
+	elif velocity.y > 5:
+		target_rotation = 0.25    # swimming down
+	else:
+		target_rotation = 0.0
+
+	# Fix rotation direction depending on which way player faces
+	if not facing_right:
+		target_rotation *= -1
+
 	rotation = lerp(rotation, target_rotation, 0.1)
+
+	
 
 	if Input.is_action_just_pressed("attack") and not is_attacking:
 		start_attack()
@@ -104,6 +118,7 @@ func start_attack() -> void:
 	sprite.play("attack")
 	update_attack_hitbox_position()
 	trident_hitbox.disabled = false
+	print("ATTACK STARTED, trident disabled =", trident_hitbox.disabled)
 
 func end_attack() -> void:
 	is_attacking = false
@@ -164,6 +179,7 @@ func _on_area_entered(area: Area2D) -> void:
 		damage = area.get_damage()
 
 	take_damage(damage, area.global_position.x)
+	print("Player touched area: ", area.name, " enemy_hitbox=", area.is_in_group("enemy_hitbox"))
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("PassiveMob"):

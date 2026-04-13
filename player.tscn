@@ -25,10 +25,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
-size = Vector2(117, 51)
+size = Vector2(146, 74)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dw050"]
-radius = 14.764823
+radius = 36.124783
 
 [node name="Player" type="Area2D" groups=["player"]]
 collision_mask = 2
@@ -36,12 +36,12 @@ script = ExtResource("1_onrkg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 position = Vector2(65, 50)
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.35, 0.35)
 sprite_frames = SubResource("SpriteFrames_onrkg")
 animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
-position = Vector2(81.5, 66.5)
+position = Vector2(113, 78)
 shape = SubResource("RectangleShape2D_hqtel")
 
 [node name="Trident" type="Area2D" parent="." groups=["Trident"]]
@@ -50,7 +50,7 @@ collision_mask = 2
 script = ExtResource("4_hqtel")
 
 [node name="TridentHitBox" type="CollisionShape2D" parent="Trident"]
-position = Vector2(-23, 46)
+position = Vector2(-59, 38)
 shape = SubResource("CircleShape2D_dw050")
 
 [node name="Camera2D" type="Camera2D" parent="."]
