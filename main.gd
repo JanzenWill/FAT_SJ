@@ -1,8 +1,7 @@
 extends Node
-
+var playa
 @export var passive_mob_scene: PackedScene
 @export var malicious_mob_scene: PackedScene
-
 var score = 0
 
 func _ready():
@@ -15,43 +14,41 @@ func _on_passive_mob_timer_timeout():
 	# Create a new instance of the Mob scene.
 	var passive_mob = passive_mob_scene.instantiate()
 	passive_mob.killed.connect(_on_killed_passive_mob)
-
-	var camera = $Player/Camera2D
-	var viewport_size = get_viewport().size
+	var playa = $Player
+	var spawn_x = playa.global_position.x+((1000)*[-1, 1].pick_random())
+	var player_y = playa.global_position.y
+	var spawn_y = randf_range(player_y-350, player_y+350)
+	#Limit y spawn to background 
+	if spawn_y > 3500:
+		spawn_y == 3500
+	elif spawn_y < 100:
+		spawn_y == 100
 	
-	var spawn_x = camera.global_position.x + (viewport_size.x + 100)*[-1, 1].pick_random()
-	var spawn_y = randf_range(50, viewport_size.y - 50)
-	
-
-	# Set the mob's position to the random location.
 	passive_mob.position = Vector2(spawn_x, spawn_y)
-	passive_mob.linear_velocity = Vector2(180 * [-1, 1].pick_random(), 0.0)
+	
+	passive_mob.linear_velocity = Vector2(passive_mob.base_velocity * [-1, 1].pick_random() + (randf_range(-passive_mob.velocity_variability, passive_mob.velocity_variability)), 0)
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(passive_mob)
-	"""
-#hopefully sets the mob direction either right or left	
-	var direction = [0, PI][randi() % 2]
 
-	# Choose the velocity for the mob.
-	passive_mob.linear_velocity = velocity.rotated(direction)
-"""
 
 
 func _on_malicious_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
 	var malicious_mob = malicious_mob_scene.instantiate()
-
-	var camera = $Player/Camera2D
-	var viewport_size = get_viewport().size
+	var playa = $Player
+	var spawn_x = playa.global_position.x+((1000)*[-1, 1].pick_random())
+	var player_y = playa.global_position.y
+	var spawn_y = randf_range(player_y-350, player_y+350)
+	#Limit y spawn to background 
+	if spawn_y > 3500:
+		spawn_y == 3500
+	elif spawn_y < 100:
+		spawn_y == 100
 	
-	var spawn_x = camera.global_position.x + (viewport_size.x + 100)*[-1, 1].pick_random()
-	var spawn_y = randf_range(50, viewport_size.y - 50)
-	
-
-	# Set the mob's position to the random location.
 	malicious_mob.position = Vector2(spawn_x, spawn_y)
-	malicious_mob.linear_velocity = Vector2(180 * [-1, 1].pick_random(), 0.0)
+	
+	malicious_mob.linear_velocity = Vector2(malicious_mob.base_velocity * [-1, 1].pick_random() + (randf_range(-malicious_mob.velocity_variability, malicious_mob.velocity_variability)), 0)
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(malicious_mob)
