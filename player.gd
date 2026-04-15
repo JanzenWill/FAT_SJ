@@ -5,7 +5,7 @@ extends Area2D
 @export var attack_duration: float = 0.2
 @export var max_health: int = 3
 @export var knockback_strength: float = 70.0
-@export var hurt_cooldown: float = 1.5
+@export var hurt_cooldown: float = 0.5
 
 signal hit
 signal health_changed

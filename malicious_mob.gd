@@ -3,7 +3,7 @@ extends RigidBody2D
 @export var gravity = 0
 @export var max_health = 2 # health
 @export var damage = 1 # damage it gives
-@export var knockback_strength = 200
+@export var knockback_strength = 900
 
 @export var patrol_speed = 200.0 # normal left/right swim speed
 @export var chase_speed = 200.0 # faster speed while chasing player
@@ -54,6 +54,8 @@ func _integrate_forces(state) -> void:
 
 	state.linear_velocity = vel
 
+
+	
 func _physics_process(delta: float) -> void:
 	# flips sprite
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
@@ -80,6 +82,8 @@ func _physics_process(delta: float) -> void:
 		leash_timer -= delta
 		if leash_timer <= 0:
 			stop_chasing()
+
+
 
 func _on_mob_timer_timeout() -> void:
 	pass
