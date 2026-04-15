@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cj1kvmf3f7ifh"]
+[gd_scene load_steps=13 format=3 uid="uid://cj1kvmf3f7ifh"]
 
 [ext_resource type="Script" uid="uid://dotiusqgf1tyv" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://btv6brr4iv3pv" path="res://player.tscn" id="2_0xm2m"]
@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://cl0nw5sxsy8lo" path="res://hud.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://bssrpdxmwaetq" path="res://new_background.tscn" id="6_kek77"]
 [ext_resource type="AudioStream" uid="uid://bihe3ck5ajgx4" path="res://audio background/underwater music.mp3" id="7_272bh"]
+[ext_resource type="AudioStream" uid="uid://clsl6ek4a2mn4" path="res://assets/audio/underwater-movement-bubble-motion-jochi-sfx-5-5-00-03.wav" id="7_swim"]
+[ext_resource type="AudioStream" uid="uid://d3yulephpju2q" path="res://assets/audio/underwater-whoosh-fast-slava-pogorelsky-1-00-02.wav" id="8_attack"]
+[ext_resource type="AudioStream" uid="uid://dwxr1ofakf33b" path="res://assets/audio/oh-meme-game-death-roy-s-noise-6-6-00-01.wav" id="9_hurt"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_1bvp3")
@@ -21,6 +24,17 @@ evil_mob_scene = ExtResource("4_5vw27")
 
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(500, 100)
+
+[node name="PlayerSwim" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("7_swim")
+
+[node name="PlayerAttack" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("8_attack")
+bus = &"Underwater"
+
+[node name="PlayerHurt" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("9_hurt")
+bus = &"Underwater"
 
 [node name="PassiveMob2Timer" type="Timer" parent="."]
 wait_time = 3.0

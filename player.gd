@@ -24,6 +24,9 @@ var facing_right = true
 @onready var left_hitbox = $Trident/LeftHitBox
 @onready var right_hitbox = $Trident/RightHitBox
 @onready var trident_start_pos = trident.position
+@onready var player_swim = $PlayerSwim
+@onready var player_attack = $PlayerAttack
+@onready var player_hurt = $PlayerHurt
 
 
 func _ready() -> void:
@@ -80,6 +83,15 @@ func _process(delta: float) -> void:
 			
 	velocity.y += sink_speed
 	position += velocity * delta
+	
+	# swimming logic 
+	if not player_swim.playing:
+		player_swim.play() # Keep it playing always
+	
+	if velocity.length() > 95:
+		player_swim.volume_db = -2.0 # Louder when moving
+	else:
+		player_swim.volume_db = -18.0 # Quieter 'drift' bubbles when still
 
 	position.y = clamp(position.y, 0, 8000)
 
@@ -122,6 +134,7 @@ func start_attack() -> void:
 	is_attacking = true
 	attack_timer = attack_duration
 	sprite.play("attack")
+	player_attack.play() # this is when the player attacks 
 	update_attack_hitbox_direction()
 
 func end_attack() -> void:
@@ -134,7 +147,12 @@ func take_damage(amount: int, hit_from_x: float) -> void:
 	if not alive or not can_take_damage:
 		return
 
+	player_hurt.volume_db = 5.0
+	player_hurt.pitch_scale = randf_range(0.8, 1.5)
+	player_hurt.play()
+	
 	can_take_damage = false
+	player_hurt.play() # this is when the player is hurt or attacked
 
 	health -= amount
 	health_changed.emit(health)
@@ -157,6 +175,7 @@ func die() -> void:
 	hide()
 	$CollisionShape2D.set_deferred("disabled", true)
 	alive = false
+	player_swim.stop() # swimming sound stops when the player dies
 	hit.emit()
 
 func show_hit_flash() -> void:
