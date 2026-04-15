@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cj1kvmf3f7ifh"]
+[gd_scene load_steps=10 format=3 uid="uid://cj1kvmf3f7ifh"]
 
 [ext_resource type="Script" uid="uid://dotiusqgf1tyv" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://btv6brr4iv3pv" path="res://player.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://btow3sia2cyqi" path="res://passive_mob.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://brts4hkkonm8i" path="res://malicious_mob.tscn" id="3_7mycd"]
+[ext_resource type="PackedScene" uid="uid://de8caplmxwwsl" path="res://passive_mob_2.tscn" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://vqinx2qv2acm" path="res://evil_mob.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cl0nw5sxsy8lo" path="res://hud.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://bssrpdxmwaetq" path="res://new_background.tscn" id="6_kek77"]
@@ -12,6 +13,7 @@
 [node name="Main" type="Node"]
 script = ExtResource("1_1bvp3")
 passive_mob_scene = ExtResource("2_1bvp3")
+passive_mob_2_scene = ExtResource("3_kek77")
 malicious_mob_scene = ExtResource("3_7mycd")
 evil_mob_scene = ExtResource("4_5vw27")
 
@@ -20,8 +22,12 @@ evil_mob_scene = ExtResource("4_5vw27")
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(500, 100)
 
+[node name="PassiveMob2Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
 [node name="PassiveMobTimer" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 1.2
 autostart = true
 
 [node name="MaliciousMobTimer" type="Timer" parent="."]
@@ -39,6 +45,7 @@ autoplay = true
 bus = &"Underwater"
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="PassiveMob2Timer" to="." method="_on_passive_mob_2_timer_timeout"]
 [connection signal="timeout" from="PassiveMobTimer" to="." method="_on_passive_mob_timer_timeout"]
 [connection signal="timeout" from="MaliciousMobTimer" to="." method="_on_malicious_mob_timer_timeout"]
 [connection signal="timeout" from="EvilMobTimer" to="." method="_on_evil_mob_timer_timeout"]

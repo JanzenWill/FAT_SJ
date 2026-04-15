@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://de8caplmxwwsl"]
+
+[ext_resource type="Script" uid="uid://dm86nk3dd23pw" path="res://passive_mob2.gd" id="1_mibn4"]
+[ext_resource type="Texture2D" uid="uid://46iunelr757x" path="res://assets/art/Mobs/DolphinFishSprite.png" id="2_4fwv2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j1whj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4fwv2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bsl71"]
+radius = 45.09533
+height = 305.25812
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sm4v0"]
+size = Vector2(285, 87)
+
+[node name="PassiveMob2" type="RigidBody2D" groups=["Fish", "PassiveMob"]]
+collision_layer = 2
+collision_mask = 4
+gravity_scale = 0.0
+script = ExtResource("1_mibn4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["PassiveMob"]]
+position = Vector2(167, 112.499985)
+scale = Vector2(0.4024097, 0.44199997)
+sprite_frames = SubResource("SpriteFrames_j1whj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["PassiveMob"]]
+position = Vector2(178.99998, 88)
+rotation = 1.6231562
+shape = SubResource("CapsuleShape2D_bsl71")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." groups=["PassiveMob"]]
+position = Vector2(44, 60)
+rect = Rect2(-10, -10, 282, 82)
+
+[node name="Area2D" type="Area2D" parent="." groups=["Fish", "PassiveMob"]]
+position = Vector2(117, 232)
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["PassiveMob"]]
+position = Vector2(54.5, -142.5)
+shape = SubResource("RectangleShape2D_sm4v0")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

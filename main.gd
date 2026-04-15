@@ -1,6 +1,7 @@
 extends Node
 
 @export var passive_mob_scene: PackedScene
+@export var passive_mob_2_scene: PackedScene
 @export var malicious_mob_scene: PackedScene
 @export var evil_mob_scene: PackedScene
 
@@ -38,6 +39,11 @@ func _on_passive_mob_timer_timeout():
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(passive_mob)
+	
+	
+
+	
+	
 	"""
 #hopefully sets the mob direction either right or left	
 	var direction = [0, PI][randi() % 2]
@@ -97,6 +103,7 @@ func _on_player_hit() -> void:
 	#print("Player hit by malicious mob")
 	$PassiveMobTimer.stop()
 	$MaliciousMobTimer.stop()
+	$PassiveMob2Timer.stop()
 	$HUD.show_game_over()
 	#$Music.stop()
 	#$DeathSound.play()
@@ -105,6 +112,7 @@ func _on_restart_game():
 	score = 0
 	$HUD.update_score(score)
 	$PassiveMobTimer.start()
+	$PassiveMob2Timer.start()
 	$Player.health = 3
 	$HUD.update_health($Player.health)
 	$MaliciousMobTimer.start()
@@ -156,3 +164,28 @@ func _on_evil_mob_timer_timeout() -> void:
 		# Spawn the mob by adding it to the Main scene.
 		add_child(evil_mob)
 		
+
+
+  
+
+
+func _on_passive_mob_2_timer_timeout() -> void:
+	print("PassiveMob2 timer fired")
+
+	var passive_mob2 = passive_mob_2_scene.instantiate()
+	passive_mob2.killed.connect(_on_killed_passive_mob)
+	passive_mob2.add_to_group("fish")
+	print("created: ", passive_mob2)
+
+	var camera = $Player/Camera2D
+	var viewport_size = get_viewport().size
+	
+	var spawn_x = camera.global_position.x + randf_range(viewport_size.x + 300, viewport_size.x + 700) * [-1, 1].pick_random()
+	var spawn_y = camera.global_position.y + randf_range(-250, 250)
+
+	passive_mob2.position = Vector2(spawn_x, spawn_y)
+	passive_mob2.direction = [-1, 1].pick_random()
+ 
+	add_child(passive_mob2)
+	
+	
