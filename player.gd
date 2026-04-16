@@ -35,6 +35,7 @@ var game_started = false
 @onready var player_swim = $PlayerSwim
 @onready var player_attack = $PlayerAttack
 @onready var player_hurt = $PlayerHurt
+@onready var player_heartbeat = $PlayerHeartbeat
 
 
 func _ready() -> void:
@@ -189,6 +190,16 @@ func take_damage(amount: int, hit_from_x: float, enemy_knockback: float) -> void
 
 	health -= amount
 	health_changed.emit(health)
+	
+	if not player_heartbeat.playing:
+		player_heartbeat.play()
+		player_heartbeat.volume_db = -2.0 # Quiet start
+		player_heartbeat.pitch_scale = 1.0 # Normal speed
+	elif health == 1:
+		player_heartbeat.volume_db = 2.0   # Loud danger
+		player_heartbeat.pitch_scale = 1.4 # High speed/Panic!
+	elif health <= 0:
+		player_heartbeat.stop()
 	show_hit_flash()
 	apply_knockback(hit_from_x, enemy_knockback)
 
