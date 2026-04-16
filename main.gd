@@ -154,7 +154,7 @@ func _on_killed_passive_mob():
 	if score > 0:
 		score -= 1
 	$HUD.update_score(score)
-	
+	$HUD.flash_score_red()
 
 func _on_killed_malicious_mob():
 	score += 1
