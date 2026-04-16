@@ -29,14 +29,14 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
-size = Vector2(146, 74)
+size = Vector2(138, 74)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sweqy"]
-radius = 18.0
+radius = 25.0
 height = 86.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2hs0m"]
-radius = 18.0
+radius = 24.0
 height = 86.0
 
 [node name="Player" type="Area2D" groups=["player"]]
@@ -48,10 +48,10 @@ position = Vector2(65, 50)
 scale = Vector2(0.35, 0.35)
 sprite_frames = SubResource("SpriteFrames_onrkg")
 animation = &"attack"
-frame_progress = 0.18396191
+frame_progress = 0.85581267
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
-position = Vector2(85, 58)
+position = Vector2(81, 58)
 shape = SubResource("RectangleShape2D_hqtel")
 
 [node name="Trident" type="Area2D" parent="." groups=["Trident"]]
@@ -60,11 +60,11 @@ collision_mask = 2
 script = ExtResource("4_hqtel")
 
 [node name="LeftHitBox" type="CollisionShape2D" parent="Trident"]
-position = Vector2(-63, -12)
+position = Vector2(-56, -9)
 shape = SubResource("CapsuleShape2D_sweqy")
 
 [node name="RightHitBox" type="CollisionShape2D" parent="Trident"]
-position = Vector2(244, -2)
+position = Vector2(208, -6)
 shape = SubResource("CapsuleShape2D_2hs0m")
 
 [node name="Camera2D" type="Camera2D" parent="."]
