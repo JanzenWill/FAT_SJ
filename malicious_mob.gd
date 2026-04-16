@@ -5,11 +5,14 @@ extends RigidBody2D
 @export var damage = 1 # damage it gives
 @export var knockback_strength = 200
 
-@export var patrol_speed = 200.0 # normal left/right swim speed
+@export var patrol_speed = 100.0 # normal left/right swim speed
 @export var chase_speed = 200.0 # faster speed while chasing player
 @export var leash_time = 1.5 # how long it keeps chasing after player leaves range
-@export var tilt_strength = 0.0035 # how much fish rotates based on movement
+@export var tilt_strength = 0.0018 # how much fish rotates based on movement
 @export var tilt_lerp_speed = 0.18 # how quickly rotation catches up
+
+var knockback_velocity = Vector2.ZERO
+var knockback_timer = 0.0
 
 var direction = 1 # patrol direction: 1 = right, -1 = left
 var is_hit = false
@@ -26,6 +29,7 @@ signal killed
 func _ready() -> void:
 	health = max_health
 	linear_velocity = Vector2(patrol_speed * direction, 0)
+	lock_rotation = true
 
 """
 func _process(delta: float) -> void:
@@ -57,15 +61,20 @@ func _physics_process(delta: float) -> void:
 	# flips sprite
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
 
-	# Only tilt while chasing so normal patrol stays flat.
+	# tilt upwards when chasing up, tilt downwards wen chasig down
 	var target_rotation = 0.0
 
 	if is_chasing:
-		target_rotation = clamp(
-			(linear_velocity.x * tilt_strength) + (linear_velocity.y * tilt_strength * 0.5),
-			-0.9,
-			0.9
-		)
+		if linear_velocity.y < 0:
+			target_rotation = -0.3
+		elif linear_velocity.y > 0:
+			target_rotation = 0.3
+		else:
+			target_rotation = 0.0
+
+		# Reverse tilt when facing left
+		if linear_velocity.x < 0:
+			target_rotation *= -1
 
 	rotation = lerp(rotation, target_rotation, tilt_lerp_speed)
 
@@ -83,11 +92,12 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 # Small hit area for spear only.
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.is_in_group("spear"):
+	if area.is_in_group("Trident"):
 		if area.has_method("get_damage"):
 			take_damage(area.get_damage(), area.global_position.x)
 		else:
 			take_damage(1, area.global_position.x)
+		print("Malicious Mob touched by: ", area.name, " Trident=", area.is_in_group("Trident"))
 
 # Big detection area for player aggro/chasing.
 func _on_detection_area_area_entered(area: Area2D) -> void:

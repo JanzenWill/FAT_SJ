@@ -17,8 +17,9 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1000
-window/size/viewport_height=700
+window/size/viewport_width=1348
+window/size/viewport_height=944
+window/stretch/mode="canvas_items"
 
 [input]
 
@@ -55,8 +56,11 @@ attack={
 
 [layer_names]
 
+2d_physics/layer_1="Player"
 3d_physics/layer_1="player"
+2d_physics/layer_2="Mob"
 3d_physics/layer_2="passive_mobs"
+2d_physics/layer_3="Attack"
 3d_physics/layer_3="aggressive_mobs"
 3d_physics/layer_4="world"
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpeicvqmbqpst"
-path="res://.godot/imported/diver frame 3.png-63943fdd6183fae2f5bb5357c46a73da.ctex"
+uid="uid://beylqf5otl1p3"
+path="res://.godot/imported/StartButton2.png-0572ee3e6d57028d58e0eb32f62c30b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/Diver Animation/diver frame 3.png"
-dest_files=["res://.godot/imported/diver frame 3.png-63943fdd6183fae2f5bb5357c46a73da.ctex"]
+source_file="res://assets/art/StartButton2.png"
+dest_files=["res://.godot/imported/StartButton2.png-0572ee3e6d57028d58e0eb32f62c30b5.ctex"]
 
 [params]
 
