@@ -5,8 +5,8 @@ extends RigidBody2D
 @export var damage = 1 # damage it gives
 @export var knockback_strength = 200
 
-@export var patrol_speed = 200.0 # normal left/right swim speed
-@export var chase_speed = 200.0 # faster speed while chasing player
+@export var patrol_speed = 100.0 # normal left/right swim speed
+@export var chase_speed = 150.0 # faster speed while chasing player
 @export var leash_time = 1.5 # how long it keeps chasing after player leaves range
 @export var tilt_strength = 0.0018 # how much fish rotates based on movement
 @export var tilt_lerp_speed = 0.18 # how quickly rotation catches up

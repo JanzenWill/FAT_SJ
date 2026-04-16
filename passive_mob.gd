@@ -9,7 +9,7 @@ var health = max_health
 var is_hit = false
 var velocity = Vector2.ZERO
 var direction = 1
-var speed = 130
+var speed = 350
 
 signal killed
 
