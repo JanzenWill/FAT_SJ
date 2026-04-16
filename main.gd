@@ -26,11 +26,12 @@ func _on_passive_mob_timer_timeout():
 	passive_mob.killed.connect(_on_killed_passive_mob)
 	passive_mob.add_to_group("fish") #added to group of fish that are removed with restart
 
-	var camera = $Player/Camera2D
-	var viewport_size = get_viewport().size
+	var player = $Player
 	
-	var spawn_x = camera.global_position.x + (viewport_size.x + 100)*[-1, 1].pick_random()
-	var spawn_y = camera.global_position.y + (100 * [-1, 1].pick_random())
+	var spawn_x = player.global_position.x + (1000)*[-1, 1].pick_random()
+	var spawn_y = player.global_position.y + (randf_range(0, 600) * [-1, 1].pick_random())
+	
+	
 
 	# Set the mob's position to the random location.
 	passive_mob.position = Vector2(spawn_x, spawn_y)
