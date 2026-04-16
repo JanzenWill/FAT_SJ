@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://btv6brr4iv3pv"]
+[gd_scene load_steps=10 format=3 uid="uid://btv6brr4iv3pv"]
 
 [ext_resource type="Script" uid="uid://dcii7icau8pvo" path="res://player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://vv1t3jqt5eo6" path="res://assets/art/Diver/Diver attack.png" id="2_hqtel"]
+[ext_resource type="Texture2D" uid="uid://b0xkjdyd7x4ux" path="res://assets/art/Diver/New Attack.png" id="2_hqtel"]
 [ext_resource type="Texture2D" uid="uid://nupimd8784qx" path="res://assets/art/Diver/FAT Diver Swim Up.png" id="3_sweqy"]
 [ext_resource type="Script" uid="uid://clavf0tqderh3" path="res://trident.gd" id="4_hqtel"]
+[ext_resource type="Texture2D" uid="uid://qm11jduc50fm" path="res://assets/art/Diver/Swim frame 2.png" id="4_sweqy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_onrkg"]
 animations = [{
@@ -18,6 +19,9 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_sweqy")
+}, {
+"duration": 2.5,
+"texture": ExtResource("4_sweqy")
 }],
 "loop": true,
 "name": &"default",
@@ -27,11 +31,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
 size = Vector2(146, 74)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_dw050"]
-radius = 41.109608
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sweqy"]
+radius = 18.0
+height = 86.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hqtel"]
-radius = 37.01351
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2hs0m"]
+radius = 18.0
+height = 86.0
 
 [node name="Player" type="Area2D" groups=["player"]]
 collision_mask = 2
@@ -42,9 +48,10 @@ position = Vector2(65, 50)
 scale = Vector2(0.35, 0.35)
 sprite_frames = SubResource("SpriteFrames_onrkg")
 animation = &"attack"
+frame_progress = 0.18396191
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
-position = Vector2(97, 84)
+position = Vector2(85, 58)
 shape = SubResource("RectangleShape2D_hqtel")
 
 [node name="Trident" type="Area2D" parent="." groups=["Trident"]]
@@ -53,12 +60,12 @@ collision_mask = 2
 script = ExtResource("4_hqtel")
 
 [node name="LeftHitBox" type="CollisionShape2D" parent="Trident"]
-position = Vector2(-59, 38)
-shape = SubResource("CircleShape2D_dw050")
+position = Vector2(-63, -12)
+shape = SubResource("CapsuleShape2D_sweqy")
 
 [node name="RightHitBox" type="CollisionShape2D" parent="Trident"]
-position = Vector2(253, 32)
-shape = SubResource("CircleShape2D_hqtel")
+position = Vector2(244, -2)
+shape = SubResource("CapsuleShape2D_2hs0m")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 13)
