@@ -1,18 +1,15 @@
+extends CanvasLayer
 
-extends Control
-
-@onready var hud = $"../HUD"
-@onready var player = $"../Player"
+signal start_game
 
 func _ready() -> void:
-	hud.hide()   
-
+	show()
+	
 
 func _on_start_button_pressed() -> void:
-	hide()       
-	hud.show()    
-	player.start()   
-	hud._new_game()  
+	hide()
+	start_game.emit()
 
-func _on_button_pressed() -> void:
-	pass # Replace with function body.
+func _on_leaderboard_button_pressed() -> void:
+	# add leaderboard logic later
+	pass

@@ -1,20 +1,63 @@
-[gd_scene load_steps=12 format=3 uid="uid://cj1kvmf3f7ifh"]
+[gd_scene load_steps=20 format=3 uid="uid://cj1kvmf3f7ifh"]
 
 [ext_resource type="Script" uid="uid://dotiusqgf1tyv" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://btv6brr4iv3pv" path="res://player.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://btow3sia2cyqi" path="res://passive_mob.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://brts4hkkonm8i" path="res://malicious_mob.tscn" id="3_7mycd"]
-[ext_resource type="PackedScene" path="res://evil_mob.tscn" id="4_5vw27"]
+[ext_resource type="PackedScene" uid="uid://dd4ogxxbnovt5" path="res://passive_mob_2.tscn" id="3_vivmo"]
+[ext_resource type="PackedScene" uid="uid://vqinx2qv2acm" path="res://evil_mob.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cl0nw5sxsy8lo" path="res://hud.tscn" id="5_lquwl"]
-[ext_resource type="PackedScene" path="res://new_background.tscn" id="6_kek77"]
+[ext_resource type="PackedScene" uid="uid://bssrpdxmwaetq" path="res://new_background.tscn" id="6_kek77"]
 [ext_resource type="AudioStream" uid="uid://bihe3ck5ajgx4" path="res://audio background/underwater music.mp3" id="7_272bh"]
 [ext_resource type="AudioStream" uid="uid://clsl6ek4a2mn4" path="res://assets/audio/underwater-movement-bubble-motion-jochi-sfx-5-5-00-03.wav" id="7_kek77"]
 [ext_resource type="AudioStream" uid="uid://d3yulephpju2q" path="res://assets/audio/underwater-whoosh-fast-slava-pogorelsky-1-00-02.wav" id="8_4c57u"]
 [ext_resource type="AudioStream" uid="uid://dwxr1ofakf33b" path="res://assets/audio/oh-meme-game-death-roy-s-noise-6-6-00-01.wav" id="9_efxa6"]
+[ext_resource type="Script" uid="uid://bf3ghu0xvl3a1" path="res://start_menu.gd" id="10_w48qg"]
+[ext_resource type="Texture2D" uid="uid://bpostfmh2upcw" path="res://assets/art/StartingBG.png" id="10_ycdy4"]
+[ext_resource type="FontFile" uid="uid://ck2pbxl8n118" path="res://assets/ARCADECLASSIC.TTF" id="11_w48qg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ycdy4"]
+draw_center = false
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 0, 1)
+expand_margin_left = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w48qg"]
+bg_color = Color(0.95, 0.95, 0.95, 1)
+draw_center = false
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+expand_margin_left = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vivmo"]
+bg_color = Color(1, 1, 0, 1)
+draw_center = false
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 0, 1)
+expand_margin_left = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yaehf"]
+bg_color = Color(1, 1, 1, 1)
+draw_center = false
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 8.0
 
 [node name="Main" type="Node"]
 script = ExtResource("1_1bvp3")
 passive_mob_scene = ExtResource("2_1bvp3")
+passive_mob2_scene = ExtResource("3_vivmo")
 malicious_mob_scene = ExtResource("3_7mycd")
 evil_mob_scene = ExtResource("4_5vw27")
 
@@ -38,12 +81,82 @@ bus = &"Underwater"
 wait_time = 0.8
 autostart = true
 
+[node name="PassiveMob2Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
 [node name="MaliciousMobTimer" type="Timer" parent="."]
 wait_time = 2.1999999999999997
 autostart = true
 
 [node name="EvilMobTimer" type="Timer" parent="."]
 wait_time = 3.5
+
+[node name="StartMenu" type="CanvasLayer" parent="."]
+script = ExtResource("10_w48qg")
+
+[node name="TextureRect" type="TextureRect" parent="StartMenu"]
+offset_top = 1.0
+offset_right = 1348.0
+offset_bottom = 945.0
+texture = ExtResource("10_ycdy4")
+
+[node name="Title" type="Label" parent="StartMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -297.0
+offset_top = -266.0
+offset_right = 297.0
+offset_bottom = 126.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("11_w48qg")
+theme_override_font_sizes/font_size = 120
+text = "           Fish
+             Are 
+Temporary"
+
+[node name="StartButton" type="Button" parent="StartMenu"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -88.5
+offset_top = -248.0
+offset_right = 88.5
+offset_bottom = -175.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.023529412, 1)
+theme_override_fonts/font = ExtResource("11_w48qg")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_ycdy4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w48qg")
+text = "START"
+
+[node name="Leaderboard Button" type="Button" parent="StartMenu"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -187.5
+offset_top = -150.0
+offset_right = 187.5
+offset_bottom = -77.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("11_w48qg")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_vivmo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yaehf")
+text = "LEADERBOARD"
 
 [node name="HUD" parent="." instance=ExtResource("5_lquwl")]
 
@@ -54,5 +167,7 @@ bus = &"Underwater"
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="PassiveMobTimer" to="." method="_on_passive_mob_timer_timeout"]
+[connection signal="timeout" from="PassiveMob2Timer" to="." method="_on_passive_mob_2_timer_timeout"]
 [connection signal="timeout" from="MaliciousMobTimer" to="." method="_on_malicious_mob_timer_timeout"]
 [connection signal="timeout" from="EvilMobTimer" to="." method="_on_evil_mob_timer_timeout"]
+[connection signal="pressed" from="StartMenu/StartButton" to="StartMenu" method="_on_start_button_pressed"]

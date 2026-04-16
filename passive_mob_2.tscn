@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dd4ogxxbnovt5"]
 
-[ext_resource type="Script" path="res://passive_mob2.gd" id="1_mibn4"]
+[ext_resource type="Script" uid="uid://bwf7ledvfkrmk" path="res://passive_mob_2.gd" id="1_mibn4"]
 [ext_resource type="Texture2D" uid="uid://46iunelr757x" path="res://assets/art/Mobs/DolphinFishSprite.png" id="2_4fwv2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j1whj"]
@@ -28,8 +28,8 @@ gravity_scale = 0.0
 script = ExtResource("1_mibn4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["PassiveMob"]]
-position = Vector2(167, 112.499985)
-scale = Vector2(0.4024097, 0.44199997)
+position = Vector2(176.49998, 112.499985)
+scale = Vector2(0.42530122, 0.44199997)
 sprite_frames = SubResource("SpriteFrames_j1whj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["PassiveMob"]]

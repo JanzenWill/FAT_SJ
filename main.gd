@@ -1,6 +1,7 @@
 extends Node
 
 @export var passive_mob_scene: PackedScene
+@export var passive_mob2_scene: PackedScene
 @export var malicious_mob_scene: PackedScene
 @export var evil_mob_scene: PackedScene
 
@@ -9,13 +10,18 @@ var depth_level = 0
 var depth_thresholds = [4000, 9000] #real thresholds tims inverse scroll rate #expand later
 
 func _ready():
-	$HUD/VBoxContainer/StartButton.hide()
+	$HUD.hide()
+	$StartMenu.show()
+	$StartMenu.start_game.connect(_on_start_menu_start_game)
 	$HUD.restart_game.connect(_on_restart_game)
+	$Player.hit.connect(_on_player_hit)
 	$Player.health_changed.connect($HUD.update_health)
-	$HUD/VBoxContainer/ScoreLabel.show()
-	$HUD.update_score(score)
-	$HUD.update_health($Player.health)
-	
+
+func _on_start_menu_start_game() -> void:
+	$StartMenu.hide()
+	$HUD.show()
+	$HUD/VBoxContainer/StartButton.hide()
+	$HUD._new_game()
 	
 func _process(delta: float) -> void:
 	check_depth()
@@ -31,6 +37,27 @@ func _on_passive_mob_timer_timeout():
 	
 	var spawn_x = camera.global_position.x + (viewport_size.x + 100)*[-1, 1].pick_random()
 	var spawn_y = camera.global_position.y + (100 * [-1, 1].pick_random())
+
+	# Set the mob's position to the random location.
+	passive_mob.position = Vector2(spawn_x, spawn_y)
+	passive_mob.direction = [-1, 1].pick_random()
+
+	# Spawn the mob by adding it to the Main scene.
+	add_child(passive_mob)
+	
+
+
+func _on_passive_mob_2_timer_timeout():
+	# Create a new instance of the Mob scene.
+	var passive_mob = passive_mob2_scene.instantiate()
+	passive_mob.killed.connect(_on_killed_passive_mob)
+	passive_mob.add_to_group("fish") #added to group of fish that are removed with restart
+
+	var camera = $Player/Camera2D
+	var viewport_size = get_viewport().size
+	
+	var spawn_x = camera.global_position.x + (viewport_size.x + 200)*[-1, 1].pick_random()
+	var spawn_y = camera.global_position.y + (200 * [-1, 1].pick_random())
 
 	# Set the mob's position to the random location.
 	passive_mob.position = Vector2(spawn_x, spawn_y)
@@ -156,3 +183,7 @@ func _on_evil_mob_timer_timeout() -> void:
 		# Spawn the mob by adding it to the Main scene.
 		add_child(evil_mob)
 		
+
+
+func _on_start_button_pressed() -> void:
+	pass # Replace with function body.
