@@ -55,7 +55,7 @@ scale = Vector2(0.02, 0.02)
 texture = ExtResource("3_8sq4i")
 
 [node name="MessageTimer" type="Timer" parent="."]
-wait_time = 3.4
+wait_time = 4.5
 autostart = true
 
 [node name="Message" type="Label" parent="."]
