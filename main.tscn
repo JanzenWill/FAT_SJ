@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://dd4ogxxbnovt5" path="res://passive_mob_2.tscn" id="3_vivmo"]
 [ext_resource type="PackedScene" uid="uid://vqinx2qv2acm" path="res://evil_mob.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cl0nw5sxsy8lo" path="res://hud.tscn" id="5_lquwl"]
-[ext_resource type="PackedScene" path="res://new_background.tscn" id="6_kek77"]
+[ext_resource type="PackedScene" uid="uid://hid3u7lrnovo" path="res://shark_boss.tscn" id="6_2cqfq"]
+[ext_resource type="PackedScene" uid="uid://bssrpdxmwaetq" path="res://new_background.tscn" id="6_kek77"]
 [ext_resource type="AudioStream" uid="uid://bihe3ck5ajgx4" path="res://audio background/underwater music.mp3" id="7_272bh"]
 [ext_resource type="AudioStream" uid="uid://clsl6ek4a2mn4" path="res://assets/audio/underwater-movement-bubble-motion-jochi-sfx-5-5-00-03.wav" id="7_kek77"]
 [ext_resource type="AudioStream" uid="uid://d3yulephpju2q" path="res://assets/audio/underwater-whoosh-fast-slava-pogorelsky-1-00-02.wav" id="8_4c57u"]
@@ -61,6 +62,7 @@ passive_mob_scene = ExtResource("2_1bvp3")
 passive_mob2_scene = ExtResource("3_vivmo")
 malicious_mob_scene = ExtResource("3_7mycd")
 evil_mob_scene = ExtResource("4_5vw27")
+shark_boss_scene = ExtResource("6_2cqfq")
 
 [node name="NewBackground" parent="." instance=ExtResource("6_kek77")]
 
@@ -86,7 +88,7 @@ wait_time = 0.8
 autostart = true
 
 [node name="PassiveMob2Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 2.1999999999999997
 autostart = true
 
 [node name="MaliciousMobTimer" type="Timer" parent="."]
@@ -97,6 +99,7 @@ autostart = true
 wait_time = 3.5
 
 [node name="StartMenu" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("10_w48qg")
 
 [node name="TextureRect" type="TextureRect" parent="StartMenu"]
@@ -161,6 +164,48 @@ theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_vivmo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_yaehf")
 text = "LEADERBOARD"
+
+[node name="SharkBossMessages" type="CanvasLayer" parent="."]
+
+[node name="SharkBossMessage" type="Label" parent="SharkBossMessages"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -579.0
+offset_top = -54.0
+offset_right = 492.0
+offset_bottom = 482.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.94036186, 5.3425133e-06, 3.85046e-07, 1)
+theme_override_fonts/font = ExtResource("11_w48qg")
+theme_override_font_sizes/font_size = 120
+text = "                   BOSS   FIGHT:
+          Kill the  shark!
+"
+
+[node name="SharkEnd" type="Label" parent="SharkBossMessages"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -336.0
+offset_top = -143.0
+offset_right = 336.0
+offset_bottom = 268.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.45899612, 0.85237455, 0.21894738, 1)
+theme_override_fonts/font = ExtResource("11_w48qg")
+theme_override_font_sizes/font_size = 120
+text = "      You Beat
+   the Shark!
++50 Points"
 
 [node name="HUD" parent="." instance=ExtResource("5_lquwl")]
 

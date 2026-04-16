@@ -8,7 +8,7 @@ func get_damage() -> int:
 func _on_area_entered(area: Area2D) -> void:
 	if not area.is_in_group("enemy_hitbox"):
 		return
-	if not area.is_in_group("PassiveMob") and not area.is_in_group("MaliciousMob"):
+	if not area.is_in_group("PassiveMob") and not area.is_in_group("enemy_hitbox"):
 		return
 	var target := area.get_parent()
 	if target != null and target.has_method("take_damage"):

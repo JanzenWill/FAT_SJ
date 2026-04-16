@@ -11,5 +11,5 @@ func _on_start_button_pressed() -> void:
 	start_game.emit()
 
 func _on_leaderboard_button_pressed() -> void:
-	# add leaderboard logic later
+	# leaderboard will be added later
 	pass
