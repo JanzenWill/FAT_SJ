@@ -4,7 +4,7 @@ extends RigidBody2D
 @export var max_health = 5 #health
 @export var damage = 2 #damage it gives
 
-var speed = 300
+var speed = 260
 var direction = 1
 var health = max_health
 var velocity = Vector2.ZERO

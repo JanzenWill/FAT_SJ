@@ -35,3 +35,12 @@ func update_health(health):
 	$VBoxContainer/HBoxContainer/BlueHeartPixelArt1.visible = health >= 1
 	$VBoxContainer/HBoxContainer/BlueHeartPixelArt2.visible = health >= 2
 	$VBoxContainer/HBoxContainer/BlueHeartPixelArt3.visible = health >= 3
+
+func flash_score_red() -> void:
+	var label = $VBoxContainer/ScoreLabel
+
+	label.modulate = Color(1, 0.2, 0.2)  # red
+
+	await get_tree().create_timer(0.2).timeout
+
+	label.modulate = Color(1, 1, 1)  # back to normal
