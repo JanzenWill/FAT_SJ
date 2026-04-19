@@ -3,7 +3,9 @@ extends RigidBody2D
 @export var gravity = 0
 @export var max_health = 2 # health
 @export var damage = 1 # damage it gives
-@export var knockback_strength = 200
+@export var knockback_strength = 600
+
+@export var attack_knockback_strength: float = 1000
 
 @export var patrol_speed = 100.0 # normal left/right swim speed
 @export var chase_speed = 200.0 # faster speed while chasing player
@@ -161,3 +163,6 @@ func show_hit_flash() -> void:
 	await get_tree().create_timer(0.1).timeout
 	$AnimatedSprite2D.modulate = Color(1, 1, 1)
 	is_hit = false
+	
+func get_attack_knockback() -> float:
+	return attack_knockback_strength

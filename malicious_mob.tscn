@@ -19,7 +19,7 @@ radius = 41.0
 height = 226.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_087k7"]
-size = Vector2(249, 98)
+size = Vector2(33, 29)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_087k7"]
 radius = 442.069
@@ -48,13 +48,13 @@ collision_layer = 2
 collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["MaliciousMob", "enemy_hitbox"]]
-position = Vector2(99.5, 37)
+position = Vector2(191, 40)
 shape = SubResource("RectangleShape2D_087k7")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-position = Vector2(97, 37)
+position = Vector2(94, 40)
 shape = SubResource("CircleShape2D_087k7")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
