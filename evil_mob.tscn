@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://vqinx2qv2acm"]
+[gd_scene load_steps=9 format=3 uid="uid://vqinx2qv2acm"]
 
 [ext_resource type="Script" uid="uid://cvryw0q1uvxqx" path="res://evil_mob.gd" id="1_bs6tt"]
 [ext_resource type="Texture2D" uid="uid://be6be8ql1uufh" path="res://assets/art/Mobs/newSawfish.png" id="2_bs6tt"]
@@ -24,6 +24,9 @@ size = Vector2(548, 54)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cplja"]
 size = Vector2(170, 28)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cplja"]
+radius = 346.2037
 
 [node name="RigidBody2D" type="RigidBody2D"]
 collision_layer = 2
@@ -56,4 +59,11 @@ script = ExtResource("3_cplja")
 position = Vector2(200, 0)
 shape = SubResource("RectangleShape2D_cplja")
 
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_cplja")
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]
