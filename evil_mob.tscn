@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://vqinx2qv2acm"]
+[gd_scene load_steps=8 format=3 uid="uid://vqinx2qv2acm"]
 
 [ext_resource type="Script" uid="uid://cvryw0q1uvxqx" path="res://evil_mob.gd" id="1_bs6tt"]
 [ext_resource type="Texture2D" uid="uid://be6be8ql1uufh" path="res://assets/art/Mobs/newSawfish.png" id="2_bs6tt"]
+[ext_resource type="Script" uid="uid://dxnk83ubkomqc" path="res://attack_area.gd" id="3_cplja"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bs6tt"]
 animations = [{
@@ -15,14 +16,18 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cplja"]
-radius = 57.0
-height = 590.0
+radius = 42.0
+height = 542.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bs6tt"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bs6tt"]
+size = Vector2(548, 54)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cplja"]
+size = Vector2(170, 28)
 
 [node name="RigidBody2D" type="RigidBody2D"]
-collision_layer = 5
-collision_mask = 0
+collision_layer = 2
+collision_mask = 5
 gravity_scale = 0.0
 script = ExtResource("1_bs6tt")
 
@@ -30,12 +35,25 @@ script = ExtResource("1_bs6tt")
 sprite_frames = SubResource("SpriteFrames_bs6tt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-10, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_cplja")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_bs6tt")
+position = Vector2(6, 2)
+shape = SubResource("RectangleShape2D_bs6tt")
+
+[node name="AttackArea" type="Area2D" parent="." groups=["MaliciousMob", "enemy_hitbox"]]
+collision_layer = 2
+script = ExtResource("3_cplja")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" groups=["MaliciousMob"]]
+position = Vector2(200, 0)
+shape = SubResource("RectangleShape2D_cplja")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

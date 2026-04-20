@@ -6,6 +6,7 @@ extends Node
 @export var evil_mob_scene: PackedScene
 @export var shark_boss_scene: PackedScene
 
+
 var score = 0
 var depth_level = 0
 var depth_thresholds = [4000, 9000] #real thresholds tims inverse scroll rate #expand later
@@ -160,7 +161,14 @@ func _on_killed_malicious_mob():
 	score += 1
 	$HUD.update_score(score)
 	
-	if score == 5 and not shark_spawned and not shark_alive:
+	if score >= 5 and not shark_spawned and not shark_alive:
+		spawn_shark_boss()
+		
+func _on_killed_swordfish():
+	score += 3
+	$HUD.update_score(score)
+	
+	if score >= 5 and not shark_spawned and not shark_alive:
 		spawn_shark_boss()
 	
 func clear_all_fish() -> void: #clears all fish
@@ -178,7 +186,7 @@ func _on_evil_mob_timer_timeout() -> void:
 			var evil_mob = evil_mob_scene.instantiate()
 			evil_mob.add_to_group("fish") #added to group of fish that are removed with restart
 			
-			#evil_mob.killed.connect(_on_killed_malicious_mob)
+			evil_mob.killed.connect(_on_killed_swordfish)
 
 			var camera = $Player/Camera2D
 			#var viewport_size = get_viewport().size
