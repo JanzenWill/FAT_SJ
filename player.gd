@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var speed: float = 280.0
+@export var speed: float = 330.0
 @export var sink_speed: float = 90.0
 @export var attack_duration: float = 0.2
 @export var max_health: int = 3
@@ -237,6 +237,8 @@ func show_hit_flash() -> void:
 	is_hit = false
 
 func _on_area_entered(area: Area2D) -> void:
+	print("PLAYER TOUCHED AREA: ", area.name, " groups=", area.get_groups())
+	
 	if not alive:
 		return
 

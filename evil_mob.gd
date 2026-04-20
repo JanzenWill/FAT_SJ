@@ -5,6 +5,8 @@ extends RigidBody2D
 @export var damage = 1 # damage it gives
 @export var knockback_strength = 300
 
+@export var attack_knockback_strength: float = 1500
+
 @export var patrol_speed = 100.0 # normal left/right swim speed
 @export var chase_speed = 200.0 # faster speed while chasing player
 @export var leash_time = 1.5 # how long it keeps chasing after player leaves range
@@ -23,6 +25,8 @@ var player: Node2D = null # stores player reference while chasing
 var is_chasing = false # true while actively chasing
 var player_in_range = false # true while player is inside big detection area
 var leash_timer = 0.0 # counts down after player leaves area
+var facing_left = false
+var mouth_shape_offset_x := 0.0
 
 signal killed
 
@@ -30,6 +34,7 @@ func _ready() -> void:
 	health = max_health
 	linear_velocity = Vector2(patrol_speed * direction, 0)
 	lock_rotation = true
+	mouth_shape_offset_x = abs($AttackArea/CollisionShape2D.position.x)
 
 """
 func _process(delta: float) -> void:
@@ -58,10 +63,18 @@ func _integrate_forces(state) -> void:
 	state.linear_velocity = vel
 
 func _physics_process(delta: float) -> void:
-	# flips sprite
-	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
+	if linear_velocity.x < -1:
+		facing_left = true
+	elif linear_velocity.x > 1:
+		facing_left = false
 
-	# tilt upwards when chasing up, tilt downwards wen chasig down
+	$AnimatedSprite2D.flip_h = facing_left
+
+	if facing_left:
+		$AttackArea/CollisionShape2D.position.x = -mouth_shape_offset_x
+	else:
+		$AttackArea/CollisionShape2D.position.x = mouth_shape_offset_x
+
 	var target_rotation = 0.0
 
 	if is_chasing:
@@ -72,11 +85,11 @@ func _physics_process(delta: float) -> void:
 		else:
 			target_rotation = 0.0
 
-		# Reverse tilt when facing left
 		if linear_velocity.x < 0:
 			target_rotation *= -1
 
 	rotation = lerp(rotation, target_rotation, tilt_lerp_speed)
+	print("facing_left=", facing_left, " attack_x=", $AttackArea.position.x)
 
 
 func _on_mob_timer_timeout() -> void:
@@ -116,8 +129,8 @@ func die() -> void:
 	killed.emit()
 	queue_free()
 
-func get_damage() -> int:
-	return damage
+#func get_damage() -> int:
+#	return damage
 
 func show_hit_flash() -> void:
 	if is_hit:
@@ -128,3 +141,6 @@ func show_hit_flash() -> void:
 	await get_tree().create_timer(0.1).timeout
 	$AnimatedSprite2D.modulate = Color(1, 1, 1)
 	is_hit = false
+	
+#func get_attack_knockback() -> float:
+#	return attack_knockback_strength
