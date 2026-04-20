@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 @export var gravity = 0
-@export var max_health = 1 # health
+@export var max_health = 3 # health
 @export var damage = 1 # damage it gives
 @export var knockback_strength = 300
 
@@ -98,14 +98,15 @@ func _on_mob_timer_timeout() -> void:
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 
-# Small hit area for spear only.
+# hit area for spear only.
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Trident"):
 		if area.has_method("get_damage"):
 			take_damage(area.get_damage(), area.global_position.x)
 		else:
 			take_damage(1, area.global_position.x)
-		print("Malicious Mob touched by: ", area.name, " Trident=", area.is_in_group("Trident"))
+
+		print("Swordfish hit by: ", area.name)
 
 
 

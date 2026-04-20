@@ -12,6 +12,7 @@ extends RigidBody2D
 @export var leash_time = 1.5 # how long it keeps chasing after player leaves range
 @export var tilt_strength = 0.0018 # how much fish rotates based on movement
 @export var tilt_lerp_speed = 0.18 # how quickly rotation catches up
+@export var score_value: int = 3
 
 var knockback_velocity = Vector2.ZERO
 var knockback_timer = 0.0
@@ -166,3 +167,7 @@ func show_hit_flash() -> void:
 	
 func get_attack_knockback() -> float:
 	return attack_knockback_strength
+
+
+func get_score_value() -> int:
+	return score_value
