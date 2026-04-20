@@ -13,6 +13,10 @@ extends RigidBody2D
 @export var tilt_strength = 0.0018 # how much fish rotates based on movement
 @export var tilt_lerp_speed = 0.18 # how quickly rotation catches up
 
+@export var preferred_min_distance: float = 45
+@export var preferred_max_distance: float = 100
+@export var backoff_speed: float = 120.0
+
 var knockback_velocity = Vector2.ZERO
 var knockback_timer = 0.0
 
@@ -45,17 +49,17 @@ func _process(delta: float) -> void:
 func _integrate_forces(state) -> void:
 	var vel = state.linear_velocity
 
-	# If chasing and we still know where the player is,
-	# swim toward them in all directions.
 	if is_chasing and player != null:
 		var to_player = player.global_position - global_position
+		var dist = to_player.length()
 
-		if to_player.length() > 0:
+		if dist > preferred_max_distance:
 			vel = to_player.normalized() * chase_speed
+		elif dist < preferred_min_distance:
+			vel = -to_player.normalized() * backoff_speed
 		else:
-			vel = Vector2.ZERO
+			vel = to_player.normalized() * (chase_speed * 0.4)
 
-	# Otherwise go back to simple left/right patrol.
 	else:
 		vel.x = patrol_speed * direction
 		vel.y = 0
