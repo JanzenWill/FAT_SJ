@@ -8,7 +8,7 @@ extends RigidBody2D
 @export var attack_knockback_strength: float = 1500
 
 @export var patrol_speed = 100.0 # normal left/right swim speed
-@export var chase_speed = 200.0 # faster speed while chasing player
+@export var chase_speed = 150.0 # faster speed while chasing player
 @export var leash_time = 1.5 # how long it keeps chasing after player leaves range
 @export var tilt_strength = 0.0018 # how much fish rotates based on movement
 @export var tilt_lerp_speed = 0.18 # how quickly rotation catches up
@@ -145,3 +145,17 @@ func show_hit_flash() -> void:
 	
 #func get_attack_knockback() -> float:
 #	return attack_knockback_strength
+
+
+func _on_detection_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group("player"):
+		player = area
+		player_in_range = true
+		is_chasing = true
+		leash_timer = leash_time
+
+
+func _on_detection_area_area_exited(area: Area2D) -> void:
+	if area.is_in_group("player") and area == player:
+		player_in_range = false
+		leash_timer = leash_time
