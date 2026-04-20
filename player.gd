@@ -1,13 +1,13 @@
 extends Area2D
 
-@export var speed: float = 260.0
+@export var speed: float = 330.0
 @export var sink_speed: float = 90.0
 @export var attack_duration: float = 0.2
 @export var max_health: int = 3
 @export var attack_knockback_strength: float = 100.0
 @export var hurt_knockback_multiplier: float = 1.0
 @export var hurt_cooldown: float = 1.5
-@export var attack_cooldown: float = 0.45
+@export var attack_cooldown: float = 0.3
 
 
 signal hit
@@ -100,12 +100,14 @@ func _process(delta: float) -> void:
 		velocity.y += sink_speed
 		
 		
+	var final_velocity = velocity
+
 	if knockback_timer > 0:
-		position += knockback_velocity * delta
+		final_velocity += knockback_velocity
 		knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 6 * delta)
 		knockback_timer -= delta
-	else:
-		position += velocity * delta
+
+	position += final_velocity * delta
 	
 	# swimming logic 
 	if not player_swim.playing:
@@ -235,6 +237,8 @@ func show_hit_flash() -> void:
 	is_hit = false
 
 func _on_area_entered(area: Area2D) -> void:
+	print("PLAYER TOUCHED AREA: ", area.name, " groups=", area.get_groups())
+	
 	if not alive:
 		return
 
