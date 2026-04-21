@@ -38,9 +38,6 @@ func update_health(health):
 
 func flash_score_red() -> void:
 	var label = $VBoxContainer/ScoreLabel
-
-	label.modulate = Color(1, 0.2, 0.2)  # red
-
+	label.modulate = Color(1, 0.2, 0.2)  
 	await get_tree().create_timer(0.2).timeout
-
-	label.modulate = Color(1, 1, 1)  # back to normal
+	label.modulate = Color(1, 1, 1) 

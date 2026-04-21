@@ -22,6 +22,11 @@ func _ready():
 	$HUD.restart_game.connect(_on_restart_game)
 	$Player.hit.connect(_on_player_hit)
 	$Player.health_changed.connect($HUD.update_health)
+	
+	$PassiveMobTimer.stop()
+	$PassiveMob2Timer.stop()
+	$MaliciousMobTimer.stop()
+	$EvilMobTimer.stop()
 
 func _on_start_menu_start_game() -> void:
 	$StartMenu.hide()
@@ -29,6 +34,14 @@ func _on_start_menu_start_game() -> void:
 	$HUD.show()
 	$HUD/VBoxContainer/StartButton.hide()
 	$HUD._new_game()
+	
+	$PassiveMobTimer.start()
+	$PassiveMob2Timer.start()
+	$MaliciousMobTimer.start()
+
+	# only start evil mobs if deep enough
+	if depth_level >= 1:
+		$EvilMobTimer.start()
 	
 func _process(delta: float) -> void:
 	check_depth()

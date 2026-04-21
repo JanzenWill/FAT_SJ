@@ -26,7 +26,7 @@ size = Vector2(548, 54)
 size = Vector2(170, 28)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cplja"]
-radius = 346.2037
+radius = 477.4191
 
 [node name="RigidBody2D" type="RigidBody2D"]
 collision_layer = 2
