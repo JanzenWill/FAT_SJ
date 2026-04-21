@@ -10,8 +10,8 @@ extends RigidBody2D
 @export var max_distance = 2500
 var health = max_health
 var is_hit = false
-var velocity = Vector2.ZERO
 var player
+var speed #used to fix physics issue
 
 signal killed
 
@@ -24,9 +24,6 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 
 
-#func _process(delta: float) -> void:
-#	velocity.y += gravity * delta
-#	position += velocity * delta
 
 func _on_mob_timer_timeout() -> void:
 	pass
@@ -38,6 +35,7 @@ func _process(delta: float) -> void:
 	if player:
 		if global_position.distance_to(player.global_position) > max_distance:
 			queue_free()
+	print(linear_velocity.x)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	print("Fish touched by: ", area.name, " Trident=", area.is_in_group("Trident"))
@@ -50,19 +48,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 
 func _physics_process(_delta: float) -> void:
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
-
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	state.transform = Transform2D(0.0, state.transform.origin)
-	"""
-	var vel = state.linear_velocity
-	vel.x *= direction
-	state.linear_velocity = vel
-	"""
-	
-"""
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	queue_free()
-"""
+	linear_velocity.x = speed * direction
 
 
 func take_damage(amount: int, hit_from_x: float) -> void:
