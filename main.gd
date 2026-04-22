@@ -7,6 +7,8 @@ extends Node
 @export var shark_boss_scene: PackedScene
 
 
+
+var pending_score = 0
 var score = 0
 var depth_level = 0
 var depth_thresholds = [4000, 9000] #real thresholds tims inverse scroll rate #expand later
@@ -14,12 +16,14 @@ var depth_thresholds = [4000, 9000] #real thresholds tims inverse scroll rate #e
 var shark_spawned = false
 var shark_alive = false
 var shark_boss = null
+var score_saved = false
 
 func _ready():
 	$HUD.hide()
 	$StartMenu.show()
 	$StartMenu.start_game.connect(_on_start_menu_start_game)
 	$HUD.restart_game.connect(_on_restart_game)
+	$HUD.save_score_requested.connect(_on_save_score_requested)
 	$Player.hit.connect(_on_player_hit)
 	$Player.health_changed.connect($HUD.update_health)
 	
@@ -29,6 +33,8 @@ func _ready():
 	$EvilMobTimer.stop()
 
 func _on_start_menu_start_game() -> void:
+	score_saved = false
+	pending_score = 0
 	$StartMenu.hide()
 	$Player._start()
 	$HUD.show()
@@ -144,12 +150,17 @@ func _on_player_hit() -> void:
 	#print("Player hit by malicious mob")
 	$PassiveMobTimer.stop()
 	$MaliciousMobTimer.stop()
+	if not score_saved:
+		pending_score = score
+	
 	clear_all_fish()
 	$HUD.show_game_over()
 	#$Music.stop()
 	#$DeathSound.play()
 	
 func _on_restart_game():
+	pending_score = 0
+	score_saved = false
 	score = 0
 	$HUD.update_score(score)
 	$PassiveMobTimer.start()
@@ -278,3 +289,8 @@ func _on_shark_boss_killed() -> void:
 
 	if depth_level >= 1:
 		$EvilMobTimer.start()
+		
+func _on_save_score_requested(player_name: String) -> void:
+	if not score_saved:
+		Leaderboard.add_score(player_name, pending_score)
+		score_saved = true

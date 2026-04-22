@@ -102,22 +102,28 @@ wait_time = 3.5
 visible = false
 script = ExtResource("10_w48qg")
 
-[node name="TextureRect" type="TextureRect" parent="StartMenu"]
+[node name="UI" type="Control" parent="StartMenu"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TextureRect" type="TextureRect" parent="StartMenu/UI"]
+layout_mode = 0
 offset_top = 1.0
 offset_right = 1348.0
 offset_bottom = 945.0
 texture = ExtResource("10_ycdy4")
 
-[node name="Title" type="Label" parent="StartMenu"]
+[node name="Title" type="Label" parent="StartMenu/UI"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -297.0
-offset_top = -266.0
-offset_right = 297.0
-offset_bottom = 126.0
+offset_left = 357.0
+offset_top = 186.0
+offset_right = 951.0
+offset_bottom = 578.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 0, 1)
@@ -127,16 +133,17 @@ text = "           Fish
              Are 
 Temporary"
 
-[node name="StartButton" type="Button" parent="StartMenu"]
+[node name="StartButton" type="Button" parent="StartMenu/UI"]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -88.5
-offset_top = -248.0
-offset_right = 88.5
-offset_bottom = -175.0
+offset_left = 565.5
+offset_top = 656.0
+offset_right = 742.5
+offset_bottom = 729.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.023529412, 1)
@@ -146,16 +153,17 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ycdy4")
 theme_override_styles/hover = SubResource("StyleBoxFlat_w48qg")
 text = "START"
 
-[node name="Leaderboard Button" type="Button" parent="StartMenu"]
+[node name="Leaderboard Button" type="Button" parent="StartMenu/UI"]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -187.5
-offset_top = -150.0
-offset_right = 187.5
-offset_bottom = -77.0
+offset_left = 466.5
+offset_top = 754.0
+offset_right = 841.5
+offset_bottom = 827.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 0, 1)
@@ -164,6 +172,37 @@ theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_vivmo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_yaehf")
 text = "LEADERBOARD"
+
+[node name="LeaderboardPanel" type="Panel" parent="StartMenu/UI"]
+layout_mode = 0
+offset_left = 250.0
+offset_top = 80.0
+offset_right = 900.0
+offset_bottom = 630.0
+
+[node name="LeaderboardTitle" type="Label" parent="StartMenu/UI/LeaderboardPanel"]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 20.0
+offset_right = 293.0
+offset_bottom = 43.0
+text = "Inspector"
+
+[node name="ScoresLabel" type="Label" parent="StartMenu/UI/LeaderboardPanel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 70.0
+offset_right = 610.0
+offset_bottom = 370.0
+text = "No scores yet"
+
+[node name="BackButton" type="Button" parent="StartMenu/UI/LeaderboardPanel"]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 410.0
+offset_right = 380.0
+offset_bottom = 450.0
+text = "Back"
 
 [node name="SharkBossMessages" type="CanvasLayer" parent="."]
 
@@ -219,4 +258,6 @@ bus = &"Underwater"
 [connection signal="timeout" from="PassiveMob2Timer" to="." method="_on_passive_mob_2_timer_timeout"]
 [connection signal="timeout" from="MaliciousMobTimer" to="." method="_on_malicious_mob_timer_timeout"]
 [connection signal="timeout" from="EvilMobTimer" to="." method="_on_evil_mob_timer_timeout"]
-[connection signal="pressed" from="StartMenu/StartButton" to="StartMenu" method="_on_start_button_pressed"]
+[connection signal="pressed" from="StartMenu/UI/StartButton" to="StartMenu" method="_on_start_button_pressed"]
+[connection signal="pressed" from="StartMenu/UI/Leaderboard Button" to="StartMenu" method="_on_leaderboard_button_pressed"]
+[connection signal="pressed" from="StartMenu/UI/LeaderboardPanel/BackButton" to="StartMenu" method="_on_back_button_pressed"]
