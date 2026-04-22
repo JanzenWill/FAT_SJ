@@ -7,10 +7,7 @@ func _ready() -> void:
 	show()
 	$UI/LeaderboardPanel.hide()
 	
-	Leaderboard.clear_scores()
-	Leaderboard.add_score("TEST", 100)
-	Leaderboard.add_score("SAM", 80)
-	Leaderboard.add_score("BOB", 50)
+
 
 
 func _on_start_button_pressed() -> void:
