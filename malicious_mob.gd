@@ -5,13 +5,14 @@ extends RigidBody2D
 @export var damage = 1 # damage it gives
 @export var knockback_strength = 600
 
-@export var attack_knockback_strength: float = 1000
-
-@export var patrol_speed = 120.0 # normal left/right swim speed
-@export var chase_speed = 180.0 # faster speed while chasing player
+@export var patrol_speed = 200.0 # normal left/right swim speed
+@export var chase_speed = 100.0 # faster speed while chasing player
 @export var leash_time = 1.5 # how long it keeps chasing after player leaves range
 @export var tilt_strength = 0.0018 # how much fish rotates based on movement
 @export var tilt_lerp_speed = 0.18 # how quickly rotation catches up
+@export var direction = 1 # patrol direction: 1 = right, -1 = left
+@export var speed_variability_factor = 1.05
+@export var attack_knockback_strength: float = 1000
 @export var score_value: int = 3
 
 @export var preferred_min_distance: float = 25
@@ -21,7 +22,6 @@ extends RigidBody2D
 var knockback_velocity = Vector2.ZERO
 var knockback_timer = 0.0
 
-var direction = 1 # patrol direction: 1 = right, -1 = left
 var is_hit = false
 var health = max_health
 var velocity = Vector2.ZERO
@@ -92,9 +92,19 @@ func _physics_process(delta: float) -> void:
 
 func _on_mob_timer_timeout() -> void:
 	pass
+	
+func _process(delta: float) -> void:
+	#get player distance
+	#queuefree if distance above threshold
+	if player:
+		if global_position.distance_to(player.global_position) > max_distance:
+			queue_free()
 
+"""
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
+"""
+
 
 # Small hit area for spear only.
 func _on_area_2d_area_entered(area: Area2D) -> void:

@@ -4,28 +4,38 @@ extends RigidBody2D
 @export var max_health = 1 # health
 @export var damage = 0 # damage it gives
 @export var knockback_strength = 200
-
+@export var base_speed = 130
+@export var direction = 1
+@export var speed_variability_factor = 0.15
+@export var max_distance = 2500
 var health = max_health
 var is_hit = false
-var velocity = Vector2.ZERO
-var direction = 1
-var speed = 350
+var player
+var speed #used to fix physics issue
 
 signal killed
 
 func _ready() -> void:
+	#get player based on tree
 	health = max_health
 	rotation = 0.0
-	linear_velocity = Vector2(speed * direction, 0)
+	linear_velocity = Vector2(base_speed * randf_range(0, 0.15) * direction, 0)
 	lock_rotation = true
+	player = get_tree().get_first_node_in_group("player")
 
 
-#func _process(delta: float) -> void:
-#	velocity.y += gravity * delta
-#	position += velocity * delta
 
 func _on_mob_timer_timeout() -> void:
 	pass
+	
+	
+func _process(delta: float) -> void:
+	#get player distance
+	#queuefree if distance above threshold
+	if player:
+		if global_position.distance_to(player.global_position) > max_distance:
+			queue_free()
+	print(linear_velocity.x)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	print("Fish touched by: ", area.name, " Trident=", area.is_in_group("Trident"))
@@ -38,15 +48,8 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 
 func _physics_process(_delta: float) -> void:
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
+	linear_velocity.x = speed * direction
 
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	var vel = state.linear_velocity
-	vel.x = speed * direction
-	state.linear_velocity = vel
-	state.transform = Transform2D(0.0, state.transform.origin)
-	
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	queue_free()
 
 func take_damage(amount: int, hit_from_x: float) -> void:
 	health -= amount

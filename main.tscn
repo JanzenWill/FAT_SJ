@@ -92,7 +92,7 @@ wait_time = 2.1999999999999997
 autostart = true
 
 [node name="MaliciousMobTimer" type="Timer" parent="."]
-wait_time = 2.1999999999999997
+wait_time = 3.0
 autostart = true
 
 [node name="EvilMobTimer" type="Timer" parent="."]
