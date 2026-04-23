@@ -101,3 +101,27 @@ Guario Suggestions:
 
 \-fish death animation (blood?) (gravity?)
 
+
+
+\--Will 4/23 update
+
+done:
+
+\-health now refills after boss kill + updates hud
+
+\-fixed passive mob2 spawn
+
+\-no moving animation when player is still
+
+\-enter name box disappears on restart (bug fix)
+
+
+
+Potential todos:
+
+\-reduce malicious mob vertical velocity/lerp bonus speed
+
+\-improve player animations?
+
+s-powerup to gain more hearts?
+

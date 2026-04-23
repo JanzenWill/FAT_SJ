@@ -255,6 +255,8 @@ func spawn_shark_boss() -> void:
 func _on_shark_boss_killed() -> void:
 	shark_alive = false
 	shark_boss = null
+	$player.health = $player.max_health
+	$hud.update_health(3)
 	
 	for i in range(3):
 		$SharkBossMessages/SharkEnd.visible = true
@@ -277,3 +279,29 @@ func _on_save_score_requested(player_name: String) -> void:
 	if not score_saved:
 		Leaderboard.add_score(player_name, pending_score)
 		score_saved = true
+
+
+func _on_passive_mob_2_timer_timeout() -> void:
+	# Create a new instance of the Mob scene.
+	var passive_mob_2 = passive_mob2_scene.instantiate()
+	passive_mob_2.killed.connect(_on_killed_passive_mob)
+	passive_mob_2.add_to_group("fish") #added to group of fish that are removed with restart
+
+	var player = $Player
+	
+	#spawn just off screen horizontally
+	var spawn_x = player.global_position.x + (1050)*[-1, 1].pick_random()
+	#spawn within one screen length vertically of the player
+	var spawn_y = player.global_position.y + (randf_range(0, 600) * [-1, 1].pick_random())
+	
+	#TODO: modify spawn_y if it's too high or too low
+
+	# Set the mob's position to the random location.
+	passive_mob_2.position = Vector2(spawn_x, spawn_y)
+	passive_mob_2.direction = [-1, 1].pick_random()
+	var speed = passive_mob_2.base_speed * (randf_range(1 - passive_mob_2.speed_variability_factor, 1 + passive_mob_2.speed_variability_factor))
+	passive_mob_2.speed = speed
+	passive_mob_2.linear_velocity = Vector2(speed * passive_mob_2.direction, 0)
+
+	# Spawn the mob by adding it to the Main scene.
+	add_child(passive_mob_2)
