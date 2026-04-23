@@ -4,9 +4,8 @@ extends RigidBody2D
 @export var max_health = 2 # health
 @export var damage = 1 # damage it gives
 @export var knockback_strength = 600
-
-@export var patrol_speed = 200.0 # normal left/right swim speed
-@export var chase_speed = 100.0 # faster speed while chasing player
+@export var patrol_speed = 190.0 # normal left/right swim speed
+@export var chase_speed = 280.0 # faster speed while chasing player
 @export var leash_time = 1.5 # how long it keeps chasing after player leaves range
 @export var tilt_strength = 0.0018 # how much fish rotates based on movement
 @export var tilt_lerp_speed = 0.18 # how quickly rotation catches up
@@ -14,13 +13,13 @@ extends RigidBody2D
 @export var speed_variability_factor = 1.05
 @export var attack_knockback_strength: float = 1000
 @export var score_value: int = 3
-
 @export var preferred_min_distance: float = 25
 @export var preferred_max_distance: float = 70
 @export var backoff_speed: float = 120.0
 
 var knockback_velocity = Vector2.ZERO
 var knockback_timer = 0.0
+var despawn_distance = 2000
 
 var is_hit = false
 var health = max_health
@@ -30,6 +29,7 @@ var player: Node2D = null # stores player reference while chasing
 var is_chasing = false # true while actively chasing
 var player_in_range = false # true while player is inside big detection area
 var leash_timer = 0.0 # counts down after player leaves area
+var speed #used to ensure physics works
 
 signal killed
 
@@ -63,9 +63,12 @@ func _integrate_forces(state) -> void:
 		vel.y = 0
 
 	state.linear_velocity = vel
+	
+	
 func _physics_process(delta: float) -> void:
 	# flips sprite
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
+	#linear_velocity.x = speed * direction
 
 	# tilt upwards when chasing up, tilt downwards wen chasig down
 	var target_rotation = 0.0
@@ -97,7 +100,7 @@ func _process(delta: float) -> void:
 	#get player distance
 	#queuefree if distance above threshold
 	if player:
-		if global_position.distance_to(player.global_position) > max_distance:
+		if global_position.distance_to(player.global_position) > despawn_distance:
 			queue_free()
 
 """

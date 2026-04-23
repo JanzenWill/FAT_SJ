@@ -4,7 +4,7 @@ extends RigidBody2D
 @export var max_health = 1 # health
 @export var damage = 0 # damage it gives
 @export var knockback_strength = 200
-@export var base_speed = 130
+@export var base_speed = 180
 @export var direction = 1
 @export var speed_variability_factor = 0.15
 @export var max_distance = 2500
@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 	if player:
 		if global_position.distance_to(player.global_position) > max_distance:
 			queue_free()
-	print(linear_velocity.x)
+	#print(linear_velocity.x)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	print("Fish touched by: ", area.name, " Trident=", area.is_in_group("Trident"))
@@ -48,7 +48,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 
 func _physics_process(_delta: float) -> void:
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
-	linear_velocity.x = speed * direction
+	#linear_velocity.x = speed * direction
 
 
 func take_damage(amount: int, hit_from_x: float) -> void:

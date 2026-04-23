@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var speed: float = 330.0
+@export var speed: float = 300.0
 @export var sink_speed: float = 90.0
 @export var attack_duration: float = 0.2
 @export var max_health: int = 3
@@ -89,11 +89,11 @@ func _process(delta: float) -> void:
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		if not is_attacking:
-			sprite.play("default")
-		else:
-			if not is_attacking:
-				sprite.play("default")	
-			
+			sprite.play("swim")
+	else:
+		if not is_attacking:
+			sprite.play("default")	
+		
 	if not game_started:
 		velocity.y = 0
 	else:
