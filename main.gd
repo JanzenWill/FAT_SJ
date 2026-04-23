@@ -255,6 +255,8 @@ func spawn_shark_boss() -> void:
 func _on_shark_boss_killed() -> void:
 	shark_alive = false
 	shark_boss = null
+	$player.health = $player.max_health
+	$hud.update_health(3)
 	
 	for i in range(3):
 		$SharkBossMessages/SharkEnd.visible = true

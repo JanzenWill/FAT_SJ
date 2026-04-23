@@ -40,6 +40,8 @@ func show_game_over():
 
 func _on_start_button_pressed() -> void:
 	$VBoxContainer/StartButton.hide()
+	$VBoxContainer/NameInput.hide()
+	$VBoxContainer/SaveScoreButton.hide()
 	restart_game.emit()
 
 
