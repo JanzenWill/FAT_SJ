@@ -33,8 +33,8 @@ func _ready() -> void:
 	health = max_health
 
 
-	# boss_type = ["shark", "squid"].pick_random()
-	boss_type = "squid"
+	boss_type = ["shark", "squid"].pick_random()
+	
 	if boss_type == "squid":
 		lock_rotation = false
 	else:
