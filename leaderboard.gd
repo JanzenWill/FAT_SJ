@@ -11,6 +11,8 @@ func _ready() -> void:
 
 
 func add_score(player_name: String, score: int) -> void:
+	player_name = player_name.strip_edges().substr(0, 3).to_upper()
+
 	scores.append({
 		"name": player_name,
 		"score": score
@@ -61,6 +63,11 @@ func load_scores() -> void:
 	else:
 		scores = []
 
+func qualifies_for_leaderboard(score: int) -> bool:
+	if scores.size() < MAX_SCORES:
+		return true
+	
+	return score > scores[scores.size() - 1]["score"]
 
 func get_scores() -> Array:
 	return scores

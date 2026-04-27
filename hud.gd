@@ -18,65 +18,81 @@ func _on_message_timer_timeout() -> void:
 
 
 func _ready() -> void:
-	$VBoxContainer/ScoreLabel.show()
-	$VBoxContainer/NameInput.hide()
-	$VBoxContainer/SaveScoreButton.hide()
-	$VBoxContainer/HomeButton.hide()
+	$ScoreLabel.show()
+	$NameInput.hide()
+	$SaveScoreButton.hide()
+	$HomeButton.hide()
+	$HighScoreMessage.hide()
+	
 
 
 
 func _new_game():
+	$Message.add_theme_font_size_override("font_size", 50)
+	$Message.add_theme_color_override("font_color", Color.YELLOW)
 	$Message.text = "Avenge your Father!\n\nVanquish the malicious fish, while taking care not to harm the endangered fish."
 	$Message.show()
-	$VBoxContainer/NameInput.hide()
-	$VBoxContainer/SaveScoreButton.hide()
-	$VBoxContainer/NameInput.text = ""
+	$NameInput.hide()
+	$SaveScoreButton.hide()
+	$HighScoreMessage.hide()
+	$PauseButton.show()
+	$NameInput.text = ""
+	$HomeButton.hide()
 
 
-func show_game_over():
-	$Message.add_theme_font_size_override("font_size", 80)
+func show_game_over(final_score: int):
+	$Message.add_theme_font_size_override("font_size", 100)
+	$Message.add_theme_color_override("font_color", Color.RED)
+	$PauseButton.hide()
 	show_message("Game Over")
 	await $MessageTimer.timeout
 	await get_tree().create_timer(1.0).timeout
-	$VBoxContainer/NameInput.show()
-	$VBoxContainer/SaveScoreButton.show()
-	$VBoxContainer/StartButton.show()
-	$VBoxContainer/HomeButton.show()
+	$HomeButton.show()
+	$StartButton.show()
+	if Leaderboard.qualifies_for_leaderboard(final_score):
+		$NameInput.show()
+		$SaveScoreButton.show()
+		$HighScoreMessage.show()
+		
 
 
 func _on_start_button_pressed() -> void:
-	$VBoxContainer/StartButton.hide()
-	$VBoxContainer/NameInput.hide()
-	$VBoxContainer/SaveScoreButton.hide()		
+	$StartButton.hide()
+	$NameInput.hide()
+	$PauseButton.show()
+	$SaveScoreButton.hide()		
+	$HomeButton.hide()
+	$HighScoreMessage.hide()
 	restart_game.emit()
 
 
 func _on_save_score_button_pressed() -> void:
-	var player_name = $VBoxContainer/NameInput.text.strip_edges()
+	var player_name = $NameInput.text.strip_edges()
 
 	if player_name == "":
 		player_name = "PLAYER"
 
 	save_score_requested.emit(player_name)
 
-	$VBoxContainer/NameInput.hide()
-	$VBoxContainer/SaveScoreButton.hide()
+	$NameInput.hide()
+	$NameInput.text = "" 
+	$SaveScoreButton.hide()
 
 
 func update_score(score):
-	$VBoxContainer/ScoreLabel.text = "Score: " + str(score)
+	$ScoreLabel.text = "Score: " + str(score)
 
 
 func update_health(health):
-	$VBoxContainer/HBoxContainer/BlueHeartPixelArt1.visible = health >= 1
-	$VBoxContainer/HBoxContainer/BlueHeartPixelArt2.visible = health >= 2
-	$VBoxContainer/HBoxContainer/BlueHeartPixelArt3.visible = health >= 3
-	$VBoxContainer/HBoxContainer/BlueHeartPixelArt4.visible = health >= 4
-	$VBoxContainer/HBoxContainer/BlueHeartPixelArt5.visible = health >= 5
+	$HBoxContainer/BlueHeartPixelArt1.visible = health >= 1
+	$HBoxContainer/BlueHeartPixelArt2.visible = health >= 2
+	$HBoxContainer/BlueHeartPixelArt3.visible = health >= 3
+	$HBoxContainer/BlueHeartPixelArt4.visible = health >= 4
+	$HBoxContainer/BlueHeartPixelArt5.visible = health >= 5
 
 
 func flash_score_red() -> void:
-	var label = $VBoxContainer/ScoreLabel
+	var label = $ScoreLabel
 	label.modulate = Color(1, 0.2, 0.2)
 	await get_tree().create_timer(0.2).timeout
 	label.modulate = Color(1, 1, 1)

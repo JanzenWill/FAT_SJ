@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cj1kvmf3f7ifh"]
+[gd_scene load_steps=23 format=3 uid="uid://cj1kvmf3f7ifh"]
 
 [ext_resource type="Script" uid="uid://dotiusqgf1tyv" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://btv6brr4iv3pv" path="res://player.tscn" id="2_0xm2m"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dd4ogxxbnovt5" path="res://passive_mob_2.tscn" id="3_vivmo"]
 [ext_resource type="PackedScene" uid="uid://vqinx2qv2acm" path="res://evil_mob.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cl0nw5sxsy8lo" path="res://hud.tscn" id="5_lquwl"]
-[ext_resource type="PackedScene" uid="uid://hid3u7lrnovo" path="res://shark_boss.tscn" id="6_2cqfq"]
+[ext_resource type="PackedScene" uid="uid://bjc0x8oev03u6" path="res://shark_boss.tscn" id="6_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://bssrpdxmwaetq" path="res://new_background.tscn" id="6_kek77"]
 [ext_resource type="AudioStream" uid="uid://bihe3ck5ajgx4" path="res://audio background/underwater music.mp3" id="7_272bh"]
 [ext_resource type="AudioStream" uid="uid://clsl6ek4a2mn4" path="res://assets/audio/underwater-movement-bubble-motion-jochi-sfx-5-5-00-03.wav" id="7_kek77"]
@@ -56,6 +56,16 @@ border_width_bottom = 6
 border_color = Color(1, 1, 1, 1)
 expand_margin_left = 8.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_074og"]
+draw_center = false
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.8, 0.8, 0.11764706, 1)
+expand_margin_left = 6.0
+expand_margin_right = 6.0
+
 [node name="Main" type="Node"]
 script = ExtResource("1_1bvp3")
 passive_mob_scene = ExtResource("2_1bvp3")
@@ -99,7 +109,6 @@ autostart = true
 wait_time = 3.5
 
 [node name="StartMenu" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("10_w48qg")
 
 [node name="UI" type="Control" parent="StartMenu"]
@@ -180,28 +189,48 @@ offset_top = 80.0
 offset_right = 900.0
 offset_bottom = 630.0
 
-[node name="LeaderboardTitle" type="Label" parent="StartMenu/UI/LeaderboardPanel"]
+[node name="TextureRect" type="TextureRect" parent="StartMenu/UI/LeaderboardPanel"]
 layout_mode = 0
-offset_left = 220.0
-offset_top = 20.0
-offset_right = 293.0
-offset_bottom = 43.0
-text = "Inspector"
+offset_left = -250.0
+offset_top = -83.0
+offset_right = 1097.0
+offset_bottom = 873.0
+texture = ExtResource("10_ycdy4")
+
+[node name="LeaderboardTitle" type="Label" parent="StartMenu/UI/LeaderboardPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -578.0
+offset_top = -9.0
+offset_right = 148.0
+offset_bottom = 113.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("11_w48qg")
+theme_override_font_sizes/font_size = 120
+text = "Leaderboard"
 
 [node name="ScoresLabel" type="Label" parent="StartMenu/UI/LeaderboardPanel"]
 layout_mode = 0
-offset_left = 40.0
-offset_top = 70.0
-offset_right = 610.0
-offset_bottom = 370.0
-text = "No scores yet"
+offset_left = 350.0
+offset_top = 104.0
+offset_right = 920.0
+offset_bottom = 404.0
+theme_override_fonts/font = ExtResource("11_w48qg")
+theme_override_font_sizes/font_size = 40
 
 [node name="BackButton" type="Button" parent="StartMenu/UI/LeaderboardPanel"]
 layout_mode = 0
-offset_left = 260.0
-offset_top = 410.0
-offset_right = 380.0
-offset_bottom = 450.0
+offset_left = 366.0
+offset_top = 724.0
+offset_right = 486.0
+offset_bottom = 764.0
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.039215688, 1)
+theme_override_fonts/font = ExtResource("11_w48qg")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_074og")
 text = "Back"
 
 [node name="SharkBossMessages" type="CanvasLayer" parent="."]
@@ -223,7 +252,7 @@ theme_override_colors/font_color = Color(0.94036186, 5.3425133e-06, 3.85046e-07,
 theme_override_fonts/font = ExtResource("11_w48qg")
 theme_override_font_sizes/font_size = 120
 text = "                   BOSS   FIGHT:
-          Kill the  shark!
+          Kill the  beast!
 "
 
 [node name="SharkEnd" type="Label" parent="SharkBossMessages"]
@@ -242,11 +271,13 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0.45899612, 0.85237455, 0.21894738, 1)
 theme_override_fonts/font = ExtResource("11_w48qg")
 theme_override_font_sizes/font_size = 120
-text = "      You Beat
-   the Shark!
-+50 Points"
+text = "                     You Beat
+                  the Beast!
+              +50 Points
+      Health    Restored!"
 
 [node name="HUD" parent="." instance=ExtResource("5_lquwl")]
+visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_272bh")
@@ -254,7 +285,6 @@ autoplay = true
 bus = &"Underwater"
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
-[connection signal="timeout" from="PassiveMob2Timer" to="." method="_on_passive_mob_2_timer_timeout"]
 [connection signal="timeout" from="PassiveMobTimer" to="." method="_on_passive_mob_timer_timeout"]
 [connection signal="timeout" from="PassiveMob2Timer" to="." method="_on_passive_mob_2_timer_timeout"]
 [connection signal="timeout" from="MaliciousMobTimer" to="." method="_on_malicious_mob_timer_timeout"]

@@ -7,7 +7,7 @@ extends Area2D
 @export var attack_knockback_strength: float = 100.0
 @export var hurt_knockback_multiplier: float = 1.0
 @export var hurt_cooldown: float = 1.5
-@export var attack_cooldown: float = 0.3
+@export var attack_cooldown: float = 0.4
 
 
 signal hit

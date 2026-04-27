@@ -16,6 +16,7 @@ var shark_spawned = false
 var shark_alive = false
 var shark_boss = null
 var score_saved = false
+var next_boss_score = 1
 
 func _ready():
 	$HUD.hide()
@@ -39,7 +40,7 @@ func _on_start_menu_start_game() -> void:
 	$StartMenu.hide()
 	$Player._start()
 	$HUD.show()
-	$HUD/VBoxContainer/StartButton.hide()
+	$HUD/StartButton.hide()
 	$HUD._new_game()
 	
 	$PassiveMobTimer.start()
@@ -138,7 +139,7 @@ func _on_player_hit() -> void:
 		pending_score = score
 	
 	clear_all_fish()
-	$HUD.show_game_over()
+	$HUD.show_game_over(pending_score)
 	#$Music.stop()
 	#$DeathSound.play()
 	
@@ -157,6 +158,7 @@ func _on_restart_game():
 	$Player.alive = true
 	shark_spawned = false
 	shark_alive = false
+	next_boss_score = 5
 	clear_all_fish()
 	
 func _on_killed_passive_mob():
@@ -169,14 +171,14 @@ func _on_killed_malicious_mob():
 	score += 1
 	$HUD.update_score(score)
 	
-	if score >= 5 and not shark_spawned and not shark_alive:
+	if score >= next_boss_score and not shark_spawned and not shark_alive:
 		spawn_shark_boss()
 		
 func _on_killed_swordfish():
 	score += 3
 	$HUD.update_score(score)
 	
-	if score >= 5 and not shark_spawned and not shark_alive:
+	if score >= next_boss_score and not shark_spawned and not shark_alive:
 		spawn_shark_boss()
 	
 func clear_all_fish() -> void: #clears all fish
@@ -218,6 +220,8 @@ func _on_evil_mob_timer_timeout() -> void:
 func spawn_shark_boss() -> void:
 	if shark_spawned or shark_alive:
 		return
+	shark_spawned = true
+	shark_alive = true
 	
 	clear_all_fish()
 	$PassiveMobTimer.stop()
@@ -248,16 +252,16 @@ func spawn_shark_boss() -> void:
 	shark_boss.direction = [-1, 1].pick_random()
 	add_child(shark_boss)
 
-	shark_spawned = true
-	shark_alive = true
+	
 	
 	
 	
 func _on_shark_boss_killed() -> void:
 	shark_alive = false
 	shark_boss = null
+	shark_spawned = false
 	$Player.health = $Player.max_health
-	$HUD.update_health(3)
+	$HUD.update_health(5)
 	
 	for i in range(3):
 		$SharkBossMessages/SharkEnd.visible = true
@@ -268,7 +272,7 @@ func _on_shark_boss_killed() -> void:
 	
 	score += 50
 	$HUD.update_score(score)
-
+	next_boss_score = score + 10
 	$PassiveMobTimer.start()
 	$PassiveMob2Timer.start()
 	$MaliciousMobTimer.start()
@@ -324,7 +328,7 @@ func _on_home_requested() -> void:
 	shark_spawned = false
 	shark_alive = false
 	shark_boss = null
-
+	next_boss_score = 5
 	$HUD.update_score(score)
 	$HUD.hide()
 
