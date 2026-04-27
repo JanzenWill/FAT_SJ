@@ -1,15 +1,21 @@
 extends Area2D
 
-@export var speed: float = 250.0
+@export var speed: float = 350.0
 @export var sink_speed: float = 90.0
 @export var attack_duration: float = 0.2
-@export var max_health: int = 3
-@export var knockback_strength: float = 70.0
-@export var hurt_cooldown: float = 0.5
+@export var max_health: int = 5
+@export var attack_knockback_strength: float = 100.0
+@export var hurt_knockback_multiplier: float = 1.0
+@export var hurt_cooldown: float = 1.5
+@export var attack_cooldown: float = 0.3
+
 
 signal hit
 signal health_changed
 
+var knockback_velocity = Vector2.ZERO
+var knockback_timer = 0.0
+var attack_cooldown_timer = 0.0
 var can_take_damage = true
 var health = max_health
 var screen_size
@@ -18,6 +24,8 @@ var attack_timer = 0.0
 var alive = true
 var is_hit = false
 var facing_right = true
+var game_started = false
+
 
 @onready var sprite = $AnimatedSprite2D
 @onready var trident = $Trident
@@ -27,12 +35,12 @@ var facing_right = true
 @onready var player_swim = $PlayerSwim
 @onready var player_attack = $PlayerAttack
 @onready var player_hurt = $PlayerHurt
+@onready var player_heartbeat = $PlayerHeartbeat
 
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-
-
+	
 	left_hitbox.disabled = true
 	right_hitbox.disabled = true
 	health = max_health
@@ -41,6 +49,7 @@ func _ready() -> void:
 func _start() -> void:
 	position = Vector2(50, 50)
 	show()
+	game_started = true
 	$CollisionShape2D.disabled = false
 	left_hitbox.disabled = true
 	right_hitbox.disabled = true
@@ -50,6 +59,9 @@ func _start() -> void:
 	is_attacking = false
 	is_hit = false
 	health_changed.emit(health)
+	knockback_velocity = Vector2.ZERO
+	knockback_timer = 0.0
+	attack_cooldown_timer = 0.0
 
 func _process(delta: float) -> void:
 	if not alive:
@@ -65,7 +77,8 @@ func _process(delta: float) -> void:
 		velocity.y += 1
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= 1
-
+	if attack_cooldown_timer > 0:
+		attack_cooldown_timer -= delta
 	if velocity.x > 0:
 		facing_right = true
 		sprite.flip_h = true
@@ -76,13 +89,25 @@ func _process(delta: float) -> void:
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		if not is_attacking:
-			sprite.play("default")
-		else:
-			if not is_attacking:
-				sprite.play("default")	
-			
-	velocity.y += sink_speed
-	position += velocity * delta
+			sprite.play("swim")
+	else:
+		if not is_attacking:
+			sprite.play("default")	
+		
+	if not game_started:
+		velocity.y = 0
+	else:
+		velocity.y += sink_speed
+		
+		
+	var final_velocity = velocity
+
+	if knockback_timer > 0:
+		final_velocity += knockback_velocity
+		knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 6 * delta)
+		knockback_timer -= delta
+
+	position += final_velocity * delta
 	
 	# swimming logic 
 	if not player_swim.playing:
@@ -93,7 +118,7 @@ func _process(delta: float) -> void:
 	else:
 		player_swim.volume_db = -18.0 # Quieter 'drift' bubbles when still
 
-	position.y = clamp(position.y, 0, 8000)
+	position.y = clamp(position.y, 0, 8500)
 
 	var target_rotation = 0.0
 
@@ -112,8 +137,9 @@ func _process(delta: float) -> void:
 
 	
 
-	if Input.is_action_just_pressed("attack") and not is_attacking:
+	if Input.is_action_just_pressed("attack") and not is_attacking and attack_cooldown_timer <= 0:
 		start_attack()
+		
 
 	if is_attacking:
 		attack_timer -= delta
@@ -133,6 +159,7 @@ func update_attack_hitbox_direction() -> void:
 func start_attack() -> void:
 	is_attacking = true
 	attack_timer = attack_duration
+	attack_cooldown_timer = attack_cooldown
 	sprite.play("attack")
 	player_attack.play() # this is when the player attacks 
 	update_attack_hitbox_direction()
@@ -142,27 +169,48 @@ func end_attack() -> void:
 	sprite.play("default")
 	left_hitbox.disabled = true
 	right_hitbox.disabled = true
+	
+func get_attack_knockback() -> float:
+	return attack_knockback_strength
 
-func take_damage(amount: int, hit_from_x: float) -> void:
+func apply_knockback(from_x: float, strength: float) -> void:
+	var direction = sign(global_position.x - from_x)
+	if direction == 0:
+		direction = 1
+	knockback_velocity = Vector2(direction * strength * hurt_knockback_multiplier, -40)
+	knockback_timer = 1.1
+	
+func take_damage(amount: int, hit_from_x: float, enemy_knockback: float) -> void:
 	if not alive or not can_take_damage:
 		return
 
 	player_hurt.volume_db = 5.0
 	player_hurt.pitch_scale = randf_range(0.8, 1.5)
 	player_hurt.play()
-	
+
 	can_take_damage = false
 	player_hurt.play() # this is when the player is hurt or attacked
 
 	health -= amount
 	health_changed.emit(health)
+	
+	if not player_heartbeat.playing:
+		player_heartbeat.play()
+		player_heartbeat.volume_db = -2.0 # Quiet start
+		player_heartbeat.pitch_scale = 1.0 # Normal speed
+	elif health == 1:
+		player_heartbeat.volume_db = 2.0   # Loud danger
+		player_heartbeat.pitch_scale = 1.4 # High speed/Panic!
+	elif health <= 0:
+		player_heartbeat.stop()
 	show_hit_flash()
+	apply_knockback(hit_from_x, enemy_knockback)
 
 	var direction = sign(global_position.x - hit_from_x)
 	if direction == 0:
 		direction = 1
 
-	position.x += direction * knockback_strength
+	
 
 	if health <= 0:
 		die()
@@ -176,6 +224,7 @@ func die() -> void:
 	$CollisionShape2D.set_deferred("disabled", true)
 	alive = false
 	player_swim.stop() # swimming sound stops when the player dies
+	game_started = false
 	hit.emit()
 
 func show_hit_flash() -> void:
@@ -189,25 +238,43 @@ func show_hit_flash() -> void:
 	is_hit = false
 
 func _on_area_entered(area: Area2D) -> void:
+	print("PLAYER TOUCHED AREA: ", area.name, " groups=", area.get_groups())
+	
 	if not alive:
 		return
 
 	if area == trident:
 		return
 
-	if not area.is_in_group("enemy_hitbox"):
+	if not area.is_in_group("MaliciousMob"):
 		return
 
 	var damage := 1
+	var enemy_knockback := 70.0
+
 	if area.has_method("get_damage"):
 		damage = area.get_damage()
 
-	take_damage(damage, area.global_position.x)
-	print("Player touched area: ", area.name, " enemy_hitbox=", area.is_in_group("enemy_hitbox"))
+	if area.has_method("get_attack_knockback"):
+		enemy_knockback = area.get_attack_knockback()
+
+	take_damage(damage, area.global_position.x, enemy_knockback)
+	print("Player touched area: ", area.name, " MaliciousMob=", area.is_in_group("MalicousMob"))
 
 func _on_body_entered(body: Node2D) -> void:
+	if not alive:
+		return
+
 	if body.is_in_group("PassiveMob"):
 		return
 
-	if not body.is_in_group("MaliciousMob"):
+	if not body.has_method("get_damage"):
 		return
+
+	var damage : int = body.get_damage()
+	var enemy_knockback := 70.0
+
+	if body.has_method("get_attack_knockback"):
+		enemy_knockback = body.get_attack_knockback()
+
+	take_damage(damage, body.global_position.x, enemy_knockback)

@@ -3,15 +3,24 @@ extends RigidBody2D
 @export var gravity = 0
 @export var max_health = 2 # health
 @export var damage = 1 # damage it gives
-@export var knockback_strength = 900
-
-@export var patrol_speed = 200.0 # normal left/right swim speed
-@export var chase_speed = 200.0 # faster speed while chasing player
+@export var knockback_strength = 600
+@export var patrol_speed = 190.0 # normal left/right swim speed
+@export var chase_speed = 250.0 # faster speed while chasing player
 @export var leash_time = 1.5 # how long it keeps chasing after player leaves range
 @export var tilt_strength = 0.0018 # how much fish rotates based on movement
-@export var tilt_lerp_speed = 0.18 # how quickly rotation catches up
+@export var tilt_lerp_speed = 0.08 #0.18 # how quickly rotation catches up
+@export var direction = 1 # patrol direction: 1 = right, -1 = left
+@export var speed_variability_factor = 1.05
+@export var attack_knockback_strength: float = 1000
+@export var score_value: int = 3
+@export var preferred_min_distance: float = 25
+@export var preferred_max_distance: float = 70
+@export var backoff_speed: float = 120.0
 
-var direction = 1 # patrol direction: 1 = right, -1 = left
+var knockback_velocity = Vector2.ZERO
+var knockback_timer = 0.0
+var despawn_distance = 2000
+
 var is_hit = false
 var health = max_health
 var velocity = Vector2.ZERO
@@ -20,6 +29,7 @@ var player: Node2D = null # stores player reference while chasing
 var is_chasing = false # true while actively chasing
 var player_in_range = false # true while player is inside big detection area
 var leash_timer = 0.0 # counts down after player leaves area
+var speed #used to ensure physics works
 
 signal killed
 
@@ -37,28 +47,28 @@ func _process(delta: float) -> void:
 func _integrate_forces(state) -> void:
 	var vel = state.linear_velocity
 
-	# If chasing and we still know where the player is,
-	# swim toward them in all directions.
 	if is_chasing and player != null:
 		var to_player = player.global_position - global_position
+		var dist = to_player.length()
 
-		if to_player.length() > 0:
+		if dist > preferred_max_distance:
 			vel = to_player.normalized() * chase_speed
+		elif dist < preferred_min_distance:
+			vel = -to_player.normalized() * backoff_speed
 		else:
-			vel = Vector2.ZERO
+			vel = to_player.normalized() * (chase_speed * 0.4)
 
-	# Otherwise go back to simple left/right patrol.
 	else:
 		vel.x = patrol_speed * direction
 		vel.y = 0
 
 	state.linear_velocity = vel
-
-
+	
 	
 func _physics_process(delta: float) -> void:
 	# flips sprite
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
+	#linear_velocity.x = speed * direction
 
 	# tilt upwards when chasing up, tilt downwards wen chasig down
 	var target_rotation = 0.0
@@ -87,9 +97,19 @@ func _physics_process(delta: float) -> void:
 
 func _on_mob_timer_timeout() -> void:
 	pass
+	
+func _process(delta: float) -> void:
+	#get player distance
+	#queuefree if distance above threshold
+	if player:
+		if global_position.distance_to(player.global_position) > despawn_distance:
+			queue_free()
 
+"""
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
+"""
+
 
 # Small hit area for spear only.
 func _on_area_2d_area_entered(area: Area2D) -> void:
@@ -162,3 +182,10 @@ func show_hit_flash() -> void:
 	await get_tree().create_timer(0.1).timeout
 	$AnimatedSprite2D.modulate = Color(1, 1, 1)
 	is_hit = false
+	
+func get_attack_knockback() -> float:
+	return attack_knockback_strength
+
+
+func get_score_value() -> int:
+	return score_value

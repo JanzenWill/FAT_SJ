@@ -82,3 +82,46 @@ Contributions/Tasks completed:
 
 &#x09;-improve player physics (Skjeldestad)
 
+
+
+
+
+\-----------------------------------------------------------
+
+4-16-2026 Q3 Update
+
+Guario Suggestions:
+-differentiate passive and aggressive mobs
+
+\-score flashes when passive mob is killed
+
+\-could fix total number of mobs, stop spawning after that (instead of distance-based despawn)
+
+\-more SFX
+
+\-fish death animation (blood?) (gravity?)
+
+
+
+\--Will 4/23 update
+
+done:
+
+\-health now refills after boss kill + updates hud
+
+\-fixed passive mob2 spawn
+
+\-no moving animation when player is still
+
+\-enter name box disappears on restart (bug fix)
+
+
+
+Potential todos:
+
+\-reduce malicious mob vertical velocity/lerp bonus speed
+
+\-improve player animations?
+
+s-powerup to gain more hearts?
+
