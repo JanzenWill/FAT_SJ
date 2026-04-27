@@ -298,8 +298,6 @@ func _on_passive_mob_2_timer_timeout() -> void:
 	var spawn_x = player.global_position.x + (1050)*[-1, 1].pick_random()
 	#spawn within one screen length vertically of the player
 	var spawn_y = player.global_position.y + (randf_range(0, 600) * [-1, 1].pick_random())
-	
-	#TODO: modify spawn_y if it's too high or too low
 
 	# Set the mob's position to the random location.
 	passive_mob_2.position = Vector2(spawn_x, spawn_y)

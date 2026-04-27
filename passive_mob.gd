@@ -4,7 +4,7 @@ extends RigidBody2D
 @export var max_health = 1 # health
 @export var damage = 0 # damage it gives
 @export var knockback_strength = 200
-@export var base_speed = 180
+@export var base_speed = 300
 @export var direction = 1
 @export var speed_variability_factor = 0.15
 @export var max_distance = 2500
