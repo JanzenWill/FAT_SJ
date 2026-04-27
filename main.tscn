@@ -92,7 +92,7 @@ bus = &"Underwater"
 stream = ExtResource("11_2cqfq")
 
 [node name="PassiveMobTimer" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 1.2
 autostart = true
 
 [node name="PassiveMob2Timer" type="Timer" parent="."]
@@ -262,6 +262,7 @@ autoplay = true
 bus = &"Underwater"
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="PassiveMob2Timer" to="." method="_on_passive_mob_2_timer_timeout"]
 [connection signal="timeout" from="PassiveMobTimer" to="." method="_on_passive_mob_timer_timeout"]
 [connection signal="timeout" from="PassiveMob2Timer" to="." method="_on_passive_mob_2_timer_timeout"]
 [connection signal="timeout" from="MaliciousMobTimer" to="." method="_on_malicious_mob_timer_timeout"]

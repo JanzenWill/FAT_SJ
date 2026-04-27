@@ -93,6 +93,8 @@ func _physics_process(delta: float) -> void:
 		if leash_timer <= 0:
 			stop_chasing()
 
+
+
 func _on_mob_timer_timeout() -> void:
 	pass
 	

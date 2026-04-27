@@ -3,7 +3,7 @@ extends Area2D
 @export var speed: float = 350.0
 @export var sink_speed: float = 90.0
 @export var attack_duration: float = 0.2
-@export var max_health: int = 3
+@export var max_health: int = 5
 @export var attack_knockback_strength: float = 100.0
 @export var hurt_knockback_multiplier: float = 1.0
 @export var hurt_cooldown: float = 1.5
@@ -192,6 +192,7 @@ func take_damage(amount: int, hit_from_x: float, enemy_knockback: float) -> void
 	player_hurt.play()
 
 	can_take_damage = false
+	player_hurt.play() # this is when the player is hurt or attacked
 
 	health -= amount
 	health_changed.emit(health)
