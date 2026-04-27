@@ -30,6 +30,7 @@ func _new_game():
 	$Message.show()
 	$VBoxContainer/NameInput.hide()
 	$VBoxContainer/SaveScoreButton.hide()
+	$VBoxContainer/HomeButton.hide()
 	$VBoxContainer/NameInput.text = ""
 
 
@@ -48,6 +49,7 @@ func _on_start_button_pressed() -> void:
 	$VBoxContainer/StartButton.hide()
 	$VBoxContainer/NameInput.hide()
 	$VBoxContainer/SaveScoreButton.hide()		
+	$VBoxContainer/HomeButton.hide()
 	restart_game.emit()
 
 

@@ -103,7 +103,6 @@ autowrap_mode = 2
 
 [node name="PauseButton" type="Button" parent="."]
 process_mode = 3
-anchors_preset = -1
 offset_left = 936.0
 offset_top = 28.0
 offset_right = 1068.0
