@@ -41,7 +41,7 @@ func show_game_over():
 func _on_start_button_pressed() -> void:
 	$VBoxContainer/StartButton.hide()
 	$VBoxContainer/NameInput.hide()
-	$VBoxContainer/SaveScoreButton.hide()
+	$VBoxContainer/SaveScoreButton.hide()		
 	restart_game.emit()
 
 
@@ -65,6 +65,8 @@ func update_health(health):
 	$VBoxContainer/HBoxContainer/BlueHeartPixelArt1.visible = health >= 1
 	$VBoxContainer/HBoxContainer/BlueHeartPixelArt2.visible = health >= 2
 	$VBoxContainer/HBoxContainer/BlueHeartPixelArt3.visible = health >= 3
+	$VBoxContainer/HBoxContainer/BlueHeartPixelArt4.visible = health >= 4
+	$VBoxContainer/HBoxContainer/BlueHeartPixelArt5.visible = health >= 5
 
 
 func flash_score_red() -> void:
