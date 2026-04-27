@@ -78,6 +78,14 @@ shark_boss_scene = ExtResource("6_2cqfq")
 
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(500, 100)
+speed = null
+sink_speed = null
+attack_duration = null
+max_health = null
+attack_knockback_strength = null
+hurt_knockback_multiplier = null
+hurt_cooldown = null
+attack_cooldown = null
 
 [node name="PlayerSwim" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("7_kek77")

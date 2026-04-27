@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cvryw0q1uvxqx" path="res://evil_mob.gd" id="1_bs6tt"]
 [ext_resource type="Texture2D" uid="uid://be6be8ql1uufh" path="res://assets/art/Mobs/newSawfish.png" id="2_bs6tt"]
-[ext_resource type="Script" uid="uid://dxnk83ubkomqc" path="res://attack_area.gd" id="3_cplja"]
+[ext_resource type="Script" path="res://attack_area.gd" id="3_cplja"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bs6tt"]
 animations = [{
@@ -30,7 +30,6 @@ radius = 477.4191
 
 [node name="RigidBody2D" type="RigidBody2D"]
 collision_layer = 2
-collision_mask = 5
 gravity_scale = 0.0
 script = ExtResource("1_bs6tt")
 

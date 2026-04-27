@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://bjc0x8oev03u6"]
 
-[ext_resource type="Script" uid="uid://dxjdwb0gqwl3s" path="res://shark_boss.gd" id="1_daadf"]
+[ext_resource type="Script" path="res://shark_boss.gd" id="1_daadf"]
 [ext_resource type="Texture2D" uid="uid://d21t4t6jcpwkr" path="res://assets/art/Shark Boss/Shark Swim 1.png" id="2_cl1l8"]
 [ext_resource type="Texture2D" uid="uid://da8ygb1ylkflt" path="res://assets/art/Shark Boss/Shark Swim 2.png" id="3_7c7be"]
 [ext_resource type="Texture2D" uid="uid://bwhbve2ctq54v" path="res://assets/art/Shark Boss/Shark Swim 3.png" id="4_5pcin"]
@@ -52,8 +52,10 @@ radius = 57.558666
 [sub_resource type="CircleShape2D" id="CircleShape2D_s4ntg"]
 radius = 1322.8008
 
-[node name="SharkBoss" type="RigidBody2D" groups=["Fish", "MaliciousMob", "enemy_hitbox"]]
+[node name="SharkBoss" type="RigidBody2D" groups=["SharkBoss", "enemy_hitbox"]]
 collision_layer = 2
+can_sleep = false
+contact_monitor = true
 script = ExtResource("1_daadf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
