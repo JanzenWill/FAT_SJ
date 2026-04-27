@@ -2,6 +2,7 @@ extends CanvasLayer
 
 signal restart_game
 signal save_score_requested(player_name)
+signal pause_game
 
 signal home_requested
 
@@ -46,7 +47,7 @@ func show_game_over():
 func _on_start_button_pressed() -> void:
 	$VBoxContainer/StartButton.hide()
 	$VBoxContainer/NameInput.hide()
-	$VBoxContainer/SaveScoreButton.hide()
+	$VBoxContainer/SaveScoreButton.hide()		
 	restart_game.emit()
 
 
@@ -70,6 +71,8 @@ func update_health(health):
 	$VBoxContainer/HBoxContainer/BlueHeartPixelArt1.visible = health >= 1
 	$VBoxContainer/HBoxContainer/BlueHeartPixelArt2.visible = health >= 2
 	$VBoxContainer/HBoxContainer/BlueHeartPixelArt3.visible = health >= 3
+	$VBoxContainer/HBoxContainer/BlueHeartPixelArt4.visible = health >= 4
+	$VBoxContainer/HBoxContainer/BlueHeartPixelArt5.visible = health >= 5
 
 
 func flash_score_red() -> void:
@@ -79,5 +82,11 @@ func flash_score_red() -> void:
 	label.modulate = Color(1, 1, 1)
 
 
+func _on_pause_button_pressed() -> void:
+	if $PauseButton.text == "Pause":
+		$PauseButton.text = "Resume"
+	else:
+		$PauseButton.text = "Pause"
+	pause_game.emit()
 func _on_home_button_pressed() -> void:
 	home_requested.emit()

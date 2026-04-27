@@ -22,6 +22,7 @@ func _ready():
 	$StartMenu.show()
 	$StartMenu.start_game.connect(_on_start_menu_start_game)
 	$HUD.restart_game.connect(_on_restart_game)
+	$HUD.pause_game.connect(_on_pause_game)
 	$HUD.save_score_requested.connect(_on_save_score_requested)
 	$Player.hit.connect(_on_player_hit)
 	$Player.health_changed.connect($HUD.update_health)
@@ -306,6 +307,8 @@ func _on_passive_mob_2_timer_timeout() -> void:
 	# Spawn the mob by adding it to the Main scene.
 	add_child(passive_mob_2)
 	
+func _on_pause_game():
+	get_tree().paused = !get_tree().paused
 func _on_home_requested() -> void:
 	$PassiveMobTimer.stop()
 	$PassiveMob2Timer.stop()
