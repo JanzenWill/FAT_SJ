@@ -3,6 +3,8 @@ extends CanvasLayer
 signal restart_game
 signal save_score_requested(player_name)
 
+signal home_requested
+
 
 func show_message(text):
 	$Message.text = text
@@ -18,6 +20,8 @@ func _ready() -> void:
 	$VBoxContainer/ScoreLabel.show()
 	$VBoxContainer/NameInput.hide()
 	$VBoxContainer/SaveScoreButton.hide()
+	$VBoxContainer/HomeButton.hide()
+
 
 
 func _new_game():
@@ -36,6 +40,7 @@ func show_game_over():
 	$VBoxContainer/NameInput.show()
 	$VBoxContainer/SaveScoreButton.show()
 	$VBoxContainer/StartButton.show()
+	$VBoxContainer/HomeButton.show()
 
 
 func _on_start_button_pressed() -> void:
@@ -72,3 +77,7 @@ func flash_score_red() -> void:
 	label.modulate = Color(1, 0.2, 0.2)
 	await get_tree().create_timer(0.2).timeout
 	label.modulate = Color(1, 1, 1)
+
+
+func _on_home_button_pressed() -> void:
+	home_requested.emit()
