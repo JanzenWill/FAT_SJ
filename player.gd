@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var speed: float = 300.0
+@export var speed: float = 350.0
 @export var sink_speed: float = 90.0
 @export var attack_duration: float = 0.2
 @export var max_health: int = 3
