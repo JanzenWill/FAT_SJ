@@ -4,6 +4,8 @@ signal restart_game
 signal save_score_requested(player_name)
 signal pause_game
 
+signal home_requested
+
 
 func show_message(text):
 	$Message.text = text
@@ -19,6 +21,8 @@ func _ready() -> void:
 	$VBoxContainer/ScoreLabel.show()
 	$VBoxContainer/NameInput.hide()
 	$VBoxContainer/SaveScoreButton.hide()
+	$VBoxContainer/HomeButton.hide()
+
 
 
 func _new_game():
@@ -37,6 +41,7 @@ func show_game_over():
 	$VBoxContainer/NameInput.show()
 	$VBoxContainer/SaveScoreButton.show()
 	$VBoxContainer/StartButton.show()
+	$VBoxContainer/HomeButton.show()
 
 
 func _on_start_button_pressed() -> void:
@@ -83,3 +88,5 @@ func _on_pause_button_pressed() -> void:
 	else:
 		$PauseButton.text = "Pause"
 	pause_game.emit()
+func _on_home_button_pressed() -> void:
+	home_requested.emit()

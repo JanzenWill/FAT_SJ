@@ -7,7 +7,6 @@ extends Node
 @export var shark_boss_scene: PackedScene
 
 
-
 var pending_score = 0
 var score = 0
 var depth_level = 0
@@ -27,6 +26,7 @@ func _ready():
 	$HUD.save_score_requested.connect(_on_save_score_requested)
 	$Player.hit.connect(_on_player_hit)
 	$Player.health_changed.connect($HUD.update_health)
+	$HUD.home_requested.connect(_on_home_requested)
 	
 	$PassiveMobTimer.stop()
 	$PassiveMob2Timer.stop()
@@ -257,7 +257,7 @@ func _on_shark_boss_killed() -> void:
 	shark_alive = false
 	shark_boss = null
 	$Player.health = $Player.max_health
-	$Hud.update_health(3)
+	$HUD.update_health(3)
 	
 	for i in range(3):
 		$SharkBossMessages/SharkEnd.visible = true
@@ -309,3 +309,26 @@ func _on_passive_mob_2_timer_timeout() -> void:
 	
 func _on_pause_game():
 	get_tree().paused = !get_tree().paused
+func _on_home_requested() -> void:
+	$PassiveMobTimer.stop()
+	$PassiveMob2Timer.stop()
+	$MaliciousMobTimer.stop()
+	$EvilMobTimer.stop()
+
+	clear_all_fish()
+
+	score = 0
+	pending_score = 0
+	score_saved = false
+	depth_level = 0
+	shark_spawned = false
+	shark_alive = false
+	shark_boss = null
+
+	$HUD.update_score(score)
+	$HUD.hide()
+
+	$StartMenu.show()
+
+	$Player._start()
+	$Player.hide()
