@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vv1t3jqt5eo6"
-path="res://.godot/imported/Diver attack.png-339539c4a6097d5a102a85e7fa6d6eef.ctex"
+uid="uid://c2yf5wtsqqyog"
+path="res://.godot/imported/Swim2.png-0931c1b6884cf9ccd8049c5e501f8b68.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/Diver/Diver attack.png"
-dest_files=["res://.godot/imported/Diver attack.png-339539c4a6097d5a102a85e7fa6d6eef.ctex"]
+source_file="res://assets/art/Diver/Swim2.png"
+dest_files=["res://.godot/imported/Swim2.png-0931c1b6884cf9ccd8049c5e501f8b68.ctex"]
 
 [params]
 
