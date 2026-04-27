@@ -23,6 +23,7 @@ func _ready():
 	$StartMenu.show()
 	$StartMenu.start_game.connect(_on_start_menu_start_game)
 	$HUD.restart_game.connect(_on_restart_game)
+	$HUD.pause_game.connect(_on_pause_game)
 	$HUD.save_score_requested.connect(_on_save_score_requested)
 	$Player.hit.connect(_on_player_hit)
 	$Player.health_changed.connect($HUD.update_health)
@@ -255,7 +256,7 @@ func spawn_shark_boss() -> void:
 func _on_shark_boss_killed() -> void:
 	shark_alive = false
 	shark_boss = null
- 	$Player.health = $Player.max_health
+	$Player.health = $Player.max_health
 	$Hud.update_health(3)
 	
 	for i in range(3):
@@ -305,3 +306,6 @@ func _on_passive_mob_2_timer_timeout() -> void:
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(passive_mob_2)
+	
+func _on_pause_game():
+	get_tree().paused = !get_tree().paused

@@ -2,6 +2,7 @@ extends CanvasLayer
 
 signal restart_game
 signal save_score_requested(player_name)
+signal pause_game
 
 
 func show_message(text):
@@ -74,3 +75,11 @@ func flash_score_red() -> void:
 	label.modulate = Color(1, 0.2, 0.2)
 	await get_tree().create_timer(0.2).timeout
 	label.modulate = Color(1, 1, 1)
+
+
+func _on_pause_button_pressed() -> void:
+	if $PauseButton.text == "Pause":
+		$PauseButton.text = "Resume"
+	else:
+		$PauseButton.text = "Pause"
+	pause_game.emit()
