@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://be1losf3txitm"
+path="res://.godot/imported/boss-mode-bosnow-main-version-37252-01-48.ogg-e70b9e140b0ea38eca2911b3492439b1.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio background/boss-mode-bosnow-main-version-37252-01-48.ogg"
+dest_files=["res://.godot/imported/boss-mode-bosnow-main-version-37252-01-48.ogg-e70b9e140b0ea38eca2911b3492439b1.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

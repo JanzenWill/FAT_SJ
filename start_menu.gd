@@ -4,8 +4,14 @@ signal start_game
 
 
 func _ready() -> void:
+	AudioManager.play_music("res://audio background/start_menu.mp3")
+	
 	show()
 	$UI/LeaderboardPanel.hide()
+	show()
+	$UI/LeaderboardPanel.hide()
+	
+	
 	
 
 
