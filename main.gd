@@ -16,7 +16,7 @@ var shark_spawned = false
 var shark_alive = false
 var shark_boss = null
 var score_saved = false
-var next_boss_score = 1
+var next_boss_score = 5
 
 func _ready():
 	$HUD.hide()
