@@ -4,15 +4,12 @@ extends RigidBody2D
 @export var max_health = 3 # health
 @export var damage = 0 # damage it gives
 @export var knockback_strength = 200
-@export var base_speed = 130
-@export var direction = 1
-@export var speed_variability_factor = 0.15
-@export var max_distance = 2500
+
 var health = max_health
 var is_hit = false
 var velocity = Vector2.ZERO
-var player
-var speed = 100
+var direction = 1
+var speed = 70
 
 signal killed
 
@@ -23,10 +20,9 @@ func _ready() -> void:
 	lock_rotation = true
 
 
-func _process(delta: float) -> void:
-	if player:
-		if global_position.distance_to(player.global_position) > max_distance:
-			queue_free()
+#func _process(delta: float) -> void:
+#	velocity.y += gravity * delta
+#	position += velocity * delta
 
 func _on_mob_timer_timeout() -> void:
 	pass
@@ -42,7 +38,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 
 func _physics_process(_delta: float) -> void:
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
-	linear_velocity.x = speed * direction
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var vel = state.linear_velocity

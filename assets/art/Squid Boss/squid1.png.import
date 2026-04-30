@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qm11jduc50fm"
-path="res://.godot/imported/Swim frame 2.png-b78b4b2b5c7f6882e9c10cb77853a204.ctex"
+uid="uid://b1vhpy6yxgr75"
+path="res://.godot/imported/squid1.png-8ccc57dcfbe08ff538b08ce9414f196f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/Diver/Swim frame 2.png"
-dest_files=["res://.godot/imported/Swim frame 2.png-b78b4b2b5c7f6882e9c10cb77853a204.ctex"]
+source_file="res://assets/art/Squid Boss/squid1.png"
+dest_files=["res://.godot/imported/squid1.png-8ccc57dcfbe08ff538b08ce9414f196f.ctex"]
 
 [params]
 

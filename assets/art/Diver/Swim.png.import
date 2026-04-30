@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://86jgsesdd2ci"
-path="res://.godot/imported/FAT Diver Swim Frame 1.png-4d461f71b60e3511b5c8176618bdf04a.ctex"
+uid="uid://ddypc3muiswt5"
+path="res://.godot/imported/Swim.png-876b844fdbb4f0de62db606b8d79028a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/Diver/FAT Diver Swim Frame 1.png"
-dest_files=["res://.godot/imported/FAT Diver Swim Frame 1.png-4d461f71b60e3511b5c8176618bdf04a.ctex"]
+source_file="res://assets/art/Diver/Swim.png"
+dest_files=["res://.godot/imported/Swim.png-876b844fdbb4f0de62db606b8d79028a.ctex"]
 
 [params]
 

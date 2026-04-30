@@ -1,13 +1,13 @@
 extends Area2D
 
-@export var speed: float = 330.0
+@export var speed: float = 350.0
 @export var sink_speed: float = 90.0
 @export var attack_duration: float = 0.2
-@export var max_health: int = 3
+@export var max_health: int = 5
 @export var attack_knockback_strength: float = 100.0
 @export var hurt_knockback_multiplier: float = 1.0
-@export var hurt_cooldown: float = 1.5
-@export var attack_cooldown: float = 0.3
+@export var hurt_cooldown: float = 1.4
+@export var attack_cooldown: float = 0.7
 
 
 signal hit
@@ -89,11 +89,11 @@ func _process(delta: float) -> void:
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		if not is_attacking:
-			sprite.play("default")
-		else:
-			if not is_attacking:
-				sprite.play("default")	
-			
+			sprite.play("swim")
+	else:
+		if not is_attacking:
+			sprite.play("default")	
+		
 	if not game_started:
 		velocity.y = 0
 	else:
@@ -145,6 +145,9 @@ func _process(delta: float) -> void:
 		attack_timer -= delta
 		if attack_timer <= 0:
 			end_attack()
+			
+	if game_started:
+		update_background_music()
 
 func update_attack_hitbox_direction() -> void:
 	if facing_right:
@@ -189,6 +192,7 @@ func take_damage(amount: int, hit_from_x: float, enemy_knockback: float) -> void
 	player_hurt.play()
 
 	can_take_damage = false
+	player_hurt.play() # this is when the player is hurt or attacked
 
 	health -= amount
 	health_changed.emit(health)
@@ -277,3 +281,32 @@ func _on_body_entered(body: Node2D) -> void:
 		enemy_knockback = body.get_attack_knockback()
 
 	take_damage(damage, body.global_position.x, enemy_knockback)
+
+
+# LOOKING FOR ALL SCENARIOS WHERE DANGEROUS FISH ATTACK AND THEN ADDING TENSE BACKGROUND MUSIC 
+func update_background_music():
+	if not has_node("DetectionArea"):
+		return 
+
+	var boss_found = false
+	var shark_found = false
+
+	
+	for area in $DetectionArea.get_overlapping_areas():
+		if area.is_in_group("SharkBoss") or area.name == "SharkBoss" or area.get_parent().is_in_group("SharkBoss"):
+			boss_found = true
+			break
+
+
+	for body in $DetectionArea.get_overlapping_bodies():
+		if body.is_in_group("MaliciousMob"):
+			shark_found = true
+			break
+
+	
+	if boss_found:
+		AudioManager.play_music("res://audio background/boss-mode-bosnow-main-version-37252-01-48.ogg")
+	elif shark_found:
+		AudioManager.play_music("res://audio background/shark_fight.ogg")
+	else:
+		AudioManager.play_music("res://audio background/underwater music.mp3")

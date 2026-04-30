@@ -1,13 +1,13 @@
 extends RigidBody2D
 
 @export var gravity = 0
-@export var max_health = 8 # health
+@export var max_health = 10 # health
 @export var damage = 1 # damage it gives
 @export var attack_knockback_strength: float = 3000.0
 @export var hurt_knockback_multiplier: float = 10.0
 
 @export var patrol_speed = 150.0 # normal left/right swim speed
-@export var chase_speed = 230.0 # faster speed while chasing player
+@export var chase_speed = 280.0 # faster speed while chasing player
 #@export var tilt_strength = 0.00001 # how much fish rotates based on movement
 #@export var tilt_lerp_speed = 0.08 # how quickly rotation catches up
 
@@ -23,14 +23,25 @@ var player: Node2D = null # stores player reference while chasing
 var is_chasing = false # true while actively chasing
 var player_in_range = false # true while player is inside big detection area
 var facing_left = false
-
+var boss_type: String = ""
 signal killed
 
+
+
 func _ready() -> void:
+	max_health = randi_range(10, 15)
 	health = max_health
+
+
+	boss_type = ["shark", "squid"].pick_random()
+	
+	if boss_type == "squid":
+		lock_rotation = false
+	else:
+		lock_rotation = true
+
 	linear_velocity = Vector2(patrol_speed * direction, 0)
-	lock_rotation = true
-	$AnimatedSprite2D.play("default")
+	$AnimatedSprite2D.play(boss_type)
 
 """
 func _process(delta: float) -> void:
@@ -71,25 +82,20 @@ func _integrate_forces(state) -> void:
 	state.linear_velocity = vel
 
 func _physics_process(delta: float) -> void:
-	# flips sprite
 	$AnimatedSprite2D.flip_h = facing_left
 
-	# tilt upwards when chasing up, tilt downwards wen chasig down
-	#var target_rotation = 0.0
+	if boss_type == "squid" and player != null:
+		var to_player: Vector2 = player.global_position - global_position
+		var target_rotation: float = clamp(to_player.y * 0.0015, -0.35, 0.35)
 
-	#if is_chasing:
-		#if linear_velocity.y < 0:
-			#target_rotation = -0.3
-		#elif linear_velocity.y > 0:
-			#target_rotation = 0.3
-		#else:
-			#target_rotation = 0.0
-#
-		## Reverse tilt when facing left
-		#if linear_velocity.x < 0:
-			#target_rotation *= -1
+		if facing_left:
+			target_rotation *= -1
 
-	#rotation = lerp(rotation, target_rotation, tilt_lerp_speed)
+		rotation = lerp(rotation, target_rotation, 0.08)
+	else:
+		rotation = 0
+
+	
 
 
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bd3d2xagjd81y"
+path="res://.godot/imported/shark_fight.ogg-b707aaea5a1b4fc61905079425ef4076.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio background/shark_fight.ogg"
+dest_files=["res://.godot/imported/shark_fight.ogg-b707aaea5a1b4fc61905079425ef4076.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

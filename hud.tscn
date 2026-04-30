@@ -1,33 +1,137 @@
-[gd_scene load_steps=4 format=3 uid="uid://cl0nw5sxsy8lo"]
+[gd_scene load_steps=15 format=3 uid="uid://cl0nw5sxsy8lo"]
 
 [ext_resource type="Script" uid="uid://cifydn1ehelov" path="res://hud.gd" id="1_37p78"]
 [ext_resource type="FontFile" uid="uid://ck2pbxl8n118" path="res://assets/ARCADECLASSIC.TTF" id="2_8sq4i"]
 [ext_resource type="Texture2D" uid="uid://dc61ndih7sa05" path="res://assets/blue_heart_pixel_art.png" id="3_8sq4i"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8sq4i"]
+bg_color = Color(0.3254902, 0.6, 0.9764706, 0.7254902)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 0, 1)
+expand_margin_left = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_640wx"]
+bg_color = Color(0.3254902, 0.6, 0.9764706, 0.54901963)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.96474224, 0.96474224, 0.9647421, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1xsix"]
+bg_color = Color(0.3254902, 0.6, 0.9764706, 0.7254902)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.95596343, 0.9559633, 0.95596343, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_amv7k"]
+draw_center = false
+border_color = Color(1, 1, 0.003921569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1fv7p"]
+bg_color = Color(0.3254902, 0.6, 0.92156863, 0.7254902)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 0.003921569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4u2vk"]
+bg_color = Color(0.3254902, 0.6, 0.9764706, 0.7254902)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+expand_margin_right = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g10ll"]
+bg_color = Color(0.3254902, 0.6, 0.9764706, 0.7254902)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.8745098, 0.8745098, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpiub"]
+bg_color = Color(0.06942231, 0.36546698, 0.725597, 0.7254902)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2258"]
+bg_color = Color(0.3254902, 0.6, 0.9764706, 0.7176471)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 0, 1)
+expand_margin_left = 6.0
+expand_margin_right = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rftc2"]
+bg_color = Color(0.3254902, 0.6, 0.9764706, 0.7176471)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.9691369, 0.9691369, 0.9691368, 1)
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61f8s"]
+bg_color = Color(0.3254902, 0.6, 0.9764706, 0.54901963)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.9691369, 0.9691369, 0.9691368, 1)
+expand_margin_left = 6.0
+expand_margin_right = 6.0
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_37p78")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -158.0
+offset_right = 255.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.23921569, 1)
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_8sq4i")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_640wx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1xsix")
+text = "Restart Game"
+icon_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(500, 80)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -250.0
+offset_top = 50.0
 offset_right = 250.0
-offset_bottom = 228.0
+offset_bottom = 158.0
 grow_horizontal = 2
-alignment = 1
-
-[node name="StartButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.23921569, 1)
-theme_override_fonts/font = ExtResource("2_8sq4i")
-theme_override_font_sizes/font_size = 45
-text = "Restart Game"
-icon_alignment = 1
-
-[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
-custom_minimum_size = Vector2(500, 80)
-layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.05490196, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_8sq4i")
@@ -35,47 +139,163 @@ theme_override_font_sizes/font_size = 80
 text = "Score: 0"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 424.0
+offset_top = 150.0
+offset_right = 924.0
+offset_bottom = 150.0
 alignment = 1
 
-[node name="BlueHeartPixelArt1" type="Sprite2D" parent="VBoxContainer/HBoxContainer"]
-position = Vector2(149, 45)
+[node name="BlueHeartPixelArt1" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(85, 45)
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("3_8sq4i")
 
-[node name="BlueHeartPixelArt2" type="Sprite2D" parent="VBoxContainer/HBoxContainer"]
-position = Vector2(252, 45)
+[node name="BlueHeartPixelArt2" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(171, 45)
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("3_8sq4i")
 
-[node name="BlueHeartPixelArt3" type="Sprite2D" parent="VBoxContainer/HBoxContainer"]
-position = Vector2(357, 45)
+[node name="BlueHeartPixelArt3" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(257, 46)
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("3_8sq4i")
+
+[node name="BlueHeartPixelArt4" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(341, 48)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("3_8sq4i")
+
+[node name="BlueHeartPixelArt5" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(425, 49)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("3_8sq4i")
+
+[node name="NameInput" type="LineEdit" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -133.5
+offset_top = 8.0
+offset_right = 133.5
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 0.003921569, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 0.003921569, 1)
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_amv7k")
+placeholder_text = "Enter:"
+alignment = 1
+max_length = 3
+
+[node name="HighScoreMessage" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.5
+offset_top = -92.0
+offset_right = 260.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.02745098, 1, 0.011764706, 1)
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 50
+text = "              Leaderboard!
+ Enter your initials!"
+
+[node name="SaveScoreButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -398.0
+offset_right = 77.0
+offset_bottom = -333.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.9083077, 0.9136042, 0.18778706, 1)
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_1fv7p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4u2vk")
+text = "  SAve"
+
+[node name="HomeButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -255.0
+offset_top = -71.0
+offset_right = 253.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0, 1)
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_g10ll")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gpiub")
+text = "Home"
 
 [node name="MessageTimer" type="Timer" parent="."]
 wait_time = 4.5
 autostart = true
 
 [node name="Message" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -361.0
-offset_top = 315.0
-offset_right = 364.0
-offset_bottom = 440.0
+offset_left = -348.0
+offset_top = 352.0
+offset_right = 377.0
+offset_bottom = 705.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 0.043137256, 1)
 theme_override_fonts/font = ExtResource("2_8sq4i")
 theme_override_font_sizes/font_size = 50
-text = "Avenge your Father !
+text = "Avenge   your   Father !
 
-Vanquish   the   malicious   fish,   while   taking
+Vanquish   the    malicious   fish,   while   taking
  care   not   to   harm   the   endangered   fish. "
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
-[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[node name="PauseButton" type="Button" parent="."]
+process_mode = 3
+offset_left = 1153.0
+offset_top = 13.0
+offset_right = 1289.0
+offset_bottom = 71.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.886059, 0.8714254, 0.17993125, 1)
+theme_override_colors/font_focus_color = Color(0.8862745, 0.87058824, 0.18039216, 1)
+theme_override_colors/font_pressed_color = Color(0.8862745, 0.87058824, 0.18039216, 1)
+theme_override_colors/font_hover_color = Color(0.8862745, 0.87058824, 0.18039216, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_a2258")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rftc2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_61f8s")
+toggle_mode = true
+text = "Pause"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="SaveScoreButton" to="." method="_on_save_score_button_pressed"]
+[connection signal="pressed" from="HomeButton" to="." method="_on_home_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
+[connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]

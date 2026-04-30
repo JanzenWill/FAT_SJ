@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nupimd8784qx"
-path="res://.godot/imported/FAT Diver Swim Up.png-d29bcfce3c88eda48a1b9f4ab3a79133.ctex"
+uid="uid://dsev1weh80xy"
+path="res://.godot/imported/squid2.png-a97ffd47942df8b453d6eec8afcb88a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/Diver/FAT Diver Swim Up.png"
-dest_files=["res://.godot/imported/FAT Diver Swim Up.png-d29bcfce3c88eda48a1b9f4ab3a79133.ctex"]
+source_file="res://assets/art/Squid Boss/squid2.png"
+dest_files=["res://.godot/imported/squid2.png-a97ffd47942df8b453d6eec8afcb88a4.ctex"]
 
 [params]
 

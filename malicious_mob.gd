@@ -4,24 +4,23 @@ extends RigidBody2D
 @export var max_health = 2 # health
 @export var damage = 1 # damage it gives
 @export var knockback_strength = 600
-
-@export var attack_knockback_strength: float = 1000
-
-@export var patrol_speed = 120.0 # normal left/right swim speed
-@export var chase_speed = 180.0 # faster speed while chasing player
+@export var patrol_speed = 190.0 # normal left/right swim speed
+@export var chase_speed = 230.0 # faster speed while chasing player
 @export var leash_time = 1.5 # how long it keeps chasing after player leaves range
 @export var tilt_strength = 0.0018 # how much fish rotates based on movement
-@export var tilt_lerp_speed = 0.18 # how quickly rotation catches up
+@export var tilt_lerp_speed = 0.08 #0.18 # how quickly rotation catches up
+@export var direction = 1 # patrol direction: 1 = right, -1 = left
+@export var speed_variability_factor = 1.05
+@export var attack_knockback_strength: float = 1000
 @export var score_value: int = 3
-
 @export var preferred_min_distance: float = 25
 @export var preferred_max_distance: float = 70
 @export var backoff_speed: float = 120.0
 
 var knockback_velocity = Vector2.ZERO
 var knockback_timer = 0.0
+var despawn_distance = 2000
 
-var direction = 1 # patrol direction: 1 = right, -1 = left
 var is_hit = false
 var health = max_health
 var velocity = Vector2.ZERO
@@ -30,6 +29,7 @@ var player: Node2D = null # stores player reference while chasing
 var is_chasing = false # true while actively chasing
 var player_in_range = false # true while player is inside big detection area
 var leash_timer = 0.0 # counts down after player leaves area
+var speed #used to ensure physics works
 
 signal killed
 
@@ -63,9 +63,12 @@ func _integrate_forces(state) -> void:
 		vel.y = 0
 
 	state.linear_velocity = vel
+	
+	
 func _physics_process(delta: float) -> void:
 	# flips sprite
 	$AnimatedSprite2D.flip_h = linear_velocity.x < 0
+	#linear_velocity.x = speed * direction
 
 	# tilt upwards when chasing up, tilt downwards wen chasig down
 	var target_rotation = 0.0
@@ -90,13 +93,25 @@ func _physics_process(delta: float) -> void:
 		if leash_timer <= 0:
 			stop_chasing()
 
+
+
 func _on_mob_timer_timeout() -> void:
 	pass
+	
+func _process(delta: float) -> void:
+	#get player distance
+	#queuefree if distance above threshold
+	if player:
+		if global_position.distance_to(player.global_position) > despawn_distance:
+			queue_free()
 
+"""
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
+"""
 
-# Small hit area for spear only.
+
+
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Trident"):
 		if area.has_method("get_damage"):
@@ -120,14 +135,12 @@ func _on_detection_area_area_exited(area: Area2D) -> void:
 		player_in_range = false
 		leash_timer = leash_time
 
-# Stop chasing and smoothly go back to patrol.
+#Stop chasing and  go back to patrol.
 func stop_chasing() -> void:
 	is_chasing = false
 	player_in_range = false
 	player = null
 
-	# Pick patrol direction based on last horizontal movement,
-	# so it keeps swimming naturally instead of snapping weirdly.
 	if linear_velocity.x > 0:
 		direction = 1
 	elif linear_velocity.x < 0:

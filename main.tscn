@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cj1kvmf3f7ifh"]
+[gd_scene load_steps=23 format=3 uid="uid://cj1kvmf3f7ifh"]
 
 [ext_resource type="Script" uid="uid://dotiusqgf1tyv" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://btv6brr4iv3pv" path="res://player.tscn" id="2_0xm2m"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dd4ogxxbnovt5" path="res://passive_mob_2.tscn" id="3_vivmo"]
 [ext_resource type="PackedScene" uid="uid://vqinx2qv2acm" path="res://evil_mob.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cl0nw5sxsy8lo" path="res://hud.tscn" id="5_lquwl"]
-[ext_resource type="PackedScene" uid="uid://hid3u7lrnovo" path="res://shark_boss.tscn" id="6_2cqfq"]
+[ext_resource type="PackedScene" uid="uid://bjc0x8oev03u6" path="res://shark_boss.tscn" id="6_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://bssrpdxmwaetq" path="res://new_background.tscn" id="6_kek77"]
 [ext_resource type="AudioStream" uid="uid://bihe3ck5ajgx4" path="res://audio background/underwater music.mp3" id="7_272bh"]
 [ext_resource type="AudioStream" uid="uid://clsl6ek4a2mn4" path="res://assets/audio/underwater-movement-bubble-motion-jochi-sfx-5-5-00-03.wav" id="7_kek77"]
@@ -56,6 +56,16 @@ border_width_bottom = 6
 border_color = Color(1, 1, 1, 1)
 expand_margin_left = 8.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_074og"]
+draw_center = false
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.8, 0.8, 0.11764706, 1)
+expand_margin_left = 6.0
+expand_margin_right = 6.0
+
 [node name="Main" type="Node"]
 script = ExtResource("1_1bvp3")
 passive_mob_scene = ExtResource("2_1bvp3")
@@ -68,6 +78,14 @@ shark_boss_scene = ExtResource("6_2cqfq")
 
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(500, 100)
+speed = null
+sink_speed = null
+attack_duration = null
+max_health = null
+attack_knockback_strength = null
+hurt_knockback_multiplier = null
+hurt_cooldown = null
+attack_cooldown = null
 
 [node name="PlayerSwim" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("7_kek77")
@@ -84,7 +102,7 @@ bus = &"Underwater"
 stream = ExtResource("11_2cqfq")
 
 [node name="PassiveMobTimer" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 1.2
 autostart = true
 
 [node name="PassiveMob2Timer" type="Timer" parent="."]
@@ -92,32 +110,37 @@ wait_time = 2.1999999999999997
 autostart = true
 
 [node name="MaliciousMobTimer" type="Timer" parent="."]
-wait_time = 2.1999999999999997
+wait_time = 3.0
 autostart = true
 
 [node name="EvilMobTimer" type="Timer" parent="."]
 wait_time = 3.5
 
 [node name="StartMenu" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("10_w48qg")
 
-[node name="TextureRect" type="TextureRect" parent="StartMenu"]
+[node name="UI" type="Control" parent="StartMenu"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TextureRect" type="TextureRect" parent="StartMenu/UI"]
+layout_mode = 0
 offset_top = 1.0
 offset_right = 1348.0
 offset_bottom = 945.0
 texture = ExtResource("10_ycdy4")
 
-[node name="Title" type="Label" parent="StartMenu"]
+[node name="Title" type="Label" parent="StartMenu/UI"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -297.0
-offset_top = -266.0
-offset_right = 297.0
-offset_bottom = 126.0
+offset_left = 357.0
+offset_top = 186.0
+offset_right = 951.0
+offset_bottom = 578.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 0, 1)
@@ -127,16 +150,17 @@ text = "           Fish
              Are 
 Temporary"
 
-[node name="StartButton" type="Button" parent="StartMenu"]
+[node name="StartButton" type="Button" parent="StartMenu/UI"]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -88.5
-offset_top = -248.0
-offset_right = 88.5
-offset_bottom = -175.0
+offset_left = 565.5
+offset_top = 656.0
+offset_right = 742.5
+offset_bottom = 729.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.023529412, 1)
@@ -146,16 +170,17 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ycdy4")
 theme_override_styles/hover = SubResource("StyleBoxFlat_w48qg")
 text = "START"
 
-[node name="Leaderboard Button" type="Button" parent="StartMenu"]
+[node name="Leaderboard Button" type="Button" parent="StartMenu/UI"]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -187.5
-offset_top = -150.0
-offset_right = 187.5
-offset_bottom = -77.0
+offset_left = 466.5
+offset_top = 754.0
+offset_right = 841.5
+offset_bottom = 827.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 0, 1)
@@ -164,6 +189,57 @@ theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_vivmo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_yaehf")
 text = "LEADERBOARD"
+
+[node name="LeaderboardPanel" type="Panel" parent="StartMenu/UI"]
+layout_mode = 0
+offset_left = 250.0
+offset_top = 80.0
+offset_right = 900.0
+offset_bottom = 630.0
+
+[node name="TextureRect" type="TextureRect" parent="StartMenu/UI/LeaderboardPanel"]
+layout_mode = 0
+offset_left = -250.0
+offset_top = -83.0
+offset_right = 1097.0
+offset_bottom = 873.0
+texture = ExtResource("10_ycdy4")
+
+[node name="LeaderboardTitle" type="Label" parent="StartMenu/UI/LeaderboardPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -578.0
+offset_top = -9.0
+offset_right = 148.0
+offset_bottom = 113.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("11_w48qg")
+theme_override_font_sizes/font_size = 120
+text = "Leaderboard"
+
+[node name="ScoresLabel" type="Label" parent="StartMenu/UI/LeaderboardPanel"]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 104.0
+offset_right = 920.0
+offset_bottom = 404.0
+theme_override_fonts/font = ExtResource("11_w48qg")
+theme_override_font_sizes/font_size = 40
+
+[node name="BackButton" type="Button" parent="StartMenu/UI/LeaderboardPanel"]
+layout_mode = 0
+offset_left = 366.0
+offset_top = 724.0
+offset_right = 486.0
+offset_bottom = 764.0
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.039215688, 1)
+theme_override_fonts/font = ExtResource("11_w48qg")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_074og")
+text = "Back"
 
 [node name="SharkBossMessages" type="CanvasLayer" parent="."]
 
@@ -184,7 +260,7 @@ theme_override_colors/font_color = Color(0.94036186, 5.3425133e-06, 3.85046e-07,
 theme_override_fonts/font = ExtResource("11_w48qg")
 theme_override_font_sizes/font_size = 120
 text = "                   BOSS   FIGHT:
-          Kill the  shark!
+          Kill the  beast!
 "
 
 [node name="SharkEnd" type="Label" parent="SharkBossMessages"]
@@ -203,11 +279,13 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0.45899612, 0.85237455, 0.21894738, 1)
 theme_override_fonts/font = ExtResource("11_w48qg")
 theme_override_font_sizes/font_size = 120
-text = "      You Beat
-   the Shark!
-+50 Points"
+text = "                     You Beat
+                  the Beast!
+              +50 Points
+      Health    Restored!"
 
 [node name="HUD" parent="." instance=ExtResource("5_lquwl")]
+visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_272bh")
@@ -219,4 +297,6 @@ bus = &"Underwater"
 [connection signal="timeout" from="PassiveMob2Timer" to="." method="_on_passive_mob_2_timer_timeout"]
 [connection signal="timeout" from="MaliciousMobTimer" to="." method="_on_malicious_mob_timer_timeout"]
 [connection signal="timeout" from="EvilMobTimer" to="." method="_on_evil_mob_timer_timeout"]
-[connection signal="pressed" from="StartMenu/StartButton" to="StartMenu" method="_on_start_button_pressed"]
+[connection signal="pressed" from="StartMenu/UI/StartButton" to="StartMenu" method="_on_start_button_pressed"]
+[connection signal="pressed" from="StartMenu/UI/Leaderboard Button" to="StartMenu" method="_on_leaderboard_button_pressed"]
+[connection signal="pressed" from="StartMenu/UI/LeaderboardPanel/BackButton" to="StartMenu" method="_on_back_button_pressed"]

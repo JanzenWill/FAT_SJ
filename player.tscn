@@ -1,16 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://btv6brr4iv3pv"]
+[gd_scene load_steps=11 format=3 uid="uid://btv6brr4iv3pv"]
 
 [ext_resource type="Script" uid="uid://dcii7icau8pvo" path="res://player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://b0xkjdyd7x4ux" path="res://assets/art/Diver/New Attack.png" id="2_hqtel"]
-[ext_resource type="Texture2D" uid="uid://nupimd8784qx" path="res://assets/art/Diver/FAT Diver Swim Up.png" id="3_sweqy"]
+[ext_resource type="Texture2D" uid="uid://deeh8pgtjd327" path="res://assets/art/Diver/attack.png" id="2_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://ddypc3muiswt5" path="res://assets/art/Diver/Swim.png" id="3_sweqy"]
+[ext_resource type="Texture2D" uid="uid://c2yf5wtsqqyog" path="res://assets/art/Diver/Swim2.png" id="4_2hs0m"]
 [ext_resource type="Script" uid="uid://clavf0tqderh3" path="res://trident.gd" id="4_hqtel"]
-[ext_resource type="Texture2D" uid="uid://qm11jduc50fm" path="res://assets/art/Diver/Swim frame 2.png" id="4_sweqy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_onrkg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_hqtel")
+"texture": ExtResource("2_2hs0m")
 }],
 "loop": true,
 "name": &"attack",
@@ -19,26 +19,37 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_sweqy")
-}, {
-"duration": 2.5,
-"texture": ExtResource("4_sweqy")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.5,
+"texture": ExtResource("3_sweqy")
+}, {
+"duration": 2.0,
+"texture": ExtResource("4_2hs0m")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1jxqw"]
-radius = 18.104061
-height = 141.6951
+radius = 21.62537
+height = 158.09303
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sweqy"]
 radius = 25.0
 height = 86.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2hs0m"]
-radius = 24.0
+radius = 26.0
 height = 86.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sweqy"]
+radius = 378.0119
 
 [node name="Player" type="Area2D" groups=["player"]]
 collision_mask = 2
@@ -49,10 +60,9 @@ position = Vector2(65, 50)
 scale = Vector2(0.35, 0.35)
 sprite_frames = SubResource("SpriteFrames_onrkg")
 animation = &"attack"
-frame_progress = 0.85581267
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
-position = Vector2(83.99999, 62.999996)
+position = Vector2(63, 70)
 rotation = 1.7086773
 shape = SubResource("CapsuleShape2D_1jxqw")
 
@@ -62,16 +72,25 @@ collision_mask = 2
 script = ExtResource("4_hqtel")
 
 [node name="LeftHitBox" type="CollisionShape2D" parent="Trident"]
-position = Vector2(-56, -9)
+position = Vector2(-45, -3)
 shape = SubResource("CapsuleShape2D_sweqy")
 
 [node name="RightHitBox" type="CollisionShape2D" parent="Trident"]
-position = Vector2(208, -6)
+position = Vector2(171, -6)
 shape = SubResource("CapsuleShape2D_2hs0m")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 13)
 limit_top = 2
+limit_bottom = 8650
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(56, 14)
+shape = SubResource("CircleShape2D_sweqy")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
