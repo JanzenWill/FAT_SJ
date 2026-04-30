@@ -10,6 +10,7 @@ func _ready() -> void:
 	load_scores()
 
 
+
 func add_score(player_name: String, score: int) -> void:
 	player_name = player_name.strip_edges().substr(0, 3).to_upper()
 

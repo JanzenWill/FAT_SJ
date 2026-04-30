@@ -111,7 +111,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 """
 
 
-# Small hit area for spear only.
+
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Trident"):
 		if area.has_method("get_damage"):
@@ -135,14 +135,12 @@ func _on_detection_area_area_exited(area: Area2D) -> void:
 		player_in_range = false
 		leash_timer = leash_time
 
-# Stop chasing and smoothly go back to patrol.
+#Stop chasing and  go back to patrol.
 func stop_chasing() -> void:
 	is_chasing = false
 	player_in_range = false
 	player = null
 
-	# Pick patrol direction based on last horizontal movement,
-	# so it keeps swimming naturally instead of snapping weirdly.
 	if linear_velocity.x > 0:
 		direction = 1
 	elif linear_velocity.x < 0:

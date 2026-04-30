@@ -1,13 +1,13 @@
 extends RigidBody2D
 
 @export var gravity = 0
-@export var max_health = 8 # health
+@export var max_health = 10 # health
 @export var damage = 1 # damage it gives
 @export var attack_knockback_strength: float = 3000.0
 @export var hurt_knockback_multiplier: float = 10.0
 
 @export var patrol_speed = 150.0 # normal left/right swim speed
-@export var chase_speed = 230.0 # faster speed while chasing player
+@export var chase_speed = 280.0 # faster speed while chasing player
 #@export var tilt_strength = 0.00001 # how much fish rotates based on movement
 #@export var tilt_lerp_speed = 0.08 # how quickly rotation catches up
 
@@ -29,7 +29,7 @@ signal killed
 
 
 func _ready() -> void:
-	max_health = randi_range(8, 12)
+	max_health = randi_range(10, 15)
 	health = max_health
 
 

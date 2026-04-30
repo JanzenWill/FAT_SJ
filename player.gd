@@ -6,8 +6,8 @@ extends Area2D
 @export var max_health: int = 5
 @export var attack_knockback_strength: float = 100.0
 @export var hurt_knockback_multiplier: float = 1.0
-@export var hurt_cooldown: float = 1.5
-@export var attack_cooldown: float = 0.4
+@export var hurt_cooldown: float = 1.4
+@export var attack_cooldown: float = 0.7
 
 
 signal hit
@@ -285,26 +285,25 @@ func _on_body_entered(body: Node2D) -> void:
 
 # LOOKING FOR ALL SCENARIOS WHERE DANGEROUS FISH ATTACK AND THEN ADDING TENSE BACKGROUND MUSIC 
 func update_background_music():
-	# SAFETY FIRST: If the node isn't there, don't run the code!
 	if not has_node("DetectionArea"):
 		return 
 
 	var boss_found = false
 	var shark_found = false
 
-	# 1. Look for the Boss (Area2D)
+	
 	for area in $DetectionArea.get_overlapping_areas():
 		if area.is_in_group("SharkBoss") or area.name == "SharkBoss" or area.get_parent().is_in_group("SharkBoss"):
 			boss_found = true
 			break
 
-	# 2. Look for Sharks (RigidBody2D)
+
 	for body in $DetectionArea.get_overlapping_bodies():
 		if body.is_in_group("MaliciousMob"):
 			shark_found = true
 			break
 
-	# 3. Decision Logic: Boss takes priority, then Sharks, then Calm
+	
 	if boss_found:
 		AudioManager.play_music("res://audio background/boss-mode-bosnow-main-version-37252-01-48.ogg")
 	elif shark_found:
